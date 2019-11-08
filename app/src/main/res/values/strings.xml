@@ -1,0 +1,7 @@
+<resources>
+    <string name="app_name">Nhanh Như Sấm</string>
+    <string name="facebook_app_id">457265981814998</string>
+    <string name="fb_login_protocol_scheme">fb457265981814998</string>
+    <string name="title_activity_man_hinh_chinh2">ManHinhChinh</string>
+
+</resources>

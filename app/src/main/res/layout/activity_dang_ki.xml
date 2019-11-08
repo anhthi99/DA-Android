@@ -1,0 +1,131 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+   >
+
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:src="@drawable/background"
+        android:scaleType="centerCrop"
+        android:id="@+id/formBack"
+        />
+
+
+    <TextView
+        android:id="@+id/txtdangki"
+        android:layout_width="360dp"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentEnd="true"
+        android:layout_marginStart="0dp"
+        android:layout_marginTop="100dp"
+        android:layout_marginEnd="0dp"
+        android:layout_marginBottom="0dp"
+        android:paddingStart="10dp"
+        android:paddingEnd="10dp"
+        android:paddingBottom="10dp"
+        android:text="Đăng ký"
+        android:textAlignment="center"
+        android:textColor="@color/white"
+        android:textSize="38dp"
+        android:textStyle="bold" />
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/txtdangki"
+        android:layout_alignParentBottom="true"
+        android:layout_marginTop="30dp"
+        android:layout_marginBottom="-139dp">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginStart="30dp"
+            android:layout_marginEnd="30dp"
+            android:orientation="vertical">
+
+
+            <AutoCompleteTextView
+                android:id="@+id/txtTenDangNhap"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:layout_marginStart="15dp"
+                android:layout_marginEnd="15dp"
+                android:layout_marginBottom="10dp"
+                android:background="@drawable/rounded_white"
+                android:drawableLeft="@drawable/ic_action_user"
+                android:drawablePadding="10dp"
+                android:hint="Tên đăng nhập"
+                android:paddingStart="10dp"
+                android:textSize="14dp" />
+
+            <AutoCompleteTextView
+                android:id="@+id/emailUser"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:layout_marginStart="15dp"
+                android:layout_marginEnd="15dp"
+                android:layout_marginBottom="10dp"
+                android:background="@drawable/rounded_white"
+                android:drawableLeft="@drawable/ic_action_email"
+                android:drawablePadding="10dp"
+                android:hint="Email"
+                android:paddingStart="10dp"
+                android:textSize="14dp" />
+
+            <AutoCompleteTextView
+                android:id="@+id/passUser"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:layout_marginStart="15dp"
+                android:layout_marginEnd="15dp"
+                android:layout_marginBottom="10dp"
+                android:background="@drawable/rounded_white"
+                android:drawableLeft="@drawable/ic_action_pass"
+                android:drawablePadding="10dp"
+                android:hint="Password"
+                android:inputType="textPassword"
+                android:paddingStart="10dp"
+                android:textSize="14dp" />
+
+            <AutoCompleteTextView
+                android:id="@+id/pass"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:layout_marginStart="15dp"
+                android:layout_marginEnd="15dp"
+                android:layout_marginBottom="15dp"
+                android:background="@drawable/rounded_white"
+                android:drawableLeft="@drawable/ic_action_pass"
+                android:drawablePadding="10dp"
+                android:hint="confirm Password"
+                android:inputType="textPassword"
+                android:paddingStart="10dp"
+                android:textSize="14dp" />
+
+            <Button
+                android:id="@+id/btnDangKi"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:layout_gravity="center"
+                android:layout_marginLeft="16dp"
+                android:layout_marginRight="16dp"
+                android:layout_marginBottom="10dp"
+                android:background="@drawable/login_button"
+                android:text="Đăng ký"
+                android:textAllCaps="false"
+                android:textColor="#fff"
+                android:textSize="20dp"
+                android:textStyle="normal" />
+
+        </LinearLayout>
+    </ScrollView>
+
+
+</RelativeLayout>
