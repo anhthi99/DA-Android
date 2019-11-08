@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "880563695707",
+    "firebase_url": "https://nhanhnhusam-1572749432488.firebaseio.com",
+    "project_id": "nhanhnhusam-1572749432488",
+    "storage_bucket": "nhanhnhusam-1572749432488.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:880563695707:android:0cbb635cec73a4c66a4f7e",
+        "android_client_info": {
+          "package_name": "com.example.gametraloicauhoi_android"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "880563695707-8jt7u1tksmhgi3ltcjij5n0dvn37mg9s.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.gametraloicauhoi_android",
+            "certificate_hash": "d02d44c4780d0dcda7130f60fb83e16759f958d8"
+          }
+        },
+        {
+          "client_id": "880563695707-1ns7rs214itp5vq97vftllbd4bkr495m.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyD7Ea8Ds7Y8o56h24k8TAFGdgk_MzYFKEg"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "880563695707-1ns7rs214itp5vq97vftllbd4bkr495m.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
