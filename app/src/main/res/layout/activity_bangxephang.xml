@@ -4,21 +4,31 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ChonLinhVuc">
-
+    tools:context=".BangXepHang">
     <ImageView
         android:id="@+id/imageView"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_width="415dp"
+        android:layout_height="735dp"
         android:contentDescription="TODO"
         android:scaleType="center"
         android:src="@drawable/background"
+
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintHorizontal_bias="0.75"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="1.0" />
+        app:layout_constraintVertical_bias="0.0" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recyclerView"
+        android:layout_width="381dp"
+        android:layout_height="561dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="@+id/imageView"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView9"
+        app:layout_constraintVertical_bias="0.709" />
 
     <ScrollView
         android:layout_width="match_parent"
@@ -86,7 +96,6 @@
                 app:layout_constraintTop_toTopOf="parent" />
         </LinearLayout>
     </ScrollView>
-
     <ScrollView
         android:id="@+id/scrollView2"
         android:layout_width="match_parent"
@@ -173,102 +182,18 @@
         </LinearLayout>
 
     </ScrollView>
-
     <TextView
-        android:id="@+id/textView5"
+        android:id="@+id/textView9"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
-        android:text="Chọn Lĩnh Vực"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="16dp"
+        android:text="Bảng Xếp Hạng"
         android:textColor="#fff"
-        android:textSize="24sp"
+        android:textSize="28sp"
         android:textStyle="bold"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/imageView2" />
-
-    <ImageView
-        android:id="@+id/imageView2"
-        android:layout_width="200dp"
-        android:layout_height="200dp"
-        android:layout_marginStart="400dp"
-        android:layout_marginTop="80dp"
-        android:src="@drawable/logo"
-        app:layout_constraintEnd_toStartOf="@+id/imageView"
-        app:layout_constraintHorizontal_bias="0.491"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <Button
-        android:id="@+id/btnDapAnA"
-        android:layout_width="match_parent"
-        android:layout_height="50dp"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="24dp"
-        android:layout_marginEnd="16dp"
-        android:background="@drawable/number_game"
-        android:text="TextView"
-        android:textAllCaps="false"
-        android:textStyle="bold"
-        android:textSize="18sp"
-
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="1.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView5" />
-
-    <Button
-        android:id="@+id/btnDapAnB"
-        android:layout_width="match_parent"
-        android:layout_height="50dp"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="16dp"
-        android:background="@drawable/number_game"
-        android:text="TextView"
-        android:textAllCaps="false"
-        android:textStyle="bold"
-        android:textSize="18sp"
-
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="1.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/btnDapAnA" />
-
-    <Button
-        android:id="@+id/btnDapAnC"
-        android:layout_width="match_parent"
-        android:layout_height="50dp"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="16dp"
-        android:background="@drawable/number_game"
-        android:text="TextView"
-        android:textAllCaps="false"
-        android:textStyle="bold"
-        android:textSize="18sp"
-
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/btnDapAnB" />
-
-    <Button
-        android:id="@+id/btnDapAnD"
-        android:layout_width="match_parent"
-        android:layout_height="50dp"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="16dp"
-        android:background="@drawable/number_game"
-        android:text="TextView"
-        android:textAllCaps="false"
-        android:textStyle="bold"
-        android:textSize="18sp"
-
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/btnDapAnC" />
-
+        app:layout_constraintTop_toBottomOf="@+id/scrollView2" />
 </androidx.constraintlayout.widget.ConstraintLayout>

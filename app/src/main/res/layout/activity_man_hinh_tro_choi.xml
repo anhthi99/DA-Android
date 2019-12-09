@@ -36,7 +36,7 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <Button
-        android:id="@+id/txtDapAnA"
+        android:id="@+id/btnDapAnA"
         android:layout_width="match_parent"
         android:layout_height="50dp"
         android:layout_marginStart="16dp"
@@ -53,7 +53,7 @@
         app:layout_constraintTop_toBottomOf="@+id/txtcauhoi" />
 
     <Button
-        android:id="@+id/txtDapAnB"
+        android:id="@+id/btnDapAnB"
         android:layout_width="match_parent"
         android:layout_height="50dp"
         android:layout_marginStart="16dp"
@@ -67,10 +67,10 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/txtDapAnA" />
+        app:layout_constraintTop_toBottomOf="@+id/btnDapAnA" />
 
     <Button
-        android:id="@+id/txtDapAnC"
+        android:id="@+id/btnDapAnC"
         android:layout_width="match_parent"
         android:layout_height="50dp"
         android:layout_marginStart="16dp"
@@ -84,10 +84,10 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/txtDapAnB" />
+        app:layout_constraintTop_toBottomOf="@+id/btnDapAnB" />
 
     <Button
-        android:id="@+id/txtDapAnD"
+        android:id="@+id/btnDapAnD"
         android:layout_width="match_parent"
         android:layout_height="50dp"
         android:layout_marginStart="16dp"
@@ -101,7 +101,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/txtDapAnC" />
+        app:layout_constraintTop_toBottomOf="@+id/btnDapAnC" />
 
     <ScrollView
         android:layout_width="match_parent"
