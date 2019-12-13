@@ -5,6 +5,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -12,7 +13,9 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.ArrayList;
 
-public class BangXepHangAdapter extends RecyclerView.Adapter<BangXepHangAdapter.BangXepHangViewHolder> {
+public class BangXepHangAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
+        private final static int TYPE_VIEW_ITEM = 0 ;
+        private final static int TYPE_VIEW_LOADING = 1;
         private final ArrayList<NguoiChoi> arrayList;
         private LayoutInflater inflater;
 
@@ -21,35 +24,66 @@ public class BangXepHangAdapter extends RecyclerView.Adapter<BangXepHangAdapter.
             this.arrayList = arrayList;
 
         }
+    public  int getTypeViewItem(int position){
+            return arrayList.get(position) == null ? TYPE_VIEW_LOADING : TYPE_VIEW_ITEM;
+    }
     @NonNull
     @Override
-    public BangXepHangViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-            View itemView = inflater.inflate(R.layout.item_bangxephang,parent,false);
-        return new BangXepHangViewHolder(itemView,this);
+    public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+           if(viewType == TYPE_VIEW_ITEM){
+               View itemView = this.inflater.inflate(R.layout.item_bangxephang,parent,false);
+               return new BangXepHangViewHolder(itemView,this);
+           }
+           else if(viewType == TYPE_VIEW_LOADING) {
+               View itemView = this.inflater.inflate(R.layout.item_loading, parent, false);
+               return new LoadingViewHolder(itemView);
+           }
+           return null;
     }
 
     @Override
-    public void onBindViewHolder(@NonNull BangXepHangViewHolder holder, int position) {
-            NguoiChoi nguoiChoi = arrayList.get(position);
-            holder.mTenNguoiChoi.setText(nguoiChoi.getTenDangNhap());
-            holder.mDiemNguoiChoi.setText(nguoiChoi.getDiemCaoNhat());
+    public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) {
+        if(holder instanceof BangXepHangViewHolder) {
+            HienThiThongTin((BangXepHangViewHolder)holder, position);
+        } else if(holder instanceof LoadingViewHolder) {
+            HienThiProgressBar((LoadingViewHolder)holder);
+        }
     }
+
 
     @Override
     public int getItemCount() {
-        return arrayList.size();
+        return this.arrayList == null?0:this.arrayList.size();
     }
 
     public class BangXepHangViewHolder extends RecyclerView.ViewHolder {
-            private TextView mTenNguoiChoi, mDiemNguoiChoi;
-            private BangXepHangAdapter bangXepHangAdapter;
+            private final TextView mTenNguoiChoi, mDiemNguoiChoi;
+            private final BangXepHangAdapter bangXepHangAdapter;
 
-        public BangXepHangViewHolder(@NonNull View itemView,BangXepHangAdapter bangXepHangAdapter) {
+        public BangXepHangViewHolder(@NonNull View itemView,BangXepHangAdapter mbangXepHangAdapter) {
             super(itemView);
-            this.bangXepHangAdapter =  bangXepHangAdapter;
+            this.bangXepHangAdapter =  mbangXepHangAdapter;
             this.mTenNguoiChoi = itemView.findViewById(R.id.txtTenNguoiChoi);
             this.mDiemNguoiChoi = itemView.findViewById(R.id.txtDiemSo);
 
         }
+    }
+
+     class LoadingViewHolder extends RecyclerView.ViewHolder {
+            private final ProgressBar Bar;
+
+        public LoadingViewHolder(@NonNull View itemView) {
+            super(itemView);
+            this.Bar = itemView.findViewById(R.id.progressBar);
+
+        }
+    }
+    void HienThiThongTin(BangXepHangViewHolder holder, int position){
+        NguoiChoi nguoiChoi = arrayList.get(position);
+        holder.mTenNguoiChoi.setText(nguoiChoi.getTenDangNhap());
+        holder.mDiemNguoiChoi.setText(nguoiChoi.getDiemCaoNhat()+"");
+    }
+    void HienThiProgressBar(LoadingViewHolder holder){
+
     }
 }

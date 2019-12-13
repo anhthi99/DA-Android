@@ -13,10 +13,8 @@
         android:src="@drawable/background" />
 
     <ImageView
-        android:layout_width="156dp"
-        android:layout_height="152dp"
-        android:layout_marginTop="16dp"
-        android:layout_marginBottom="16dp"
+        android:layout_width="227dp"
+        android:layout_height="215dp"
         android:background="@drawable/logo"
         android:paddingStart="10dp"
         android:paddingEnd="10dp"
@@ -25,21 +23,21 @@
         android:textColor="@color/white"
         android:textSize="38dp"
         android:textStyle="bold"
-        app:layout_constraintBottom_toTopOf="@+id/scrollView3"
+        app:layout_constraintBottom_toTopOf="@+id/guideline"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="@+id/formBack" />
 
     <ScrollView
         android:id="@+id/scrollView3"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
-        android:layout_marginBottom="24dp"
-        app:layout_constraintBottom_toTopOf="@+id/btnfacebook"
+        app:layout_constraintBottom_toTopOf="@+id/guideline2"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent">
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/guideline">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -173,4 +171,18 @@
         app:layout_constraintBottom_toBottomOf="@+id/formBack"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_begin="268dp" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_begin="581dp" />
 </androidx.constraintlayout.widget.ConstraintLayout>

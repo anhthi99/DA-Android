@@ -265,39 +265,40 @@
         android:layout_marginBottom="16dp"
         android:background="@drawable/group"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/guideline3" />
 
     <ImageButton
         android:id="@+id/imgDienThoai"
         android:layout_width="60dp"
         android:layout_height="54dp"
         android:layout_marginStart="32dp"
-        android:layout_marginBottom="16dp"
         android:background="@drawable/phone"
         android:drawablePadding="1dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/imgKhanGia" />
+        app:layout_constraintBottom_toBottomOf="@+id/imgKhanGia"
+        app:layout_constraintStart_toEndOf="@+id/imgKhanGia"
+        app:layout_constraintTop_toTopOf="@+id/imgKhanGia" />
 
     <ImageButton
         android:id="@+id/btn5050"
         android:layout_width="68dp"
         android:layout_height="57dp"
         android:layout_marginStart="32dp"
-        android:layout_marginBottom="16dp"
         android:background="@drawable/fivefive"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/imgDienThoai" />
+        app:layout_constraintBottom_toBottomOf="@+id/imgDienThoai"
+        app:layout_constraintStart_toEndOf="@+id/imgDienThoai"
+        app:layout_constraintTop_toTopOf="@+id/imgDienThoai" />
 
     <ImageButton
         android:id="@+id/btnLuaChon"
         android:layout_width="76dp"
         android:layout_height="57dp"
         android:layout_marginEnd="8dp"
-        android:layout_marginBottom="16dp"
         android:background="@drawable/chart"
-        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintBottom_toBottomOf="@+id/btn5050"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/btn5050" />
+        app:layout_constraintStart_toEndOf="@+id/btn5050"
+        app:layout_constraintTop_toTopOf="@+id/btn5050" />
 
     <TextView
         android:id="@+id/txtSoCauHoi"
@@ -354,5 +355,12 @@
         app:layout_constraintHorizontal_bias="0.117"
         app:layout_constraintStart_toEndOf="@+id/txtDiem"
         app:layout_constraintTop_toTopOf="@+id/txtDiem" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_begin="599dp" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

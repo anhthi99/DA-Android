@@ -40,7 +40,7 @@ public class NetworkUtils {
                 urlConnection.disconnect();
             }
         }
-        //Log.d("TEST", jsonString);
+        Log.d("TEST", jsonString);
         return jsonString;
     }
 
@@ -75,7 +75,7 @@ public class NetworkUtils {
             }
         }
 
-        //Log.d(LOG_TAG, jsonString);
+        Log.d("AFCCUP", jsonString);
         return jsonString;
     }
 

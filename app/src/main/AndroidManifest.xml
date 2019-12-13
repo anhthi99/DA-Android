@@ -11,7 +11,7 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.AppCompat.Light.NoActionBar">
-        <activity android:name=".BangXepHang"></activity>
+<!--        <activity android:name=".BangXepHang"></activity>-->
         <!-- <activity -->
         <!-- android:name=".QuenMatKhau" -->
         <!-- android:parentActivityName=".MainActivity" /> -->
@@ -40,7 +40,7 @@
         <!-- android:name=".DangKi" -->
         <!-- android:parentActivityName=".MainActivity" /> -->
         <activity
-            android:name=".ChonLinhVuc"
+            android:name=".MuaCredit"
             android:noHistory="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

@@ -8,19 +8,19 @@ import androidx.loader.content.AsyncTaskLoader;
 
 import java.util.HashMap;
 
-public class BangXepHangLoader extends AsyncTaskLoader<String> {
-   private final int page;
-   private final int limit;
+public class LichSuNguoiChoiLoader extends AsyncTaskLoader<String> {
+    private final int page;
+    private final int limit;
     @Override
     protected void onStartLoading() {
         super.onStartLoading();
         forceLoad();
     }
 
-    public BangXepHangLoader(@NonNull Context context, int page, int limit) {
+    public LichSuNguoiChoiLoader(@NonNull Context context, int page,int limit) {
         super(context);
-        this.limit = limit;
-        this.page = page;
+        this.page =page;
+        this.limit=limit;
     }
 
     @Nullable
@@ -36,6 +36,5 @@ public class BangXepHangLoader extends AsyncTaskLoader<String> {
             return null;
         }
         return json;
-
     }
 }

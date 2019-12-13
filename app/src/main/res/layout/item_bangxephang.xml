@@ -8,259 +8,63 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="65dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginBottom="10dp"
         tools:context=".BangXepHang">
 
-        <ImageView
-            android:id="@+id/imageView"
-            android:layout_width="415dp"
-            android:layout_height="735dp"
-            android:contentDescription="TODO"
-            android:scaleType="center"
-            android:src="@drawable/background"
-
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.0"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.0" />
-
-        <ScrollView
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_marginLeft="250dp"
-            android:layout_marginBottom="20dp"
-            tools:ignore="MissingConstraints">
-            <LinearLayout
-                android:layout_width="150dp"
-                android:layout_height="30dp"
-                android:layout_marginTop="20dp"
-                android:background="@drawable/text_credit"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toEndOf="@+id/txtPlayerName"
-                app:layout_constraintTop_toTopOf="parent">
-
-                <TextView
-                    android:id="@+id/textView2"
-                    android:layout_width="wrap_content"
-                    android:layout_height="21dp"
-                    android:layout_marginTop="10dp"
-                    android:hint="Credit"
-                    android:paddingStart="10dp"
-                    android:textAlignment="textStart"
-                    android:textColor="#fff"
-                    android:textColorHint="#ffff"
-                    android:textSize="18sp"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toEndOf="@+id/txtPlayerName"
-                    app:layout_constraintTop_toTopOf="parent" />
-
-                <TextView
-                    android:id="@+id/textView3"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="8dp"
-                    android:layout_marginTop="10dp"
-                    android:layout_marginBottom="2dp"
-                    android:paddingRight="30dp"
-                    android:text="0"
-                    android:textColor="#fff"
-                    android:textSize="18sp"
-                    android:textStyle="bold"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintHorizontal_bias="0.0"
-                    app:layout_constraintStart_toEndOf="@+id/textView2"
-                    app:layout_constraintTop_toTopOf="parent" />
-
-                <TextView
-                    android:id="@+id/textView4"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="8dp"
-                    android:layout_marginTop="10dp"
-                    android:layout_marginBottom="2dp"
-                    android:drawablePadding="0dp"
-                    android:drawableRight="@drawable/credit"
-                    android:textAlignment="viewEnd"
-                    android:textColor="#fff"
-                    android:textSize="18sp"
-                    android:textStyle="bold"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintHorizontal_bias="0.0"
-                    app:layout_constraintStart_toEndOf="@+id/textView2"
-                    app:layout_constraintTop_toTopOf="parent" />
-            </LinearLayout>
-        </ScrollView>
-
-        <ScrollView
-            android:id="@+id/scrollView2"
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            tools:ignore="MissingConstraints">
-
-            <LinearLayout
-                android:layout_width="220dp"
-                android:layout_height="35dp"
-                android:layout_marginLeft="10sp"
-                android:layout_marginTop="20dp"
-                android:background="@drawable/text_credit"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toEndOf="@+id/txtPlayerName"
-                app:layout_constraintTop_toTopOf="parent">
-
-                <TextView
-                    android:id="@+id/txtPlayerName"
-                    android:layout_width="wrap_content"
-                    android:layout_height="21dp"
-                    android:layout_marginTop="10dp"
-                    android:hint="Số lần chơi"
-                    android:paddingStart="10dp"
-                    android:textAlignment="textStart"
-                    android:textColor="#fff"
-                    android:textColorHint="#ffff"
-                    android:textSize="18sp"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toEndOf="@+id/txtPlayerName"
-                    app:layout_constraintTop_toTopOf="parent" />
-
-                <TextView
-                    android:id="@+id/textView0"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="8dp"
-                    android:layout_marginTop="10dp"
-                    android:layout_marginBottom="2dp"
-                    android:drawableLeft="@drawable/tim"
-                    android:paddingRight="3dp"
-                    android:textColor="#fff"
-                    android:textSize="18sp"
-                    android:textStyle="bold"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintHorizontal_bias="0.0"
-                    app:layout_constraintStart_toEndOf="@+id/textView2"
-                    app:layout_constraintTop_toTopOf="parent" />
-
-                <TextView
-                    android:id="@+id/textView6"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="8dp"
-                    android:layout_marginTop="10dp"
-                    android:layout_marginBottom="10dp"
-                    android:drawableRight="@drawable/tim"
-                    android:drawablePadding="0dp"
-                    android:textAlignment="viewEnd"
-                    android:textColor="#fff"
-                    android:textSize="18sp"
-                    android:textStyle="bold"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintHorizontal_bias="0.0"
-                    app:layout_constraintStart_toEndOf="@+id/textView2"
-                    app:layout_constraintTop_toTopOf="parent" />
-
-                <TextView
-                    android:id="@+id/textViewS"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="8dp"
-                    android:layout_marginTop="10dp"
-                    android:layout_marginBottom="2dp"
-                    android:drawableRight="@drawable/tim"
-                    android:drawablePadding="0dp"
-                    android:textAlignment="viewEnd"
-                    android:textColor="#fff"
-                    android:textSize="18sp"
-                    android:textStyle="bold"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintHorizontal_bias="0.0"
-                    app:layout_constraintStart_toEndOf="@+id/textView2"
-                    app:layout_constraintTop_toTopOf="parent" />
-            </LinearLayout>
-
-        </ScrollView>
-
-        <androidx.constraintlayout.widget.ConstraintLayout
-            android:layout_width="377dp"
-            android:layout_height="75dp"
-            android:layout_marginStart="24dp"
-            android:layout_marginTop="16dp"
-            android:layout_marginEnd="24dp"
-            android:background="#fff"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.348"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/textView9">
-
-            <TextView
-                android:id="@+id/textView8"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
-                android:layout_marginEnd="32dp"
-                android:text="Điểm"
-                android:textSize="20sp"
-                android:textStyle="bold"
-                app:layout_constraintBottom_toBottomOf="@+id/textView7"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="@+id/textView7"
-                app:layout_constraintVertical_bias="0.0" />
-
-            <ImageView
-                android:id="@+id/imgAnhDaiDien"
-                android:layout_width="54dp"
-                android:layout_height="43dp"
-                android:layout_marginStart="16dp"
-                android:background="@drawable/ic_action_user"
-
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toStartOf="@+id/textView8"
-                app:layout_constraintHorizontal_bias="0.0"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
-
-            <TextView
-                android:id="@+id/txtTenNguoiChoi"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="8dp"
-                android:layout_marginTop="10dp"
-                android:text="AnhThiNguyen"
-                android:textSize="18sp"
-                android:textStyle="bold"
-                app:layout_constraintBottom_toBottomOf="@+id/textView7"
-                app:layout_constraintStart_toEndOf="@+id/textView7"
-                app:layout_constraintTop_toTopOf="@+id/textView7" />
-
-            <TextView
-                android:id="@+id/txtDiemSo"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginEnd="8dp"
-                android:text="0"
-                android:textSize="20sp"
-                android:textStyle="bold"
-                app:layout_constraintBottom_toBottomOf="@+id/textView8"
-                app:layout_constraintEnd_toStartOf="@+id/textView8"
-                app:layout_constraintTop_toTopOf="@+id/textView8" />
-        </androidx.constraintlayout.widget.ConstraintLayout>
 
         <TextView
-            android:id="@+id/textView9"
-            android:layout_width="wrap_content"
+            android:id="@+id/textView8"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
-            android:layout_marginTop="16dp"
-            android:text="Bảng Xếp Hạng"
-            android:textColor="#fff"
-            android:textSize="28sp"
+            android:layout_marginEnd="32dp"
+            android:text="Điểm"
+            android:textSize="20sp"
             android:textStyle="bold"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <ImageView
+            android:id="@+id/imgAnhDaiDien"
+            android:layout_width="54dp"
+            android:layout_height="43dp"
+            android:layout_marginStart="16dp"
+            android:background="@drawable/ic_action_user"
+
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/textView8"
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/scrollView2" />
+            app:layout_constraintTop_toTopOf="parent" />
 
+        <TextView
+            android:id="@+id/txtTenNguoiChoi"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:text="AnhThiNguyen"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toBottomOf="@+id/imgAnhDaiDien"
+            app:layout_constraintStart_toEndOf="@+id/imgAnhDaiDien"
+            app:layout_constraintTop_toTopOf="@+id/imgAnhDaiDien" />
 
+        <TextView
+            android:id="@+id/txtDiemSo"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="8dp"
+            android:text="0"
+            android:textSize="20sp"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toBottomOf="@+id/textView8"
+            app:layout_constraintEnd_toStartOf="@+id/textView8"
+            app:layout_constraintTop_toTopOf="@+id/textView8" />
     </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+
 
 </androidx.cardview.widget.CardView>

@@ -64,4 +64,9 @@ public class NguoiChoi {
     public void setId(int id) {
         this.id = id;
     }
+    public NguoiChoi(int id, String tenDangNhap, int Diem ){
+        this.id = id;
+        this.tenDangNhap = tenDangNhap;
+        this.diemCaoNhat = Diem;
+    }
 }

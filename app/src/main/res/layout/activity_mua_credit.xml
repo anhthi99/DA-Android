@@ -3,8 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    >
+    android:layout_height="match_parent">
 
     <ImageView
         android:id="@+id/imageView"
@@ -16,9 +15,10 @@
 
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.0" />
+        app:layout_constraintVertical_bias="1.0" />
 
     <ScrollView
         android:layout_width="match_parent"
@@ -26,6 +26,7 @@
         android:layout_marginLeft="250dp"
         android:layout_marginBottom="20dp"
         tools:ignore="MissingConstraints">
+
         <LinearLayout
             android:layout_width="150dp"
             android:layout_height="30dp"
@@ -74,8 +75,8 @@
                 android:layout_marginStart="8dp"
                 android:layout_marginTop="10dp"
                 android:layout_marginBottom="2dp"
-                android:drawablePadding="0dp"
                 android:drawableRight="@drawable/credit"
+                android:drawablePadding="0dp"
                 android:textAlignment="viewEnd"
                 android:textColor="#fff"
                 android:textSize="18sp"
@@ -189,24 +190,22 @@
 
     <ImageView
         android:id="@+id/imageView4"
-        android:layout_width="184dp"
-        android:layout_height="176dp"
+        android:layout_width="101dp"
+        android:layout_height="92dp"
         android:layout_marginStart="16dp"
-        android:layout_marginTop="40dp"
-        android:layout_marginEnd="16dp"
+        android:layout_marginTop="16dp"
         android:background="@drawable/credit5000"
-        app:layout_constraintEnd_toStartOf="@+id/imgAvatar"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView10" />
 
     <TextView
-        android:id="@+id/textView11"
+        android:id="@+id/credit_text_1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
         android:text="$450"
         android:textColor="#FF5722"
-        android:textSize="30sp"
+        android:textSize="24sp"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="@+id/imageView4"
         app:layout_constraintStart_toStartOf="parent"
@@ -214,21 +213,22 @@
 
     <ImageView
         android:id="@+id/imgAvatar"
-        android:layout_width="184dp"
-        android:layout_height="176dp"
-        android:layout_marginEnd="8dp"
+        android:layout_width="98dp"
+        android:layout_height="94dp"
         android:background="@drawable/credit3000"
-        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toBottomOf="@+id/imageView4"
+        app:layout_constraintEnd_toStartOf="@+id/imageView20"
+        app:layout_constraintStart_toEndOf="@+id/imageView4"
         app:layout_constraintTop_toTopOf="@+id/imageView4" />
 
     <TextView
-        android:id="@+id/textView12"
+        android:id="@+id/credit_text_2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
         android:text="$290"
         android:textColor="#FF5722"
-        android:textSize="30sp"
+        android:textSize="24sp"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="@+id/imgAvatar"
         app:layout_constraintStart_toStartOf="@+id/imgAvatar"
@@ -236,21 +236,22 @@
 
     <ImageView
         android:id="@+id/imageView2"
-        android:layout_width="184dp"
-        android:layout_height="176dp"
+        android:layout_width="110dp"
+        android:layout_height="102dp"
         android:layout_marginTop="16dp"
         android:background="@drawable/credit1000"
         app:layout_constraintEnd_toEndOf="@+id/imageView4"
-        app:layout_constraintTop_toBottomOf="@+id/textView11" />
+        app:layout_constraintStart_toStartOf="@+id/imageView4"
+        app:layout_constraintTop_toBottomOf="@+id/credit_text_1" />
 
     <TextView
-        android:id="@+id/textView1"
+        android:id="@+id/credit_text_3"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
         android:text="$95"
         android:textColor="#FF5722"
-        android:textSize="30sp"
+        android:textSize="24sp"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="@+id/imageView2"
         app:layout_constraintStart_toStartOf="@+id/imageView2"
@@ -258,23 +259,47 @@
 
     <ImageView
         android:id="@+id/imageView20"
-        android:layout_width="184dp"
-        android:layout_height="176dp"
+        android:layout_width="104dp"
+        android:layout_height="91dp"
+        android:layout_marginTop="1dp"
+        android:layout_marginEnd="8dp"
         android:background="@drawable/credit500"
-        app:layout_constraintEnd_toEndOf="@+id/imgAvatar"
-        app:layout_constraintStart_toStartOf="@+id/imgAvatar"
-        app:layout_constraintTop_toTopOf="@+id/imageView2" />
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/imgAvatar" />
 
     <TextView
-        android:id="@+id/textView34"
+        android:id="@+id/credit_text_4"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
         android:text="$50"
         android:textColor="#FF5722"
-        android:textSize="30sp"
+        android:textSize="24sp"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="@+id/imageView20"
         app:layout_constraintStart_toStartOf="@+id/imageView20"
         app:layout_constraintTop_toBottomOf="@+id/imageView20" />
+
+    <ImageView
+        android:id="@+id/imageView5"
+        android:layout_width="110dp"
+        android:layout_height="102dp"
+        android:layout_marginTop="16dp"
+        android:background="@drawable/credit1000"
+        app:layout_constraintEnd_toEndOf="@+id/imgAvatar"
+        app:layout_constraintStart_toStartOf="@+id/imgAvatar"
+        app:layout_constraintTop_toBottomOf="@+id/credit_text_2" />
+
+    <TextView
+        android:id="@+id/credit_text_5"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:text="$95"
+        android:textColor="#FF5722"
+        android:textSize="24sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="@+id/imageView5"
+        app:layout_constraintStart_toStartOf="@+id/imageView5"
+        app:layout_constraintTop_toBottomOf="@+id/imageView5" />
 </androidx.constraintlayout.widget.ConstraintLayout>
