@@ -66,9 +66,9 @@ public class BangXepHang extends AppCompatActivity implements LoaderManager.Load
     }
     protected void loadData(Bundle data){
         if(getSupportLoaderManager().getLoader(0)!=null){
-            getSupportLoaderManager().initLoader(0,data,this);
+            getSupportLoaderManager().restartLoader(0,data,this);
         }
-        getSupportLoaderManager().restartLoader(0,data,this);
+        getSupportLoaderManager().initLoader(0,data,this);
     }
     @NonNull
     @Override
@@ -79,7 +79,7 @@ public class BangXepHang extends AppCompatActivity implements LoaderManager.Load
             page = args.getInt("page");
             limit = args.getInt("limit");
         }
-        return new BangXepHangLoader(this,page,limit);
+        return new BangXepHangLoader(this,page,limit,"dsadasd");
     }
 
     @Override

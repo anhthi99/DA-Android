@@ -8,6 +8,7 @@ import androidx.loader.content.Loader;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 
@@ -42,7 +43,9 @@ public class ChonLinhVuc extends AppCompatActivity implements LoaderManager.Load
     @Override
     public void onLoadFinished(@NonNull Loader<String> loader, String data) {
         ArrayList<LinhVuc> arr =new ArrayList<>();
+        Log.d("MMC",data);
         try {
+
             JSONObject object = new JSONObject(data);
             JSONArray itemArray = object.getJSONArray("arr");
             for (int i=0 ; i<itemArray.length(); i++){

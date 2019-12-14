@@ -49,7 +49,7 @@
 
 
             <AutoCompleteTextView
-                android:id="@+id/emailUser"
+                android:id="@+id/txtUserName"
                 android:layout_width="match_parent"
                 android:layout_height="40dp"
                 android:layout_marginStart="15dp"
@@ -57,14 +57,15 @@
                 android:layout_marginEnd="15dp"
                 android:layout_marginBottom="10dp"
                 android:background="@drawable/rounded_white"
-                android:drawableLeft="@drawable/ic_action_email"
+                android:drawableLeft="@drawable/ic_action_user"
                 android:drawablePadding="10dp"
-                android:hint="Email"
+                android:hint="Tên đăng nhập..."
                 android:paddingStart="10dp"
-                android:textSize="14dp" />
+                android:textSize="14dp"
+                tools:text="NguoiChoi1" />
 
             <AutoCompleteTextView
-                android:id="@+id/passUser"
+                android:id="@+id/txtPassword"
                 android:layout_width="match_parent"
                 android:layout_height="40dp"
                 android:layout_marginStart="15dp"
@@ -73,10 +74,11 @@
                 android:background="@drawable/rounded_white"
                 android:drawableLeft="@drawable/ic_action_pass"
                 android:drawablePadding="10dp"
-                android:hint="Password"
+                android:hint="Mật khẩu..."
                 android:inputType="textPassword"
                 android:paddingStart="10dp"
-                android:textSize="14dp" />
+                android:textSize="14dp"
+                tools:text="123456" />
 
             <Button
                 android:id="@+id/btnDangNhap"
@@ -87,6 +89,7 @@
                 android:layout_marginRight="16dp"
                 android:layout_marginBottom="10dp"
                 android:background="@drawable/login_button"
+                android:onClick="dangNhap"
                 android:text="Đăng nhập"
                 android:textAllCaps="false"
                 android:textColor="#fff"

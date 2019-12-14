@@ -7,17 +7,19 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.io.OutputStreamWriter;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.net.URLConnection;
 import java.util.HashMap;
 import java.util.Map;
 
 public class NetworkUtils {
     private static final String LOG_TAG = NetworkUtils.class.getSimpleName();
-    //private static final String BASE_URL =  "http://10.0.3.2:8000/"; // Genymotion
-    private static final String BASE_URL =  "http://10.0.2.2:8000/api/"; // AVD
+    private static final String BASE_URL =  "http://10.0.3.2:8000/api/"; // Genymotion
+    //private static final String BASE_URL =  "http://10.0.2.2:8000/api/"; // AVD
 
-    static String getJSONData(String uri, String method) {
+    static String getJSONData(String uri, String method, String token) {
         HttpURLConnection urlConnection = null;
         String jsonString = null;
         Uri builtURI = Uri.parse(BASE_URL + uri).buildUpon().build();
@@ -26,7 +28,14 @@ public class NetworkUtils {
 
             URL requestURL = new URL(builtURI.toString());
             urlConnection = (HttpURLConnection) requestURL.openConnection();
-            urlConnection.setRequestMethod(method);
+            urlConnection.setUseCaches(false);
+            urlConnection.setRequestProperty("User-Agent", "Mozilla/5.0 (Linux; Android 7.1.1; " +
+                    "Z982 Build/NMF26V) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/64.0.3282.137 Mobile Safari/537.36");
+            urlConnection.setConnectTimeout(10000);
+            urlConnection.setReadTimeout(10000);
+            urlConnection.addRequestProperty("Authorization", "Bearer " + token);
+            urlConnection.addRequestProperty("Content-Type", "application/x-www-form-urlencoded; charset=UTF-8");
+            //urlConnection.setRequestMethod(method);
             urlConnection.connect();
 
             // Get the InputStream.
@@ -40,11 +49,12 @@ public class NetworkUtils {
                 urlConnection.disconnect();
             }
         }
-        Log.d("TEST", jsonString);
+        //Log.d("TEST", jsonString);
         return jsonString;
     }
 
-    static String getJSONData(String uri, String method, HashMap<String,String> params) {
+    static String getJSONData(String uri, String method, HashMap<String,String> params,
+                              String token) {
         HttpURLConnection urlConnection = null;
         String jsonString = null;
         Uri.Builder builder =  Uri.parse(BASE_URL + uri).buildUpon();

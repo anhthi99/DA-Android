@@ -20,7 +20,7 @@ public class LinhVucLoader extends AsyncTaskLoader<String> {
     @Nullable
     @Override
     public String loadInBackground() {
-        return NetworkUtils.getJSONData("linh-vuc","GET");
+        return NetworkUtils.getJSONData("linh-vuc","GET","dsadsad");
 
     }
 }

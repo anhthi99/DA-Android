@@ -31,7 +31,7 @@ public class LichSuNguoiChoiLoader extends AsyncTaskLoader<String> {
         queryParams.put("limit", Integer.toString(this.limit));
         String json = "";
         try {
-            json =  NetworkUtils.getJSONData("nguoi-choi","GET", queryParams);
+            json =  NetworkUtils.getJSONData("nguoi-choi","GET", queryParams,"dsad");
         }catch (Exception ex){
             return null;
         }

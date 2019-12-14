@@ -20,6 +20,6 @@ public class CreditLoader extends AsyncTaskLoader<String>{
     @Nullable
     @Override
     public String loadInBackground() {
-        return NetworkUtils.getJSONData("goi-credit","GET");
+        return NetworkUtils.getJSONData("goi-credit","GET","sdadsad");
     }
 }

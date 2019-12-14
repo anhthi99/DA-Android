@@ -1,6 +1,7 @@
 package com.example.gametraloicauhoi_android;
 
 import android.app.Activity;
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.os.AsyncTask;
@@ -9,6 +10,7 @@ import android.os.Handler;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.facebook.AccessToken;
@@ -36,21 +38,30 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.loader.app.LoaderManager;
+import androidx.loader.content.AsyncTaskLoader;
 import androidx.loader.content.Loader;
 
 import org.json.JSONObject;
 
+import java.io.BufferedReader;
+import java.io.InputStreamReader;
+import java.io.OutputStreamWriter;
+import java.net.URL;
+import java.net.URLConnection;
+import java.net.URLEncoder;
 import java.util.Arrays;
 
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements LoaderManager.LoaderCallbacks<String> {
 
     Button loginFBButton;
     Button loginGGButon;
-    SignInButton signInButton;
+    String data = "";
+    TextView tUser, tPass;
     Button btnDangNhap;
     final int RC_SIGN_IN = 9001;
-    int index = 1;
+    ProgressDialog progressDialog;
+    //int index = 1;
     CallbackManager callbackManager;
     boolean doubleBackToExitPressedOnce = false;
     GoogleSignInClient mGoogleSignInClient;
@@ -59,13 +70,16 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         btnDangNhap = (Button) findViewById(R.id.btnDangNhap);
-//        btnDangNhap.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//                Intent intent = new Intent(MainActivity.this,ManHinhChinh.class);
-//                startActivity(intent);
-//            }
-//        });
+        tUser = findViewById(R.id.txtUserName);
+        tPass = findViewById(R.id.txtPassword);
+
+        btnDangNhap.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(MainActivity.this,ManHinhChinh.class);
+                startActivity(intent);
+            }
+        });
         loginFBButton = findViewById(R.id.btnfacebook);
         loginGGButon = findViewById(R.id.btnGoogle);
         callbackManager = CallbackManager.Factory.create();
@@ -102,6 +116,8 @@ public class MainActivity extends AppCompatActivity {
             Intent intent = new Intent(this,ManHinhChinh.class);
             startActivity(intent);
         }
+
+
     }
 
     @Override
@@ -167,4 +183,39 @@ public class MainActivity extends AppCompatActivity {
         Intent intent = mGoogleSignInClient.getSignInIntent();
         startActivityForResult(intent, RC_SIGN_IN);
     }
+    public void dangNhap(View view) {
+        String user = tUser.getText().toString();
+        String pass = tPass.getText().toString();
+        this.data = URLEncoder.encode("ten_dang_nhap")
+                +"="+URLEncoder.encode(user)
+                +"&"+ URLEncoder.encode("mat_khau")
+                +"="+URLEncoder.encode(pass);
+        progressDialog = new ProgressDialog(this);
+        progressDialog.create();
+        progressDialog.setTitle(R.string.app_name);
+        progressDialog.setMessage("Đang đăng nhập");
+        progressDialog.show();
+        if(getSupportLoaderManager().getLoader(0) != null)
+            getSupportLoaderManager().restartLoader(0,null,this);
+        getSupportLoaderManager().initLoader(0,null,this);
+    }
+
+    @NonNull
+    @Override
+    public Loader<String> onCreateLoader(int id, @Nullable Bundle args) {
+        return new DangNhapLoader(this,this.data);
+    }
+
+    @Override
+    public void onLoadFinished(@NonNull Loader<String> loader, String data) {
+        Log.d("sss",data);
+        progressDialog.dismiss();
+    }
+
+    @Override
+    public void onLoaderReset(@NonNull Loader<String> loader) {
+
+    }
+
+
 }

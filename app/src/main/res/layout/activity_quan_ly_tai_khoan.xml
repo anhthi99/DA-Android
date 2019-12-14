@@ -65,7 +65,7 @@
                 android:textSize="14dp" />
 
             <AutoCompleteTextView
-                android:id="@+id/emailUser"
+                android:id="@+id/txtUserName"
                 android:layout_width="match_parent"
                 android:layout_height="40dp"
                 android:layout_marginStart="15dp"
