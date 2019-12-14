@@ -17,7 +17,8 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 
 public class MuaCredit extends AppCompatActivity implements LoaderManager.LoaderCallbacks<String> {
-    private TextView credit_1, credit_2, credit_3, credit_4, credit_5;
+    private TextView credit_1, credit_2, credit_3, credit_4, credit_5, socredit_1, socredit_2, socredit_3, socredit_4, socredit_5;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -27,6 +28,11 @@ public class MuaCredit extends AppCompatActivity implements LoaderManager.Loader
         credit_3 = findViewById(R.id.credit_text_3);
         credit_4 = findViewById(R.id.credit_text_4);
         credit_5 = findViewById(R.id.credit_text_5);
+        socredit_1 = findViewById(R.id.credit_1);
+        socredit_2 = findViewById(R.id.credit_2);
+        socredit_3 = findViewById(R.id.credit_3);
+        socredit_4 = findViewById(R.id.credit_4);
+        socredit_5 = findViewById(R.id.credit_5);
         if(getSupportLoaderManager().getLoader(0)!= null){
             getSupportLoaderManager().restartLoader(0,null,this);
         }
@@ -50,9 +56,14 @@ public class MuaCredit extends AppCompatActivity implements LoaderManager.Loader
                 GoiCredit GR = new GoiCredit();
                 GR.setId(itemArray.getJSONObject(i).getInt("id"));
                 GR.setSoTien(itemArray.getJSONObject(i).getInt("so_tien"));
+                GR.setCredit(itemArray.getJSONObject(i).getInt("credit"));
                 arr.add(GR);
             }
-
+            socredit_1.setText(arr.get(0).getCredit()+"");
+            socredit_2.setText(arr.get(1).getCredit()+"");
+            socredit_3.setText(arr.get(2).getCredit()+"");
+            socredit_4.setText(arr.get(3).getCredit()+"");
+            socredit_5.setText(arr.get(4).getCredit()+"");
             credit_1.setText(arr.get(0).getSoTien()+"");
             credit_2.setText(arr.get(1).getSoTien()+"");
             credit_3.setText(arr.get(2).getSoTien()+"");
