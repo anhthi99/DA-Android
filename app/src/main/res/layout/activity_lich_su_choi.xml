@@ -197,6 +197,7 @@
             app:layout_constraintTop_toBottomOf="@+id/scrollView2" />
 
         <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recyclerView_LichSu"
             android:layout_width="402dp"
             android:layout_height="549dp"
             app:layout_constraintBottom_toBottomOf="@+id/imageView"

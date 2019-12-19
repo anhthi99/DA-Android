@@ -40,7 +40,7 @@
         <!-- android:name=".DangKi" -->
         <!-- android:parentActivityName=".MainActivity" /> -->
         <activity
-            android:name=".MainActivity"
+            android:name=".LichSuChoi"
             android:noHistory="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

@@ -11,16 +11,18 @@ import java.util.HashMap;
 public class LichSuNguoiChoiLoader extends AsyncTaskLoader<String> {
     private final int page;
     private final int limit;
+    private final String token;
     @Override
     protected void onStartLoading() {
         super.onStartLoading();
         forceLoad();
     }
 
-    public LichSuNguoiChoiLoader(@NonNull Context context, int page,int limit) {
+    public LichSuNguoiChoiLoader(@NonNull Context context, int page,int limit,String token) {
         super(context);
         this.page =page;
         this.limit=limit;
+        this.token = token;
     }
 
     @Nullable
@@ -31,7 +33,7 @@ public class LichSuNguoiChoiLoader extends AsyncTaskLoader<String> {
         queryParams.put("limit", Integer.toString(this.limit));
         String json = "";
         try {
-            json =  NetworkUtils.getJSONData("nguoi-choi","GET", queryParams,"dsad");
+            json =  NetworkUtils.getJSONData("lich-su","GET", queryParams,token);
         }catch (Exception ex){
             return null;
         }
