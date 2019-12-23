@@ -55,7 +55,6 @@ public class DangNhapLoader extends AsyncTaskLoader<String> {
 
 
             text = sb.toString();
-            Log.d("AFF",text);
         }
         catch(Exception ex)
         {

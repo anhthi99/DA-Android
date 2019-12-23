@@ -40,10 +40,10 @@ public class ManHinhChinh extends AppCompatActivity implements LoaderManager.Loa
             if(AccessToken.getCurrentAccessToken() != null && !AccessToken.getCurrentAccessToken().isExpired())
                 tvPlayerName.setText(Profile.getCurrentProfile().getName());
         }
-        if(getSupportLoaderManager().getLoader(0) != null){
-            getSupportLoaderManager().restartLoader(0, null, this);
-        }
-        getSupportLoaderManager().initLoader(0,null,this);
+//        if(getSupportLoaderManager().getLoader(0) != null){
+//            getSupportLoaderManager().restartLoader(0, null, this);
+//        }
+//        getSupportLoaderManager().initLoader(0,null,this);
     }
 
     @Override
@@ -92,15 +92,15 @@ public class ManHinhChinh extends AppCompatActivity implements LoaderManager.Loa
     @NonNull
     @Override
     public Loader<Bitmap> onCreateLoader(int id, @Nullable Bundle args) {
-        if(GoogleSignIn.getLastSignedInAccount(this) != null){
-            if(GoogleSignIn.getLastSignedInAccount(this).getPhotoUrl() != null)
-                return new NguoiChoiLoader(this,
-                    GoogleSignIn.getLastSignedInAccount(this).getPhotoUrl().toString());
-            else
-                return new NguoiChoiLoader(this,"https://lh3.googleusercontent.com/-XdUIqdMkCWA/AAAAAAAAAAI/AAAAAAAAAAA/4252rscbv5M/photo.jpg");
-        }
-        return new NguoiChoiLoader(this,"https://graph.facebook.com/me/picture?type=square&access_token="+AccessToken.getCurrentAccessToken().getToken());
-
+//        if(GoogleSignIn.getLastSignedInAccount(this) != null){
+//            if(GoogleSignIn.getLastSignedInAccount(this).getPhotoUrl() != null)
+//                return new NguoiChoiLoader(this,
+//                    GoogleSignIn.getLastSignedInAccount(this).getPhotoUrl().toString());
+//            else
+//                return new NguoiChoiLoader(this,"https://lh3.googleusercontent.com/-XdUIqdMkCWA/AAAAAAAAAAI/AAAAAAAAAAA/4252rscbv5M/photo.jpg");
+//        }
+//        return new NguoiChoiLoader(this,"https://graph.facebook.com/me/picture?type=square&access_token="+AccessToken.getCurrentAccessToken().getToken());
+        return null;
     }
 
     @Override

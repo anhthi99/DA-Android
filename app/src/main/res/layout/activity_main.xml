@@ -61,8 +61,7 @@
                 android:drawablePadding="10dp"
                 android:hint="Tên đăng nhập..."
                 android:paddingStart="10dp"
-                android:textSize="14dp"
-                tools:text="NguoiChoi1" />
+                android:textSize="14dp" />
 
             <AutoCompleteTextView
                 android:id="@+id/txtPassword"
@@ -77,8 +76,7 @@
                 android:hint="Mật khẩu..."
                 android:inputType="textPassword"
                 android:paddingStart="10dp"
-                android:textSize="14dp"
-                tools:text="123456" />
+                android:textSize="14dp" />
 
             <Button
                 android:id="@+id/btnDangNhap"
@@ -140,7 +138,7 @@
         android:layout_gravity="center"
         android:layout_marginStart="40dp"
         android:layout_marginEnd="40dp"
-        android:layout_marginBottom="10dp"
+        android:layout_marginBottom="8dp"
         android:background="@drawable/button_facebook"
         android:drawableLeft="@drawable/facebook"
         android:drawablePadding="0dp"
@@ -153,6 +151,7 @@
         app:layout_constraintBottom_toTopOf="@+id/btnGoogle"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
+
     <Button
         android:id="@+id/btnGoogle"
         android:layout_width="match_parent"
@@ -160,20 +159,21 @@
         android:layout_alignParentBottom="true"
         android:layout_gravity="center"
         android:layout_marginStart="40dp"
+        android:layout_marginTop="8dp"
         android:layout_marginEnd="40dp"
-        android:layout_marginBottom="32dp"
         android:background="@drawable/button_google"
         android:drawableLeft="@drawable/google"
         android:drawablePadding="-17sp"
+        android:onClick="DangNhapGG"
         android:text="Đăng nhập với Google"
         android:textAllCaps="false"
         android:textColor="#ffff"
         android:textSize="20dp"
         android:textStyle="normal"
-        android:onClick="DangNhapGG"
         app:layout_constraintBottom_toBottomOf="@+id/formBack"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/guideline2" />
 
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/guideline"

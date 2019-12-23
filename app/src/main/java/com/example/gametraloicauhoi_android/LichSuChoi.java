@@ -9,6 +9,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.os.Bundle;
+import android.util.Log;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -44,9 +45,9 @@ public class LichSuChoi extends AppCompatActivity implements LoaderManager.Loade
             public void onScrolled(@NonNull RecyclerView recyclerView, int dx, int dy) {
                 super.onScrolled(recyclerView, dx, dy);
                 LinearLayoutManager layoutManager = (LinearLayoutManager)recyclerView.getLayoutManager();
-                int visibleItemCount = layoutManager.getChildCount();
-                int totalItemCount = layoutManager.getItemCount();
-                int firstVisibleItemPosition = layoutManager.findFirstVisibleItemPosition();
+                int visibleItemCount = layoutManager != null ? layoutManager.getChildCount() : 0;
+                int totalItemCount = layoutManager != null ? layoutManager.getItemCount() : 0;
+                int firstVisibleItemPosition = layoutManager != null ? layoutManager.findFirstVisibleItemPosition() : 0;
                 if(!isLoading && !isLastPage){
                     if((visibleItemCount + firstVisibleItemPosition)>= totalItemCount && firstVisibleItemPosition >= 0 && totalItemCount >= PAGE_SIZE ){
                         isLoading = true;
@@ -84,6 +85,7 @@ public class LichSuChoi extends AppCompatActivity implements LoaderManager.Loade
     @Override
     public void onLoadFinished(@NonNull Loader<String> loader, String data) {
         try {
+            Log.d("sss",data);
             JSONObject jsonObject = new JSONObject(data);
             int total = jsonObject.getInt("total");
             totalPage = total / PAGE_SIZE;

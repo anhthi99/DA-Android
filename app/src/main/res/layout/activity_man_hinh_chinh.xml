@@ -167,7 +167,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
         android:layout_marginTop="32dp"
-        android:text="Ld B Duy"
+        android:text="NA Thi"
         android:textColor="#ffff"
         android:textSize="18sp"
         android:textStyle="bold"

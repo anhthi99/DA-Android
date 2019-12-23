@@ -33,7 +33,7 @@ public class LichSuNguoiChoiLoader extends AsyncTaskLoader<String> {
         queryParams.put("limit", Integer.toString(this.limit));
         String json = "";
         try {
-            json =  NetworkUtils.getJSONData("lich-su","GET", queryParams,token);
+            json =  NetworkUtils.getJSONData("luot-choi/1","GET", queryParams,token);
         }catch (Exception ex){
             return null;
         }

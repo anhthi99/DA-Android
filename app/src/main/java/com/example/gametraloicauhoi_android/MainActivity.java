@@ -41,6 +41,7 @@ import androidx.loader.app.LoaderManager;
 import androidx.loader.content.AsyncTaskLoader;
 import androidx.loader.content.Loader;
 
+import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.BufferedReader;
@@ -50,6 +51,7 @@ import java.net.URL;
 import java.net.URLConnection;
 import java.net.URLEncoder;
 import java.util.Arrays;
+import java.util.Collections;
 
 
 public class MainActivity extends AppCompatActivity implements LoaderManager.LoaderCallbacks<String> {
@@ -73,13 +75,13 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
         tUser = findViewById(R.id.txtUserName);
         tPass = findViewById(R.id.txtPassword);
 
-        btnDangNhap.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(MainActivity.this,ManHinhChinh.class);
-                startActivity(intent);
-            }
-        });
+//        btnDangNhap.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                Intent intent = new Intent(MainActivity.this,ManHinhChinh.class);
+//                startActivity(intent);
+//            }
+//        });
         loginFBButton = findViewById(R.id.btnfacebook);
         loginGGButon = findViewById(R.id.btnGoogle);
         callbackManager = CallbackManager.Factory.create();
@@ -175,7 +177,7 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
 
     public void DangNhapFB(View view) {
         //index = 1;
-        LoginManager.getInstance().logInWithReadPermissions(this, Arrays.asList("public_profile"));
+        LoginManager.getInstance().logInWithReadPermissions(this, Collections.singletonList("public_profile"));
     }
 
     public void DangNhapGG(View view) {
@@ -208,8 +210,16 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
 
     @Override
     public void onLoadFinished(@NonNull Loader<String> loader, String data) {
-        Log.d("sss",data);
+        try {
+            JSONObject jsonObject = new JSONObject(data);
+            NguoiChoi.token = jsonObject.getString("token");
+
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
         progressDialog.dismiss();
+        Intent intent =new Intent(this,ManHinhChinh.class);
+        startActivity(intent);
     }
 
     @Override

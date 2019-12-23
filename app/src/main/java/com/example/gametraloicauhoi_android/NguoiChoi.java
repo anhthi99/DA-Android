@@ -8,6 +8,7 @@ public class NguoiChoi {
     private String hinhDaiDien;
     private int diemCaoNhat;
     private int credit;
+    public static String token = null;
 
     public int getCredit() {
         return credit;

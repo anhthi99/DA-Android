@@ -65,9 +65,6 @@ public class NetworkUtils {
         for (String p: params.keySet()) {
             builder.appendQueryParameter(p, params.get(p));
         }
-//        for(int i=0; i<nameParams.length; i++) {
-//            builder.appendQueryParameter(nameParams[i].toString(), valueParams[i].toString());
-//        }
         Uri builtURI = builder.build();
 
         try {
