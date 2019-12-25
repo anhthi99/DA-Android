@@ -45,13 +45,13 @@ public class BangXepHang extends AppCompatActivity implements LoaderManager.Load
             public void onScrolled(@NonNull RecyclerView recyclerView, int dx, int dy) {
                 super.onScrolled(recyclerView, dx, dy);
                 LinearLayoutManager layoutManager = (LinearLayoutManager)recyclerView.getLayoutManager();
-                int visibleItemCount = layoutManager.getChildCount();
-                int totalItemCount = layoutManager.getItemCount();
-                int firstVisibleItemPosition = layoutManager.findFirstVisibleItemPosition();
+                int visibleItemCount = layoutManager != null ? layoutManager.getChildCount() : 0;
+                int totalItemCount = layoutManager != null ? layoutManager.getItemCount() : 0;
+                int firstVisibleItemPosition = layoutManager != null ? layoutManager.findFirstVisibleItemPosition() : 0;
                 if(!isLoading && !isLastPage){
                     if((visibleItemCount + firstVisibleItemPosition)>= totalItemCount && firstVisibleItemPosition >= 0 && totalItemCount >= PAGE_SIZE ){
                         isLoading = true;
-                        curentPage ++;
+                        curentPage++;
                         arrayList.add(null);
                         BXHAdapter.notifyItemInserted(arrayList.size() - 1);
                         Bundle data = new Bundle();
@@ -79,7 +79,7 @@ public class BangXepHang extends AppCompatActivity implements LoaderManager.Load
             page = args.getInt("page");
             limit = args.getInt("limit");
         }
-        return new BangXepHangLoader(this,page,limit,"dsadasd");
+        return new BangXepHangLoader(this,page,limit,NguoiChoi.token);
     }
 
     @Override
@@ -102,7 +102,8 @@ public class BangXepHang extends AppCompatActivity implements LoaderManager.Load
                 int id = itemsArray.getJSONObject(i).getInt("id");
                 String TenNguoiChoi = itemsArray.getJSONObject(i).getString("ten_dang_nhap");
                 int Diem = itemsArray.getJSONObject(i).getInt("diem_cao_nhat");
-                this.arrayList.add(new NguoiChoi(id,TenNguoiChoi,Diem));
+                int credit = itemsArray.getJSONObject(i).getInt("credit");
+                this.arrayList.add(new NguoiChoi(id,TenNguoiChoi,Diem,credit));
             }
             this.BXHAdapter.notifyDataSetChanged();
             isLastPage = (curentPage == totalPage);

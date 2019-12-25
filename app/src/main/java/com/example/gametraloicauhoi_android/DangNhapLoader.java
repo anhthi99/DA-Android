@@ -24,54 +24,7 @@ public class DangNhapLoader extends AsyncTaskLoader<String> {
     @Nullable
     @Override
     public String loadInBackground() {
-        String text = "";
-        BufferedReader reader=null;
-
-        // Send data
-        try
-        {
-            // Defined URL  where to send data
-            URL url = new URL(BASE_URL);
-
-            // Send POST data request
-
-            URLConnection conn = url.openConnection();
-            conn.setDoOutput(true);
-            OutputStreamWriter wr = new OutputStreamWriter(conn.getOutputStream());
-            wr.write(data);
-            wr.flush();
-
-            // Get the server response
-            reader = new BufferedReader(new InputStreamReader(conn.getInputStream()));
-            StringBuilder sb = new StringBuilder();
-            String line = null;
-
-            // Read Server Response
-            while((line = reader.readLine()) != null)
-            {
-                // Append server response in string
-                sb.append(line).append("\n");
-            }
-
-
-            text = sb.toString();
-        }
-        catch(Exception ex)
-        {
-            ex.printStackTrace();
-        }
-        finally
-        {
-            try
-            {
-                if (reader != null) {
-                    reader.close();
-                }
-            }
-
-            catch(Exception ex) {ex.printStackTrace();}
-        }
-        return text;
+        return NetworkUtils.getJSONPostData("dang-nhap",this.data);
     }
 
     @Override

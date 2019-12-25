@@ -1,10 +1,9 @@
 package com.example.gametraloicauhoi_android;
 
-import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
-import android.os.AsyncTask;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.Handler;
 import android.util.Log;
@@ -13,24 +12,11 @@ import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.facebook.AccessToken;
 import com.facebook.CallbackManager;
-import com.facebook.FacebookCallback;
-import com.facebook.FacebookException;
-import com.facebook.FacebookSdk;
-import com.facebook.GraphRequest;
-import com.facebook.GraphRequestAsyncTask;
-import com.facebook.GraphResponse;
-import com.facebook.HttpMethod;
-import com.facebook.appevents.AppEventsLogger;
 import com.facebook.login.LoginManager;
-import com.facebook.login.LoginResult;
-import com.facebook.login.widget.LoginButton;
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 import com.google.android.gms.auth.api.signin.GoogleSignInClient;
-import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
-import com.google.android.gms.common.SignInButton;
 import com.google.android.gms.common.api.ApiException;
 import com.google.android.gms.tasks.Task;
 
@@ -38,20 +24,15 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.loader.app.LoaderManager;
-import androidx.loader.content.AsyncTaskLoader;
 import androidx.loader.content.Loader;
 
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.io.BufferedReader;
-import java.io.InputStreamReader;
-import java.io.OutputStreamWriter;
-import java.net.URL;
-import java.net.URLConnection;
 import java.net.URLEncoder;
-import java.util.Arrays;
 import java.util.Collections;
+import java.util.Map;
+import java.util.Set;
 
 
 public class MainActivity extends AppCompatActivity implements LoaderManager.LoaderCallbacks<String> {
@@ -66,14 +47,24 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
     //int index = 1;
     CallbackManager callbackManager;
     boolean doubleBackToExitPressedOnce = false;
+    SharedPreferences sharedPreferences;
+    final String shareName = "LUU_TOKEN";
     GoogleSignInClient mGoogleSignInClient;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         btnDangNhap = (Button) findViewById(R.id.btnDangNhap);
-        tUser = findViewById(R.id.txtUserName);
+        tUser = findViewById(R.id.txtEmail);
         tPass = findViewById(R.id.txtPassword);
+        tUser.setText("NguoiChoi1");
+        tPass.setText("123456");
+        sharedPreferences = getSharedPreferences(shareName, Context.MODE_PRIVATE);
+        NguoiChoi.token = sharedPreferences.getString("token",null);
+        if(NguoiChoi.token != null){
+            Intent intent = new Intent(this,ManHinhChinh.class);
+            startActivity(intent);
+        }
 
 //        btnDangNhap.setOnClickListener(new View.OnClickListener() {
 //            @Override
@@ -82,44 +73,50 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
 //                startActivity(intent);
 //            }
 //        });
-        loginFBButton = findViewById(R.id.btnfacebook);
-        loginGGButon = findViewById(R.id.btnGoogle);
-        callbackManager = CallbackManager.Factory.create();
-        LoginManager.getInstance().registerCallback(callbackManager,
-                new FacebookCallback<LoginResult>() {
-                    @Override
-                    public void onSuccess(LoginResult loginResult) {
-                        Intent intent = new Intent(MainActivity.this,ManHinhChinh.class);
-                        startActivity(intent);
-                    }
+//        loginFBButton = findViewById(R.id.btnfacebook);
+//        loginGGButon = findViewById(R.id.btnGoogle);
+//        callbackManager = CallbackManager.Factory.create();
+//        LoginManager.getInstance().registerCallback(callbackManager,
+//                new FacebookCallback<LoginResult>() {
+//                    @Override
+//                    public void onSuccess(LoginResult loginResult) {
+//                        Intent intent = new Intent(MainActivity.this,ManHinhChinh.class);
+//                        startActivity(intent);
+//                    }
+//
+//                    @Override
+//                    public void onCancel() {
+//                        // App code
+//                    }
+//
+//                    @Override
+//                    public void onError(FacebookException exception) {
+//                        // App code
+//                    }
+//                });
+//        AccessToken accessToken = AccessToken.getCurrentAccessToken();
+//        boolean isLoggedIn = accessToken != null && !accessToken.isExpired();
+//        if(isLoggedIn){
+//            Intent intent = new Intent(MainActivity.this,ManHinhChinh.class);
+//            startActivity(intent);
+//        }
+//        GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
+//                .requestEmail()
+//                .build();
+//        mGoogleSignInClient = GoogleSignIn.getClient(this, gso);
+//        GoogleSignInAccount account = GoogleSignIn.getLastSignedInAccount(this);
+//        if(account != null){
+//            Intent intent = new Intent(this,ManHinhChinh.class);
+//            startActivity(intent);
+//        }
+    }
 
-                    @Override
-                    public void onCancel() {
-                        // App code
-                    }
-
-                    @Override
-                    public void onError(FacebookException exception) {
-                        // App code
-                    }
-                });
-        AccessToken accessToken = AccessToken.getCurrentAccessToken();
-        boolean isLoggedIn = accessToken != null && !accessToken.isExpired();
-        if(isLoggedIn){
-            Intent intent = new Intent(MainActivity.this,ManHinhChinh.class);
-            startActivity(intent);
-        }
-        GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
-                .requestEmail()
-                .build();
-        mGoogleSignInClient = GoogleSignIn.getClient(this, gso);
-        GoogleSignInAccount account = GoogleSignIn.getLastSignedInAccount(this);
-        if(account != null){
-            Intent intent = new Intent(this,ManHinhChinh.class);
-            startActivity(intent);
-        }
-
-
+    @Override
+    protected void onPause() {
+        super.onPause();
+        SharedPreferences.Editor share = sharedPreferences.edit();
+        share.putString("token",NguoiChoi.token);
+        share.apply();
     }
 
     @Override

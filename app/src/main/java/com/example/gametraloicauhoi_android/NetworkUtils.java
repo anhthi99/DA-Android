@@ -23,6 +23,56 @@ public class NetworkUtils {
     private static final String BASE_URL =  "http://10.0.3.2:8000/api/"; // Genymotion
     //private static final String BASE_URL =  "http://10.0.2.2:8000/api/"; // AVD
 
+    static String getJSONPostData(String uri,String data){
+        String text = "";
+        BufferedReader reader=null;
+
+        // Send data
+        try
+        {
+            // Defined URL  where to send data
+            URL url = new URL(BASE_URL+uri);
+
+            // Send POST data request
+
+            URLConnection conn = url.openConnection();
+            conn.setDoOutput(true);
+            OutputStreamWriter wr = new OutputStreamWriter(conn.getOutputStream());
+            wr.write(data);
+            wr.flush();
+
+            // Get the server response
+            reader = new BufferedReader(new InputStreamReader(conn.getInputStream()));
+            StringBuilder sb = new StringBuilder();
+            String line = null;
+
+            // Read Server Response
+            while((line = reader.readLine()) != null)
+            {
+                // Append server response in string
+                sb.append(line).append("\n");
+            }
+
+
+            text = sb.toString();
+        }
+        catch(Exception ex)
+        {
+            ex.printStackTrace();
+        }
+        finally
+        {
+            try
+            {
+                if (reader != null) {
+                    reader.close();
+                }
+            }
+
+            catch(Exception ex) {ex.printStackTrace();}
+        }
+        return text;
+    }
     static String getJSONData(String uri, String method, String token) {
         HttpURLConnection urlConnection = null;
         String jsonString = null;
@@ -71,7 +121,14 @@ public class NetworkUtils {
 
             URL requestURL = new URL(builtURI.toString());
             urlConnection = (HttpURLConnection) requestURL.openConnection();
-            urlConnection.setRequestMethod(method);
+            //urlConnection.setRequestMethod(method);
+            urlConnection.setUseCaches(false);
+            urlConnection.setRequestProperty("User-Agent", "Mozilla/5.0 (Linux; Android 7.1.1; " +
+                    "Z982 Build/NMF26V) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/64.0.3282.137 Mobile Safari/537.36");
+            urlConnection.setConnectTimeout(10000);
+            urlConnection.setReadTimeout(10000);
+            urlConnection.addRequestProperty("Authorization", "Bearer " + token);
+            urlConnection.addRequestProperty("Content-Type", "application/x-www-form-urlencoded; charset=UTF-8");
             urlConnection.connect();
 
             // Get the InputStream.

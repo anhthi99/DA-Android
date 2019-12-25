@@ -10,6 +10,7 @@ import androidx.annotation.Nullable;
 import androidx.loader.content.AsyncTaskLoader;
 
 import java.io.InputStream;
+import java.util.Objects;
 
 public class NguoiChoiLoader extends AsyncTaskLoader<Bitmap> {
     private String urlImage;
@@ -33,7 +34,7 @@ public class NguoiChoiLoader extends AsyncTaskLoader<Bitmap> {
             InputStream in = new java.net.URL(urldisplay).openStream();
             bmp = BitmapFactory.decodeStream(in);
         } catch (Exception e) {
-            Log.e("Error", e.getMessage());
+            Log.e("Error", Objects.requireNonNull(e.getMessage()));
             e.printStackTrace();
         }
         return bmp;

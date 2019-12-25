@@ -65,9 +65,10 @@ public class NguoiChoi {
     public void setId(int id) {
         this.id = id;
     }
-    public NguoiChoi(int id, String tenDangNhap, int Diem ){
+    public NguoiChoi(int id, String tenDangNhap, int diem, int credit ){
         this.id = id;
         this.tenDangNhap = tenDangNhap;
-        this.diemCaoNhat = Diem;
+        this.diemCaoNhat = diem;
+        this.credit = credit;
     }
 }

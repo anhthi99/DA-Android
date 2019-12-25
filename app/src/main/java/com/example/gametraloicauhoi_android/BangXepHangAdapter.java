@@ -11,6 +11,8 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.squareup.picasso.Picasso;
+
 import java.util.ArrayList;
 
 public class BangXepHangAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
@@ -58,6 +60,7 @@ public class BangXepHangAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
 
     public class BangXepHangViewHolder extends RecyclerView.ViewHolder {
             private final TextView mTenNguoiChoi, mDiemNguoiChoi;
+            private final ImageView imgADD;
             private final BangXepHangAdapter bangXepHangAdapter;
 
         public BangXepHangViewHolder(@NonNull View itemView,BangXepHangAdapter mbangXepHangAdapter) {
@@ -65,7 +68,7 @@ public class BangXepHangAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
             this.bangXepHangAdapter =  mbangXepHangAdapter;
             this.mTenNguoiChoi = itemView.findViewById(R.id.txtTenNguoiChoi);
             this.mDiemNguoiChoi = itemView.findViewById(R.id.txtDiemSo);
-
+            this.imgADD = itemView.findViewById(R.id.imgAnhDaiDien);
         }
     }
 
@@ -78,12 +81,14 @@ public class BangXepHangAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
 
         }
     }
-    void HienThiThongTin(BangXepHangViewHolder holder, int position){
+    private void HienThiThongTin(BangXepHangViewHolder holder, int position){
         NguoiChoi nguoiChoi = arrayList.get(position);
         holder.mTenNguoiChoi.setText(nguoiChoi.getTenDangNhap());
         holder.mDiemNguoiChoi.setText(nguoiChoi.getDiemCaoNhat()+"");
+        Picasso.get().load("http://localhost:8000/assets/images/users/a.jpg").into(holder.imgADD);
+
     }
-    void HienThiProgressBar(LoadingViewHolder holder){
+    private void HienThiProgressBar(LoadingViewHolder holder){
 
     }
 }
