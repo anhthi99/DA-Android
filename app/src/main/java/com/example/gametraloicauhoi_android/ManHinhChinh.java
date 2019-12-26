@@ -2,30 +2,26 @@ package com.example.gametraloicauhoi_android;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.loader.app.LoaderManager;
 import androidx.loader.content.AsyncTaskLoader;
 import androidx.loader.content.Loader;
 
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Bitmap;
-import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
-import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.facebook.AccessToken;
 import com.facebook.Profile;
-import com.facebook.login.LoginManager;
-import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInClient;
-import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
-import com.squareup.picasso.Picasso;
 
 import org.json.JSONObject;
 
@@ -41,7 +37,7 @@ public class ManHinhChinh extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_man_hinh_chinh);
-        tvPlayerName = findViewById(R.id.txtPlayerName);
+        tvPlayerName = findViewById(R.id.soLanChoi);
         img = findViewById(R.id.imageView2);
         _context = this;
 //        if(GoogleSignIn.getLastSignedInAccount(this) != null)
@@ -60,20 +56,23 @@ public class ManHinhChinh extends AppCompatActivity {
 
             @Override
             public void onLoadFinished(@NonNull Loader<String> loader, String data) {
-                if(data.equals("")) {
-                    finish();
+                if(data == null){
+                    taoDialog("Phiên đăng nhập hết hạn").show();
                 }
-                try{
-                    JSONObject jsonObject = new JSONObject(data);
-                    int id = jsonObject.getInt("id");
-                    String tenDangNhap = jsonObject.getString("ten_dang_nhap");
-                    int diem = jsonObject.getInt("diem_cao_nhat");
-                    int credit = jsonObject.getInt("credit");
-                    tvPlayerName.setText(new NguoiChoi(id,tenDangNhap,diem,credit).getTenDangNhap());
+                else{
+                    try{
+                        JSONObject jsonObject = new JSONObject(data);
+                        int id = jsonObject.getInt("id");
+                        String tenDangNhap = jsonObject.getString("ten_dang_nhap");
+                        int diem = jsonObject.getInt("diem_cao_nhat");
+                        int credit = jsonObject.getInt("credit");
+                        tvPlayerName.setText(new NguoiChoi(id,tenDangNhap,diem,credit).getTenDangNhap());
+                    }
+                    catch (Exception ex){
+                        ex.printStackTrace();
+                    }
                 }
-                catch (Exception ex){
-                    ex.printStackTrace();
-                }
+
             }
 
             @Override
@@ -106,6 +105,17 @@ public class ManHinhChinh extends AppCompatActivity {
         startActivity(intent);
     }
 
+    public AlertDialog taoDialog(String message){
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        return builder.setTitle("Thông báo").setMessage(message).setNegativeButton("Đồng ý",
+                new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                finish();
+            }
+        }).create();
+    }
+
     public void HienThiMuaCredit(View view) {
         Intent intent = new Intent(this,MuaCredit.class);
         startActivity(intent);
@@ -124,7 +134,6 @@ public class ManHinhChinh extends AppCompatActivity {
     public void HienThiChonLinhVuc(View view) {
         Intent intent = new Intent(this,ChonLinhVuc.class);
         startActivity(intent);
-        finishActivity(0);
     }
     private LoaderManager.LoaderCallbacks<Bitmap> loadAnh = new LoaderManager.LoaderCallbacks<Bitmap>() {
         @NonNull
@@ -146,19 +155,28 @@ public class ManHinhChinh extends AppCompatActivity {
 
     GoogleSignInClient mGoogleClient;
     public void DangXuat(View view) {
-        if(AccessToken.getCurrentAccessToken() != null){
-            LoginManager.getInstance().logOut();
-            Intent intent = new Intent(this,MainActivity.class);
-            startActivity(intent);
-        }
-        else if(GoogleSignIn.getLastSignedInAccount(this) != null)
-        {
-            GoogleSignIn.getClient(this,GoogleSignInOptions.DEFAULT_GAMES_SIGN_IN).signOut();
-            Intent intent = new Intent(this,MainActivity.class);
-            startActivity(intent);
-        }
+        logOut();
+//        if(AccessToken.getCurrentAccessToken() != null){
+//            LoginManager.getInstance().logOut();
+//            Intent intent = new Intent(this,MainActivity.class);
+//            startActivity(intent);
+//        }
+//        else if(GoogleSignIn.getLastSignedInAccount(this) != null)
+//        {
+//            GoogleSignIn.getClient(this,GoogleSignInOptions.DEFAULT_GAMES_SIGN_IN).signOut();
+//            Intent intent = new Intent(this,MainActivity.class);
+//            startActivity(intent);
+//        }
     }
-
+    private void logOut(){
+        NguoiChoi.token = null;
+        SharedPreferences sharedPreferences = getSharedPreferences(MainActivity.SHARE_NAME,
+                MODE_PRIVATE);
+        sharedPreferences.edit().clear().apply();
+        Intent intent = new Intent(this,MainActivity.class);
+        startActivity(intent);
+        finish();
+    }
 }
 class ThongTinNguoiChoiLoader extends AsyncTaskLoader<String>{
 

@@ -79,7 +79,7 @@ public class BangXepHang extends AppCompatActivity implements LoaderManager.Load
             page = args.getInt("page");
             limit = args.getInt("limit");
         }
-        return new BangXepHangLoader(this,page,limit,NguoiChoi.token);
+        return new BangXepHangLoader(this,page,limit);
     }
 
     @Override

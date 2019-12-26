@@ -43,7 +43,7 @@
             android:layout_marginTop="20dp"
             android:background="@drawable/text_credit"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@+id/txtPlayerName"
+            app:layout_constraintStart_toEndOf="@+id/soLanChoi"
             app:layout_constraintTop_toTopOf="parent">
 
             <TextView
@@ -58,7 +58,7 @@
                 android:textColorHint="#ffff"
                 android:textSize="18sp"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toEndOf="@+id/txtPlayerName"
+                app:layout_constraintStart_toEndOf="@+id/soLanChoi"
                 app:layout_constraintTop_toTopOf="parent" />
 
             <TextView
@@ -110,11 +110,11 @@
             android:layout_marginTop="20dp"
             android:background="@drawable/text_credit"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@+id/txtPlayerName"
+            app:layout_constraintStart_toEndOf="@+id/soLanChoi"
             app:layout_constraintTop_toTopOf="parent">
 
             <TextView
-                android:id="@+id/txtPlayerName"
+                android:id="@+id/soLanChoi"
                 android:layout_width="wrap_content"
                 android:layout_height="21dp"
                 android:layout_marginTop="10dp"
@@ -125,7 +125,7 @@
                 android:textColorHint="#ffff"
                 android:textSize="18sp"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toEndOf="@+id/txtPlayerName"
+                app:layout_constraintStart_toEndOf="@+id/soLanChoi"
                 app:layout_constraintTop_toTopOf="parent" />
 
             <TextView

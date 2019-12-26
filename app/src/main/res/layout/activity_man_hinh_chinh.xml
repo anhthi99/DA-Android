@@ -153,18 +153,18 @@
         android:layout_height="49dp"
         android:layout_marginStart="70dp"
         android:scaleType="fitCenter"
-        app:layout_constraintBottom_toBottomOf="@+id/txtPlayerName"
+        app:layout_constraintBottom_toBottomOf="@+id/soLanChoi"
         app:layout_constraintEnd_toStartOf="@+id/imageView"
         app:layout_constraintHorizontal_bias="0.456"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/txtPlayerName"
+        app:layout_constraintTop_toTopOf="@+id/soLanChoi"
         app:layout_constraintVertical_bias="0.52"
         android:layout_centerHorizontal="true"
         app:srcCompat="@android:drawable/sym_def_app_icon"
         android:contentDescription="TODO" />
 
     <TextView
-        android:id="@+id/txtPlayerName"
+        android:id="@+id/soLanChoi"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
@@ -189,7 +189,7 @@
             android:background="@drawable/text_credit"
             android:layout_marginLeft="25sp"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@+id/txtPlayerName"
+            app:layout_constraintStart_toEndOf="@+id/soLanChoi"
             app:layout_constraintTop_toTopOf="parent">
 
             <TextView
@@ -204,7 +204,7 @@
                 android:textColorHint="#ffff"
                 android:textSize="18sp"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toEndOf="@+id/txtPlayerName"
+                app:layout_constraintStart_toEndOf="@+id/soLanChoi"
                 app:layout_constraintTop_toTopOf="parent" />
 
             <TextView

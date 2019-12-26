@@ -85,7 +85,7 @@ public class BangXepHangAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
         NguoiChoi nguoiChoi = arrayList.get(position);
         holder.mTenNguoiChoi.setText(nguoiChoi.getTenDangNhap());
         holder.mDiemNguoiChoi.setText(nguoiChoi.getDiemCaoNhat()+"");
-        Picasso.get().load("http://localhost:8000/assets/images/users/a.jpg").into(holder.imgADD);
+        Picasso.get().load("https://img.icons8.com/plasticine/2x/user.png").into(holder.imgADD);
 
     }
     private void HienThiProgressBar(LoadingViewHolder holder){

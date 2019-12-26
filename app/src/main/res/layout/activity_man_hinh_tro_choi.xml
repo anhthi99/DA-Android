@@ -20,7 +20,7 @@
         app:layout_constraintVertical_bias="0.0" />
 
     <Button
-        android:id="@+id/txtcauhoi"
+        android:id="@+id/btnCauHoi"
         android:layout_width="match_parent"
         android:layout_height="70dp"
         android:layout_marginStart="16dp"
@@ -50,7 +50,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/txtcauhoi" />
+        app:layout_constraintTop_toBottomOf="@+id/btnCauHoi" />
 
     <Button
         android:id="@+id/btnDapAnB"
@@ -115,7 +115,7 @@
             android:layout_marginTop="20dp"
             android:background="@drawable/text_credit"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@+id/txtPlayerName"
+            app:layout_constraintStart_toEndOf="@+id/soLanChoi"
             app:layout_constraintTop_toTopOf="parent">
 
             <TextView
@@ -130,7 +130,7 @@
                 android:textColorHint="#ffff"
                 android:textSize="18sp"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toEndOf="@+id/txtPlayerName"
+                app:layout_constraintStart_toEndOf="@+id/soLanChoi"
                 app:layout_constraintTop_toTopOf="parent" />
 
             <TextView
@@ -183,11 +183,11 @@
             android:layout_marginTop="20dp"
             android:background="@drawable/text_credit"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@+id/txtPlayerName"
+            app:layout_constraintStart_toEndOf="@+id/soLanChoi"
             app:layout_constraintTop_toTopOf="parent">
 
             <TextView
-                android:id="@+id/txtPlayerName"
+                android:id="@+id/soLanChoi"
                 android:layout_width="wrap_content"
                 android:layout_height="21dp"
                 android:layout_marginTop="10dp"
@@ -198,7 +198,7 @@
                 android:textColorHint="#ffff"
                 android:textSize="18sp"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toEndOf="@+id/txtPlayerName"
+                app:layout_constraintStart_toEndOf="@+id/soLanChoi"
                 app:layout_constraintTop_toTopOf="parent" />
 
             <TextView
@@ -310,7 +310,7 @@
         android:textColor="#fff"
         android:textSize="18sp"
         android:textStyle="bold"
-        app:layout_constraintBottom_toTopOf="@+id/txtcauhoi"
+        app:layout_constraintBottom_toTopOf="@+id/btnCauHoi"
         app:layout_constraintStart_toStartOf="parent" />
 
     <TextView
@@ -330,31 +330,15 @@
         android:id="@+id/txtDiem"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="50dp"
-        android:text="Điểm:"
+        android:text="Điểm:0"
         android:textColor="#fff"
         android:textSize="25sp"
         android:textStyle="bold"
-        app:layout_constraintBottom_toTopOf="@+id/txtcauhoi"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.41"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/scrollView2"
+        app:layout_constraintBottom_toTopOf="@+id/btnCauHoi"
+        app:layout_constraintEnd_toEndOf="@+id/txtThoiGian"
+        app:layout_constraintStart_toStartOf="@+id/txtThoiGian"
+        app:layout_constraintTop_toBottomOf="@+id/txtThoiGian"
         app:layout_constraintVertical_bias="0.25" />
-
-    <TextView
-        android:id="@+id/txtSoDiem"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="0"
-        android:textColor="#fff"
-        android:textSize="25sp"
-        android:textStyle="bold"
-        app:layout_constraintBottom_toBottomOf="@+id/txtDiem"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.117"
-        app:layout_constraintStart_toEndOf="@+id/txtDiem"
-        app:layout_constraintTop_toTopOf="@+id/txtDiem" />
 
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/guideline3"
@@ -362,5 +346,18 @@
         android:layout_height="wrap_content"
         android:orientation="horizontal"
         app:layout_constraintGuide_begin="599dp" />
+
+    <TextView
+        android:id="@+id/txtThoiGian"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:text="00"
+        android:textColor="#FFFBFB"
+        android:textSize="48sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/scrollView2" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

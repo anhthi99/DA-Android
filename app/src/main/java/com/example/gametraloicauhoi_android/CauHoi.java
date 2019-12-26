@@ -1,5 +1,7 @@
 package com.example.gametraloicauhoi_android;
 
+import java.util.ArrayList;
+
 public class CauHoi {
     private int id;
     private String noiDung;
@@ -72,5 +74,16 @@ public class CauHoi {
 
     public void setId(int id) {
         this.id = id;
+    }
+    public CauHoi(int _id, String cauHoi,int lv_id, String a, String b, String c, String d,
+                  String dapAn){
+        setId(_id);
+        setNoiDung(cauHoi);
+        setLinhVucID(lv_id);
+        setDapAn(dapAn);
+        setPhuongAnA(a);
+        setPhuongAnB(b);
+        setPhuongAnC(c);
+        setPhuongAnD(d);
     }
 }

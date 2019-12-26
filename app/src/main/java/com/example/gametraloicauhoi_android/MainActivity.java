@@ -12,11 +12,16 @@ import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.facebook.AccessToken;
 import com.facebook.CallbackManager;
+import com.facebook.FacebookCallback;
+import com.facebook.FacebookException;
 import com.facebook.login.LoginManager;
+import com.facebook.login.LoginResult;
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 import com.google.android.gms.auth.api.signin.GoogleSignInClient;
+import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
 import com.google.android.gms.common.api.ApiException;
 import com.google.android.gms.tasks.Task;
 
@@ -47,8 +52,8 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
     //int index = 1;
     CallbackManager callbackManager;
     boolean doubleBackToExitPressedOnce = false;
-    SharedPreferences sharedPreferences;
-    final String shareName = "LUU_TOKEN";
+    public SharedPreferences sharedPreferences;
+    public static final String SHARE_NAME = "LUU_TOKEN";
     GoogleSignInClient mGoogleSignInClient;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -59,7 +64,7 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
         tPass = findViewById(R.id.txtPassword);
         tUser.setText("NguoiChoi1");
         tPass.setText("123456");
-        sharedPreferences = getSharedPreferences(shareName, Context.MODE_PRIVATE);
+        sharedPreferences = getSharedPreferences(SHARE_NAME, Context.MODE_PRIVATE);
         NguoiChoi.token = sharedPreferences.getString("token",null);
         if(NguoiChoi.token != null){
             Intent intent = new Intent(this,ManHinhChinh.class);
@@ -90,9 +95,11 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
 //                    }
 //
 //                    @Override
-//                    public void onError(FacebookException exception) {
-//                        // App code
+//                    public void onError(FacebookException error) {
+//
 //                    }
+//
+//
 //                });
 //        AccessToken accessToken = AccessToken.getCurrentAccessToken();
 //        boolean isLoggedIn = accessToken != null && !accessToken.isExpired();
@@ -115,8 +122,7 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
     protected void onPause() {
         super.onPause();
         SharedPreferences.Editor share = sharedPreferences.edit();
-        share.putString("token",NguoiChoi.token);
-        share.apply();
+        share.putString("token",NguoiChoi.token).apply();
     }
 
     @Override
@@ -191,7 +197,6 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
                 +"="+URLEncoder.encode(pass);
         progressDialog = new ProgressDialog(this);
         progressDialog.create();
-        progressDialog.setTitle(R.string.app_name);
         progressDialog.setMessage("Đang đăng nhập");
         progressDialog.show();
         if(getSupportLoaderManager().getLoader(0) != null)

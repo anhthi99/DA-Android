@@ -11,34 +11,34 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.AppCompat.Light.NoActionBar">
-
-         <activity
-         android:name=".QuenMatKhau"
-         android:parentActivityName=".MainActivity" />
-         <activity
-         android:name=".MuaCredit"
-         android:parentActivityName=".ManHinhChinh" />
-         <activity
-         android:name=".ManHinhChinh"
-         android:parentActivityName=".MainActivity"/>
-         <activity
-         android:name=".ManHinhTroChoi"
-         android:parentActivityName=".ChonLinhVuc" />
-         <activity
-         android:name=".ChonLinhVuc"
-         android:parentActivityName=".ManHinhChinh" />
-         <activity
-         android:name=".QuanLyTaiKhoan"
-         android:parentActivityName=".ManHinhChinh" />
-         <activity
-         android:name=".LichSuChoi"
-         android:parentActivityName=".ManHinhChinh" />
-         <activity
-         android:name=".BangXepHang"
-         android:parentActivityName=".ManHinhChinh" />
-         <activity
-         android:name=".DangKi"
-         android:parentActivityName=".MainActivity" />
+        <activity android:name=".ManHinhKetThuc"></activity>
+        <activity
+            android:name=".QuenMatKhau"
+            android:parentActivityName=".MainActivity" />
+        <activity
+            android:name=".MuaCredit"
+            android:parentActivityName=".ManHinhChinh" />
+        <activity
+            android:name=".ManHinhChinh"
+            android:parentActivityName=".MainActivity" />
+        <activity
+            android:name=".ManHinhTroChoi"
+            android:parentActivityName=".ChonLinhVuc" />
+        <activity
+            android:name=".ChonLinhVuc"
+            android:parentActivityName=".ManHinhChinh" />
+        <activity
+            android:name=".QuanLyTaiKhoan"
+            android:parentActivityName=".ManHinhChinh" />
+        <activity
+            android:name=".LichSuChoi"
+            android:parentActivityName=".ManHinhChinh" />
+        <activity
+            android:name=".BangXepHang"
+            android:parentActivityName=".ManHinhChinh" />
+        <activity
+            android:name=".DangKi"
+            android:parentActivityName=".MainActivity" />
         <activity
             android:name=".MainActivity"
             android:noHistory="true">
