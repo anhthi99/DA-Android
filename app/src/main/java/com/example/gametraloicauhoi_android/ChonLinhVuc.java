@@ -40,6 +40,8 @@ public class ChonLinhVuc extends AppCompatActivity {
             getSupportLoaderManager().restartLoader(LAY_LINH_VUC,null,layLinhVuc);
         }
         getSupportLoaderManager().initLoader(LAY_LINH_VUC,null,layLinhVuc);
+//        if(getSupportLoaderManager().getLoader(LAY_DS_CAU_HOI) != null)
+//            getSupportLoaderManager().destroyLoader(LAY_DS_CAU_HOI);
     }
     private LoaderManager.LoaderCallbacks<String> layLinhVuc = new LoaderManager.LoaderCallbacks<String>() {
         @NonNull
@@ -114,6 +116,7 @@ public class ChonLinhVuc extends AppCompatActivity {
                     CauHinhVaLuuTru.mDSCauHoi.add(new CauHoi(id,tieuDe,lv_id,daA,daB,daC,daD,dapAn));
                 }
                 if(CauHinhVaLuuTru.mDSCauHoi.size()>0){
+                    getSupportLoaderManager().destroyLoader(LAY_DS_CAU_HOI);
                     Intent intent = new Intent(_context,ManHinhTroChoi.class);
                     startActivity(intent);
                 }

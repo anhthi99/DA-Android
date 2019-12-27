@@ -28,4 +28,10 @@ public class CauHinhDiemCauHoi {
     public void setId(int id) {
         this.id = id;
     }
+
+    public CauHinhDiemCauHoi(int id, int thutu, int diem){
+        setDiem(diem);
+        setId(id);
+        setThuTu(thutu);
+    }
 }

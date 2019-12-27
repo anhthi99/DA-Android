@@ -37,4 +37,11 @@ public class CauHinhTroGiup {
     public void setId(int id) {
         this.id = id;
     }
+
+    public CauHinhTroGiup(int id, int loai, int thutu, int credit){
+        setId(id);
+        setLoaiTroGiup(loai);
+        setThuTu(thutu);
+        setCredit(credit);
+    }
 }

@@ -48,6 +48,7 @@ public class MuaCredit extends AppCompatActivity implements LoaderManager.Loader
 
     @Override
     public void onLoadFinished(@NonNull Loader<String> loader, String data) {
+        Log.d("DATA",data);
         ArrayList<GoiCredit> arr =new ArrayList<>();
         try {
             JSONObject object = new JSONObject(data);

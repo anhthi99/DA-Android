@@ -15,6 +15,7 @@ import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.os.Handler;
+import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -23,7 +24,10 @@ import android.widget.Toast;
 import com.facebook.Profile;
 import com.google.android.gms.auth.api.signin.GoogleSignInClient;
 
+import org.json.JSONArray;
 import org.json.JSONObject;
+
+import java.util.ArrayList;
 
 public class ManHinhChinh extends AppCompatActivity {
 
@@ -40,6 +44,7 @@ public class ManHinhChinh extends AppCompatActivity {
         tvPlayerName = findViewById(R.id.soLanChoi);
         img = findViewById(R.id.imageView2);
         _context = this;
+        layCauHinhVaLuuTru();
 //        if(GoogleSignIn.getLastSignedInAccount(this) != null)
 //            tvPlayerName.setText(GoogleSignIn.getLastSignedInAccount(this).getDisplayName());
 //        else{
@@ -47,39 +52,7 @@ public class ManHinhChinh extends AppCompatActivity {
 //                tvPlayerName.setText(Profile.getCurrentProfile().getName());
 //        }
 
-        getSupportLoaderManager().initLoader(LAY_THONG_TIN,null,new LoaderManager.LoaderCallbacks<String>() {
-            @NonNull
-            @Override
-            public Loader<String> onCreateLoader(int id, @Nullable Bundle args) {
-                return new ThongTinNguoiChoiLoader(_context);
-            }
 
-            @Override
-            public void onLoadFinished(@NonNull Loader<String> loader, String data) {
-                if(data == null){
-                    taoDialog("Phiên đăng nhập hết hạn").show();
-                }
-                else{
-                    try{
-                        JSONObject jsonObject = new JSONObject(data);
-                        int id = jsonObject.getInt("id");
-                        String tenDangNhap = jsonObject.getString("ten_dang_nhap");
-                        int diem = jsonObject.getInt("diem_cao_nhat");
-                        int credit = jsonObject.getInt("credit");
-                        tvPlayerName.setText(new NguoiChoi(id,tenDangNhap,diem,credit).getTenDangNhap());
-                    }
-                    catch (Exception ex){
-                        ex.printStackTrace();
-                    }
-                }
-
-            }
-
-            @Override
-            public void onLoaderReset(@NonNull Loader<String> loader) {
-
-            }
-        });
     }
 
     @Override
@@ -163,6 +136,75 @@ public class ManHinhChinh extends AppCompatActivity {
         public void onLoadFinished(@NonNull Loader<String> loader, String data) {
             try {
                 JSONObject jsonObject = new JSONObject(data);
+                int id = jsonObject.getInt("id");
+                int luotTraLoi = jsonObject.getInt("co_hoi_sai");
+                int thoiGian = jsonObject.getInt("thoi_gian_tra_loi");
+                CauHinhVaLuuTru.cauHinhApp = new CauHinhApp(id,luotTraLoi,thoiGian);
+
+            }
+
+            catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+
+        @Override
+        public void onLoaderReset(@NonNull Loader<String> loader) {
+
+        }
+    };
+
+    public LoaderManager.LoaderCallbacks<String> lay_ch_tro_giup = new LoaderManager.LoaderCallbacks<String>() {
+        @NonNull
+        @Override
+        public Loader<String> onCreateLoader(int id, @Nullable Bundle args) {
+            return new CauHinhTroGiupLoader(_context);
+        }
+
+        @Override
+        public void onLoadFinished(@NonNull Loader<String> loader, String data) {
+            try {
+                JSONObject jsonObject = new JSONObject(data);
+                JSONArray items = jsonObject.getJSONArray("data");
+                for(int i = 0;i<items.length();i++){
+                    int id = items.getJSONObject(i).getInt("id");
+                    int loaiTroGiup = items.getJSONObject(i).getInt("loai_tro_giup");
+                    int thuTu = items.getJSONObject(i).getInt("thu_tu");
+                    int credit = items.getJSONObject(i).getInt("credit");
+                    CauHinhVaLuuTru.cauHinhTroGiup = new ArrayList<>();
+                    CauHinhVaLuuTru.cauHinhTroGiup.add(new CauHinhTroGiup(id,loaiTroGiup,thuTu,credit));
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+
+        }
+
+        @Override
+        public void onLoaderReset(@NonNull Loader<String> loader) {
+
+        }
+    };
+
+    private LoaderManager.LoaderCallbacks<String> lay_ch_diem = new LoaderManager.LoaderCallbacks<String>() {
+        @NonNull
+        @Override
+        public Loader<String> onCreateLoader(int id, @Nullable Bundle args) {
+            return new CauHinhDiemLoader(_context);
+        }
+
+        @Override
+        public void onLoadFinished(@NonNull Loader<String> loader, String data) {
+            try {
+                JSONObject jsonObject = new JSONObject(data);
+                JSONArray items = jsonObject.getJSONArray("data");
+                for(int i = 0;i<items.length();i++){
+                    int id = jsonObject.getInt("id");
+                    int thutu = jsonObject.getInt("thu_tu");
+                    int diem = jsonObject.getInt("");
+                    CauHinhVaLuuTru.cauHinhDiemCauHoi = new ArrayList<>();
+                    CauHinhVaLuuTru.cauHinhDiemCauHoi.add(new CauHinhDiemCauHoi(id,thutu,diem));
+                }
 
             } catch (Exception e) {
                 e.printStackTrace();
@@ -175,10 +217,43 @@ public class ManHinhChinh extends AppCompatActivity {
         }
     };
 
-    GoogleSignInClient mGoogleClient;
-
     public void layCauHinhVaLuuTru(){
+        getSupportLoaderManager().initLoader(LAY_THONG_TIN,null,new LoaderManager.LoaderCallbacks<String>() {
+            @NonNull
+            @Override
+            public Loader<String> onCreateLoader(int id, @Nullable Bundle args) {
+                return new ThongTinNguoiChoiLoader(_context);
+            }
+
+            @Override
+            public void onLoadFinished(@NonNull Loader<String> loader, String data) {
+                if(data == null){
+                    taoDialog("Phiên đăng nhập hết hạn").show();
+                }
+                else{
+                    try{
+                        JSONObject jsonObject = new JSONObject(data);
+                        int id = jsonObject.getInt("id");
+                        String tenDangNhap = jsonObject.getString("ten_dang_nhap");
+                        int diem = jsonObject.getInt("diem_cao_nhat");
+                        int credit = jsonObject.getInt("credit");
+                        tvPlayerName.setText(new NguoiChoi(id,tenDangNhap,diem,credit).getTenDangNhap());
+                    }
+                    catch (Exception ex){
+                        ex.printStackTrace();
+                    }
+                }
+
+            }
+
+            @Override
+            public void onLoaderReset(@NonNull Loader<String> loader) {
+
+            }
+        });
         getSupportLoaderManager().initLoader(LAY_CH_APP,null,lay_ch_app);
+        getSupportLoaderManager().initLoader(LAY_CH_DIEM,null,lay_ch_diem);
+        getSupportLoaderManager().initLoader(LAY_CH_TRO_GIUP,null,lay_ch_tro_giup);
     }
 
     public void DangXuat(View view) {
@@ -233,6 +308,44 @@ class CauHinhAppLoader extends AsyncTaskLoader<String>{
     @Override
     public String loadInBackground() {
         return NetworkUtils.getJSONData("cau-hinh-app","GET",NguoiChoi.token);
+    }
+
+    @Override
+    protected void onStartLoading() {
+        super.onStartLoading();
+        forceLoad();
+    }
+}
+class CauHinhTroGiupLoader extends  AsyncTaskLoader<String>{
+
+    public CauHinhTroGiupLoader(@NonNull Context context) {
+        super(context);
+    }
+
+    @Override
+    protected void onStartLoading() {
+        super.onStartLoading();
+        forceLoad();
+    }
+
+    @Nullable
+    @Override
+    public String loadInBackground() {
+        return NetworkUtils.getJSONData("cau-hinh-tro-giup","GET",NguoiChoi.token);
+    }
+}
+
+class CauHinhDiemLoader extends AsyncTaskLoader<String>{
+
+
+    public CauHinhDiemLoader(@NonNull Context context) {
+        super(context);
+    }
+
+    @Nullable
+    @Override
+    public String loadInBackground() {
+        return NetworkUtils.getJSONData("cau-hinh-diem","GET",NguoiChoi.token);
     }
 
     @Override
