@@ -18,7 +18,7 @@ public class ManHinhTroChoi extends AppCompatActivity {
     Button daA,daB,daC,daD,cauHoi;
     int cauHienTai = -1;
     TextView cauHoiHT,thoiGian;
-    final long TIME_COUNT = 31;
+    final long TIME_COUNT = 30;
     long count_down = TIME_COUNT;
     Context _context = this;
     Timer tm = new Timer();
@@ -58,40 +58,54 @@ public class ManHinhTroChoi extends AppCompatActivity {
         cauHoiHT = findViewById(R.id.txtSo);
         thoiGian = findViewById(R.id.txtThoiGian);
         cauHoiTiepTheo();
-        //h1.postDelayed(runnable,0);
     }
-    Handler status = new Handler();
+    Handler status;
     public void cauHoiTiepTheo(){
         cauHienTai++;
-        if(ChonLinhVuc.mListCauhoi.size()-1 > cauHienTai){
+        if(CauHinhVaLuuTru.mDSCauHoi.size()-1 > cauHienTai){
             loadCauHoi();
-            status = new Handler();
-            status.postDelayed(new Runnable() {
+            tm = new Timer();
+            tm.schedule(new TimerTask() {
                 @Override
                 public void run() {
-                    count_down--;
-                    if(count_down > 0){
-                        thoiGian.setText(String.format("%02d",count_down));
-                        status.postDelayed(this,1000);
-                    }
+                    ((AppCompatActivity)_context).runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+                            if(count_down >= 0){
+                                thoiGian.setText(String.format("%02d",count_down));
+                                count_down--;
+                            }
+                        }
+                    });
                 }
-            },0);
-        }
-        else{
+            },0,1000);
+
 
         }
 
     }
+//    Runnable demNguoc = new Runnable() {
+//        @Override
+//        public void run() {
+//            if(count_down >= 0){
+//                thoiGian.setText(String.format("%02d",count_down));
+//                count_down--;
+//            }
+//            status.postDelayed(this,1000);
+//        }
+//    };
     public void loadCauHoi(){
-        daA.setText(ChonLinhVuc.mListCauhoi.get(cauHienTai).getPhuongAnA());
-        daB.setText(ChonLinhVuc.mListCauhoi.get(cauHienTai).getPhuongAnB());
-        daC.setText(ChonLinhVuc.mListCauhoi.get(cauHienTai).getPhuongAnC());
-        daD.setText(ChonLinhVuc.mListCauhoi.get(cauHienTai).getPhuongAnD());
-        cauHoi.setText(ChonLinhVuc.mListCauhoi.get(cauHienTai).getNoiDung());
-        cauHoiHT.setText(String.format("%02d",cauHienTai+1));
+        daA.setText(CauHinhVaLuuTru.mDSCauHoi.get(cauHienTai).getPhuongAnA());
+        daB.setText(CauHinhVaLuuTru.mDSCauHoi.get(cauHienTai).getPhuongAnB());
+        daC.setText(CauHinhVaLuuTru.mDSCauHoi.get(cauHienTai).getPhuongAnC());
+        daD.setText(CauHinhVaLuuTru.mDSCauHoi.get(cauHienTai).getPhuongAnD());
+        cauHoi.setText(CauHinhVaLuuTru.mDSCauHoi.get(cauHienTai).getNoiDung());
+        cauHoiHT.setText(String.format("%02d",(cauHienTai+1)));
     }
     public void chonDapAn(View view){
-        if(((TextView)view).getText().equals(ChonLinhVuc.mListCauhoi.get(cauHienTai).getDapAn())){
+        if(((TextView)view).getText().equals(CauHinhVaLuuTru.mDSCauHoi.get(cauHienTai).getDapAn())){
+            tm.cancel();
+            tm.purge();
             count_down = TIME_COUNT;
             cauHoiTiepTheo();
         }

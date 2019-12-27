@@ -25,7 +25,6 @@ import java.util.HashMap;
 public class ChonLinhVuc extends AppCompatActivity {
     private Button btnLV1, btnLV2, btnLV3, btnLV4;
     private final int LAY_LINH_VUC = 1, LAY_DS_CAU_HOI = 2;
-    public static ArrayList<CauHoi> mListCauhoi = null;
     Context _context;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,7 +34,7 @@ public class ChonLinhVuc extends AppCompatActivity {
         btnLV2 = findViewById(R.id.btnDapAnB);
         btnLV3 = findViewById(R.id.btnDapAnC);
         btnLV4 = findViewById(R.id.btnDapAnD);
-        mListCauhoi = new ArrayList<>();
+        CauHinhVaLuuTru.mDSCauHoi = new ArrayList<>();
         _context = this;
         if(getSupportLoaderManager().getLoader(0)!= null){
             getSupportLoaderManager().restartLoader(LAY_LINH_VUC,null,layLinhVuc);
@@ -82,11 +81,12 @@ public class ChonLinhVuc extends AppCompatActivity {
     };
 
     public void batDauTroChoi(View view){
-        mListCauhoi.clear();
+        CauHinhVaLuuTru.mDSCauHoi.clear();
         int id = (int)view.getTag();
-        int vid = view.getId();
         Bundle bundle = new Bundle();
         bundle.putInt("id",id);
+        if(getSupportLoaderManager().getLoader(LAY_DS_CAU_HOI)!=null)
+            getSupportLoaderManager().restartLoader(LAY_DS_CAU_HOI,bundle,layDSCauHoi);
         getSupportLoaderManager().initLoader(LAY_DS_CAU_HOI,bundle,layDSCauHoi);
 
     }
@@ -111,9 +111,9 @@ public class ChonLinhVuc extends AppCompatActivity {
                    String daC = itemArray.getJSONObject(i).getString("phuong_an_c");
                    String daD = itemArray.getJSONObject(i).getString("phuong_an_d");
                    String dapAn = itemArray.getJSONObject(i).getString("dap_an");
-                   mListCauhoi.add(new CauHoi(id,tieuDe,lv_id,daA,daB,daC,daD,dapAn));
+                    CauHinhVaLuuTru.mDSCauHoi.add(new CauHoi(id,tieuDe,lv_id,daA,daB,daC,daD,dapAn));
                 }
-                if(mListCauhoi.size()>0){
+                if(CauHinhVaLuuTru.mDSCauHoi.size()>0){
                     Intent intent = new Intent(_context,ManHinhTroChoi.class);
                     startActivity(intent);
                 }

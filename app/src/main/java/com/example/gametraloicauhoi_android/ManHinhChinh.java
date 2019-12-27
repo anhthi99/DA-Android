@@ -32,7 +32,7 @@ public class ManHinhChinh extends AppCompatActivity {
     Context _context;
     private TextView tvPlayerName;
     private Profile profile;
-    final int LAY_THONG_TIN = 0;
+    final int LAY_THONG_TIN = 0,LAY_CH_APP = 1, LAY_CH_DIEM = 2, LAY_CH_TRO_GIUP = 3;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -111,7 +111,7 @@ public class ManHinhChinh extends AppCompatActivity {
                 new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
-                finish();
+                logOut();
             }
         }).create();
     }
@@ -152,8 +152,35 @@ public class ManHinhChinh extends AppCompatActivity {
 
         }
     };
+    LoaderManager.LoaderCallbacks<String> lay_ch_app = new LoaderManager.LoaderCallbacks<String>() {
+        @NonNull
+        @Override
+        public Loader<String> onCreateLoader(int id, @Nullable Bundle args) {
+            return new CauHinhAppLoader(_context);
+        }
+
+        @Override
+        public void onLoadFinished(@NonNull Loader<String> loader, String data) {
+            try {
+                JSONObject jsonObject = new JSONObject(data);
+
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+
+        @Override
+        public void onLoaderReset(@NonNull Loader<String> loader) {
+
+        }
+    };
 
     GoogleSignInClient mGoogleClient;
+
+    public void layCauHinhVaLuuTru(){
+        getSupportLoaderManager().initLoader(LAY_CH_APP,null,lay_ch_app);
+    }
+
     public void DangXuat(View view) {
         logOut();
 //        if(AccessToken.getCurrentAccessToken() != null){
@@ -188,6 +215,24 @@ class ThongTinNguoiChoiLoader extends AsyncTaskLoader<String>{
     @Override
     public String loadInBackground() {
         return NetworkUtils.getJSONData("lay-thong-tin","GET",NguoiChoi.token);
+    }
+
+    @Override
+    protected void onStartLoading() {
+        super.onStartLoading();
+        forceLoad();
+    }
+}
+class CauHinhAppLoader extends AsyncTaskLoader<String>{
+
+    public CauHinhAppLoader(@NonNull Context context) {
+        super(context);
+    }
+
+    @Nullable
+    @Override
+    public String loadInBackground() {
+        return NetworkUtils.getJSONData("cau-hinh-app","GET",NguoiChoi.token);
     }
 
     @Override
