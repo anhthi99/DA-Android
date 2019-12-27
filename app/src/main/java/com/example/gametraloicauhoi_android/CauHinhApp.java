@@ -28,4 +28,9 @@ public class CauHinhApp {
     public void setId(int id) {
         this.id = id;
     }
+    public CauHinhApp(int id, int cohoi, int thoigian){
+        this.id = id;
+        this.coHoiSai = cohoi;
+        this.thoiGianTraLoi = thoigian;
+    }
 }

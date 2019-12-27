@@ -5,6 +5,6 @@ import java.util.ArrayList;
 public class CauHinhVaLuuTru {
     public static ArrayList<CauHoi> mDSCauHoi = null;
     public static CauHinhApp cauHinhApp = null;
-    public static CauHinhDiemCauHoi cauHinhDiemCauHoi = null;
-    public static CauHinhTroGiup cauHinhTroGiup = null;
+    public static ArrayList<CauHinhDiemCauHoi> cauHinhDiemCauHoi = null;
+    public static ArrayList<CauHinhTroGiup> cauHinhTroGiup = null;
 }

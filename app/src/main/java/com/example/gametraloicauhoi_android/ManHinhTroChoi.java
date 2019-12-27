@@ -2,6 +2,7 @@ package com.example.gametraloicauhoi_android;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.os.Bundle;
 import android.os.Handler;
@@ -16,10 +17,12 @@ import java.util.TimerTask;
 public class ManHinhTroChoi extends AppCompatActivity {
 
     Button daA,daB,daC,daD,cauHoi;
+
     int cauHienTai = -1;
-    TextView cauHoiHT,thoiGian;
-    final long TIME_COUNT = 30;
-    long count_down = TIME_COUNT;
+    TextView cauHoiHT,thoiGian,txDiem;
+    int TIME_COUNT = CauHinhVaLuuTru.cauHinhApp.getThoiGianTraLoi();
+    int count_down;
+    int diem = 0;
     Context _context = this;
     Timer tm = new Timer();
     @Override
@@ -57,6 +60,8 @@ public class ManHinhTroChoi extends AppCompatActivity {
         });
         cauHoiHT = findViewById(R.id.txtSo);
         thoiGian = findViewById(R.id.txtThoiGian);
+        txDiem = findViewById(R.id.txtDiem);
+        count_down = TIME_COUNT;
         cauHoiTiepTheo();
     }
     Handler status;
@@ -80,20 +85,11 @@ public class ManHinhTroChoi extends AppCompatActivity {
                 }
             },0,1000);
 
-
         }
-
     }
-//    Runnable demNguoc = new Runnable() {
-//        @Override
-//        public void run() {
-//            if(count_down >= 0){
-//                thoiGian.setText(String.format("%02d",count_down));
-//                count_down--;
-//            }
-//            status.postDelayed(this,1000);
-//        }
-//    };
+
+
+    @SuppressLint("DefaultLocale")
     public void loadCauHoi(){
         daA.setText(CauHinhVaLuuTru.mDSCauHoi.get(cauHienTai).getPhuongAnA());
         daB.setText(CauHinhVaLuuTru.mDSCauHoi.get(cauHienTai).getPhuongAnB());
@@ -102,16 +98,37 @@ public class ManHinhTroChoi extends AppCompatActivity {
         cauHoi.setText(CauHinhVaLuuTru.mDSCauHoi.get(cauHienTai).getNoiDung());
         cauHoiHT.setText(String.format("%02d",(cauHienTai+1)));
     }
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        finish();
+    }
+
+    public void loadDiem(int diem){
+        txDiem.setText(String.valueOf(diem));
+    }
+
     public void chonDapAn(View view){
-        if(((TextView)view).getText().equals(CauHinhVaLuuTru.mDSCauHoi.get(cauHienTai).getDapAn())){
+        String pa = ((TextView)view).getText().toString(),da =
+                CauHinhVaLuuTru.mDSCauHoi.get(cauHienTai).getDapAn();
+        if(kiemTraDapAn(pa,da)){
+            congDiem();
+            loadDiem(diem);
             tm.cancel();
             tm.purge();
             count_down = TIME_COUNT;
             cauHoiTiepTheo();
         }
-
         else{
             Toast.makeText(_context, "Đáp án không chính xác", Toast.LENGTH_SHORT).show();
         }
+    }
+
+    private boolean kiemTraDapAn(String pa, String da){
+        return pa.equals(da);
+    }
+    private void congDiem(){
+        diem+=CauHinhVaLuuTru.cauHinhDiemCauHoi.get(cauHienTai).getDiem();
     }
 }
