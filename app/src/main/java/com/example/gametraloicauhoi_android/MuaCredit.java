@@ -51,7 +51,7 @@ public class MuaCredit extends AppCompatActivity implements LoaderManager.Loader
         ArrayList<GoiCredit> arr =new ArrayList<>();
         try {
             JSONObject object = new JSONObject(data);
-            JSONArray itemArray = object.getJSONArray("arr");
+            JSONArray itemArray = object.getJSONArray("data");
             for (int i=0 ; i<itemArray.length(); i++){
                 GoiCredit GR = new GoiCredit();
                 GR.setId(itemArray.getJSONObject(i).getInt("id"));

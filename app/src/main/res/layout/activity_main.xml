@@ -132,48 +132,47 @@
 
     <Button
         android:id="@+id/btnfacebook"
-        android:layout_width="match_parent"
+        android:layout_width="0dp"
         android:layout_height="40dp"
         android:layout_alignParentBottom="true"
         android:layout_gravity="center"
-        android:layout_marginStart="40dp"
-        android:layout_marginEnd="40dp"
-        android:layout_marginBottom="8dp"
+        android:layout_marginStart="50dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="8dp"
         android:background="@drawable/button_facebook"
         android:drawableLeft="@drawable/facebook"
         android:drawablePadding="0dp"
         android:onClick="DangNhapFB"
-        android:text="Đăng nhập với Facebook"
+        android:text="Facebook"
         android:textAllCaps="false"
         android:textColor="#ffff"
         android:textSize="20dp"
         android:textStyle="normal"
-        app:layout_constraintBottom_toTopOf="@+id/btnGoogle"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintEnd_toStartOf="@+id/guideline8"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/guideline2" />
 
     <Button
         android:id="@+id/btnGoogle"
-        android:layout_width="match_parent"
+        android:layout_width="0dp"
         android:layout_height="40dp"
         android:layout_alignParentBottom="true"
         android:layout_gravity="center"
-        android:layout_marginStart="40dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="40dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginEnd="50dp"
         android:background="@drawable/button_google"
         android:drawableLeft="@drawable/google"
         android:drawablePadding="-17sp"
         android:onClick="DangNhapGG"
-        android:text="Đăng nhập với Google"
+        android:text="Google"
         android:textAllCaps="false"
         android:textColor="#ffff"
         android:textSize="20dp"
         android:textStyle="normal"
-        app:layout_constraintBottom_toBottomOf="@+id/formBack"
+        app:layout_constraintBottom_toBottomOf="@+id/btnfacebook"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/guideline2" />
+        app:layout_constraintStart_toStartOf="@+id/guideline8"
+        app:layout_constraintTop_toTopOf="@+id/btnfacebook" />
 
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/guideline"
@@ -188,4 +187,11 @@
         android:layout_height="wrap_content"
         android:orientation="horizontal"
         app:layout_constraintGuide_begin="581dp" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline8"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_begin="202dp" />
 </androidx.constraintlayout.widget.ConstraintLayout>

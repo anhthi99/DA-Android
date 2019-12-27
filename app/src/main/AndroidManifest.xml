@@ -11,7 +11,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.AppCompat.Light.NoActionBar">
-        <activity android:name=".ManHinhKetThuc"></activity>
+        <activity android:name=".KetThucGame"></activity>
+        <activity android:name=".ManHinhKetThuc" />
         <activity
             android:name=".QuenMatKhau"
             android:parentActivityName=".MainActivity" />

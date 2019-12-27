@@ -156,7 +156,6 @@ class CauHoiLoader extends AsyncTaskLoader<String>{
     public String loadInBackground() {
         HashMap<String,String> hashMap = new HashMap<>();
         hashMap.put("id",String.valueOf(id));
-        return NetworkUtils.getJSONData("cau-hoi","GET",hashMap
-        ,NguoiChoi.token);
+        return NetworkUtils.getJSONData("cau-hoi","GET",hashMap,NguoiChoi.token);
     }
 }

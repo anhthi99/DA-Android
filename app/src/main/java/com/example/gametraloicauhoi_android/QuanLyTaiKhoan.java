@@ -12,11 +12,13 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.provider.MediaStore;
 import android.provider.OpenableColumns;
+import android.text.method.LinkMovementMethod;
 import android.util.Base64;
 import android.util.Base64OutputStream;
 import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.TextView;
 
 import com.squareup.picasso.Picasso;
 
@@ -34,12 +36,14 @@ public class QuanLyTaiKhoan extends AppCompatActivity {
     final int PICK_IMAGE_REQUEST = 1;
     private Uri filePath;
     private Bitmap bitmap;
+
     private ImageView imageView;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_quan_ly_tai_khoan);
         imageView = findViewById(R.id.imgAnhDaiDien);
+
     }
     public String encodeBitmapToString(Bitmap bmp) {
         ByteArrayOutputStream baos = new ByteArrayOutputStream();
