@@ -12,7 +12,6 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.AppCompat.Light.NoActionBar">
         <activity android:name=".KetThucGame"></activity>
-        <activity android:name=".ManHinhKetThuc" />
         <activity
             android:name=".QuenMatKhau"
             android:parentActivityName=".MainActivity" />
