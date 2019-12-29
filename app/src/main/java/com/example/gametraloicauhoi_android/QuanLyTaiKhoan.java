@@ -1,12 +1,19 @@
 package com.example.gametraloicauhoi_android;
 
+import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.loader.app.LoaderManager;
+import androidx.loader.content.AsyncTaskLoader;
+import androidx.loader.content.Loader;
 
+import android.app.Activity;
 import android.app.ProgressDialog;
+import android.content.Context;
 import android.content.Intent;
 import android.database.Cursor;
 import android.graphics.Bitmap;
+import android.graphics.drawable.BitmapDrawable;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -28,6 +35,7 @@ import org.json.JSONObject;
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.net.URL;
+import java.net.URLEncoder;
 import java.util.HashMap;
 
 public class QuanLyTaiKhoan extends AppCompatActivity {
@@ -36,13 +44,15 @@ public class QuanLyTaiKhoan extends AppCompatActivity {
     final int PICK_IMAGE_REQUEST = 1;
     private Uri filePath;
     private Bitmap bitmap;
+    Context _context = this;
+    String data = "";
 
-    private ImageView imageView;
+    private ImageView pg;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_quan_ly_tai_khoan);
-        imageView = findViewById(R.id.imgAnhDaiDien);
+        pg = findViewById(R.id.imgAnhDaiDien);
 
     }
     public String encodeBitmapToString(Bitmap bmp) {
@@ -73,57 +83,83 @@ public class QuanLyTaiKhoan extends AppCompatActivity {
         }
         return result;
     }
-    public void uploadImage(View view){
-        class UploadImage extends AsyncTask<Bitmap,Void,String> {
-            ProgressDialog loading;
+//    public void uploadImage(View view){
+//        class UploadImage extends AsyncTask<Bitmap,Void,String> {
+//            ProgressDialog loading;
+//
+//            @Override
+//            protected void onPreExecute() {
+//                super.onPreExecute();
+//                loading = ProgressDialog.show(QuanLyTaiKhoan.this,"Uploading image","Please wait ...",true,true);
+//            }
+//
+//            @Override
+//            protected void onPostExecute(String s) {
+//                super.onPostExecute(s);
+//                loading.dismiss();
+//                URL url = null;
+//                try {
+//                    JSONObject jsonObject = new JSONObject(s);
+//                    String hinh = jsonObject.getString("hinh_anh");
+//                    Log.d("HINHANH",hinh);
+//                    Picasso.get().load(hinh).into(pg);
+//                } catch (JSONException e){
+//                    e.printStackTrace();
+//                }
+//            }
+//
+//            @Override
+//            protected String doInBackground(Bitmap... bitmaps) {
+//                Bitmap bitmap = bitmaps[0];
+//                String uploadImage = encodeBitmapToString(bitmap);
+//                HashMap<String,String> data = new HashMap<>();
+//                data.put(UPLOAD_KEY,uploadImage);
+//                data.put("ten_hinh",getFileName(filePath));
+//                String result = NetworkUtils.postRequest(UPLOAD_URL,data);
+//                return result;
+//            }
+//        }
+//        UploadImage ui = new UploadImage();
+//        ui.execute(bitmap);
+//    }
 
-            @Override
-            protected void onPreExecute() {
-                super.onPreExecute();
-                loading = ProgressDialog.show(QuanLyTaiKhoan.this,"Uploading image","Please wait ...",true,true);
-            }
-
-            @Override
-            protected void onPostExecute(String s) {
-                super.onPostExecute(s);
-                loading.dismiss();
-                URL url = null;
-                try {
-                    JSONObject jsonObject = new JSONObject(s);
-                    String hinh = jsonObject.getString("hinh_anh");
-                    Log.d("HINHANH",hinh);
-                    Picasso.get().load(hinh).into(imageView);
-                } catch (JSONException e){
-                    e.printStackTrace();
-                }
-            }
-
-            @Override
-            protected String doInBackground(Bitmap... bitmaps) {
-                Bitmap bitmap = bitmaps[0];
-                String uploadImage = encodeBitmapToString(bitmap);
-                HashMap<String,String> data = new HashMap<>();
-                data.put(UPLOAD_KEY,uploadImage);
-                data.put("ten_hinh",getFileName(filePath));
-                String result = NetworkUtils.postRequest(UPLOAD_URL,data);
-                return result;
-            }
+    private LoaderManager.LoaderCallbacks<String> uploadAnh = new LoaderManager.LoaderCallbacks<String>() {
+        @NonNull
+        @Override
+        public Loader<String> onCreateLoader(int id, @Nullable Bundle args) {
+            return new UploadAnhLoader(_context,data);
         }
-        UploadImage ui = new UploadImage();
-        ui.execute(bitmap);
-    }
+
+        @Override
+        public void onLoadFinished(@NonNull Loader<String> loader, String data) {
+            pg.setVisibility(View.VISIBLE);
+            getSupportLoaderManager().destroyLoader(0);
+        }
+
+        @Override
+        public void onLoaderReset(@NonNull Loader<String> loader) {
+
+        }
+    };
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        if (requestCode == PICK_IMAGE_REQUEST && resultCode == RESULT_OK && data != null && data.getData() != null ) {
-            filePath = data.getData();
-            try {
-                bitmap = MediaStore.Images.Media.getBitmap(getContentResolver(),filePath);
-                imageView.setImageBitmap(bitmap);
-            } catch (Exception e) {
-                e.printStackTrace();
+        if (resultCode == Activity.RESULT_OK) {
+            if(requestCode == PICK_IMAGE_REQUEST)
+            {
+                Uri selectedImage = data != null ? data.getData() : null;
+                pg.setImageURI(selectedImage);
+                BitmapDrawable drawable = (BitmapDrawable) pg.getDrawable();
+                Bitmap bitmap = drawable.getBitmap();
+                try {
+                    upAnh(encodeBitmapToString(bitmap));
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
             }
+
+
         }
     }
 
@@ -132,5 +168,30 @@ public class QuanLyTaiKhoan extends AppCompatActivity {
         intent.setType("image/*");
         intent.setAction(Intent.ACTION_GET_CONTENT);
         startActivityForResult(Intent.createChooser(intent,"Select image"),PICK_IMAGE_REQUEST);
+    }
+
+    public void upAnh(String encoded){
+        data = URLEncoder.encode("image")+"="+URLEncoder.encode(encoded);
+        getSupportLoaderManager().initLoader(0,null,uploadAnh);
+    }
+}
+class UploadAnhLoader extends AsyncTaskLoader<String> {
+    private String data;
+
+    public UploadAnhLoader(@NonNull Context context, String data) {
+        super(context);
+        this.data = data;
+    }
+
+    @Nullable
+    @Override
+    public String loadInBackground() {
+        return NetworkUtils.getJSONPostData("upload",data);
+    }
+
+    @Override
+    protected void onStartLoading() {
+        super.onStartLoading();
+        forceLoad();
     }
 }
