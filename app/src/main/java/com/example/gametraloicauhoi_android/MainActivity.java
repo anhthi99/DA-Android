@@ -1,5 +1,6 @@
 package com.example.gametraloicauhoi_android;
 
+import android.app.AlertDialog;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
@@ -62,7 +63,7 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
         btnDangNhap = (Button) findViewById(R.id.btnDangNhap);
         tUser = findViewById(R.id.txtEmail);
         tPass = findViewById(R.id.txtPassword);
-        tUser.setText("NguoiChoi1");
+        tUser.setText("NguoiChoi2");
         tPass.setText("123456");
         sharedPreferences = getSharedPreferences(SHARE_NAME, Context.MODE_PRIVATE);
         NguoiChoi.token = sharedPreferences.getString("token",null);
@@ -70,6 +71,7 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
             Intent intent = new Intent(this,ManHinhChinh.class);
             startActivity(intent);
         }
+
 
 //        btnDangNhap.setOnClickListener(new View.OnClickListener() {
 //            @Override
@@ -212,16 +214,25 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
 
     @Override
     public void onLoadFinished(@NonNull Loader<String> loader, String data) {
+        //String message = "";
         try {
             JSONObject jsonObject = new JSONObject(data);
             NguoiChoi.token = jsonObject.getString("token");
+            boolean success = jsonObject.getBoolean("success");
 
+            if(!success){
+                Toast.makeText(this, "Tên đăng nhập hoặc mật khẩu không đúng",
+                        Toast.LENGTH_SHORT).show();
+            }
+            else{
+                Intent intent =new Intent(this,ManHinhChinh.class);
+                startActivity(intent);
+
+            }
         } catch (JSONException e) {
             e.printStackTrace();
         }
         progressDialog.dismiss();
-        Intent intent =new Intent(this,ManHinhChinh.class);
-        startActivity(intent);
     }
 
     @Override

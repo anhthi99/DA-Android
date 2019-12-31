@@ -1,5 +1,27 @@
 package com.example.gametraloicauhoi_android;
 
+import android.content.Context;
+import android.content.DialogInterface;
+import android.content.Intent;
+import android.content.SharedPreferences;
+import android.os.Bundle;
+import android.widget.ImageView;
+import android.widget.TextView;
+
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.appcompat.app.AlertDialog;
+import androidx.loader.app.LoaderManager;
+import androidx.loader.content.Loader;
+
+import com.squareup.picasso.Picasso;
+
+import org.json.JSONObject;
+
+import java.lang.ref.WeakReference;
+
+import static android.content.Context.MODE_PRIVATE;
+
 public class NguoiChoi {
     private int id;
     private String tenDangNhap;
@@ -70,5 +92,72 @@ public class NguoiChoi {
         this.tenDangNhap = tenDangNhap;
         this.diemCaoNhat = diem;
         this.credit = credit;
+    }
+}
+class NguoiChoiAsync{
+    private Context _context;
+    WeakReference<TextView> playerName;
+    WeakReference<ImageView> img;
+    private final String MAIN_URL = "http://10.0.3.2:8000";
+    public NguoiChoiAsync(Context context, TextView playerName, ImageView img){
+        _context = context;
+        this.playerName = new WeakReference<>(playerName);
+        this.img = new WeakReference<>(img);
+    }
+    public LoaderManager.LoaderCallbacks nguoiChoi = new LoaderManager.LoaderCallbacks<String>() {
+        @NonNull
+        @Override
+        public Loader<String> onCreateLoader(int id, @Nullable Bundle args) {
+            return new ThongTinNguoiChoiLoader(_context);
+        }
+
+        @Override
+        public void onLoadFinished(@NonNull Loader<String> loader, String data) {
+            if(data == null){
+                taoDialog("Phiên đăng nhập hết hạn").show();
+            }
+            else{
+                try{
+                    JSONObject jsonObject = new JSONObject(data);
+                    int id = jsonObject.getInt("id");
+                    String tenDangNhap = jsonObject.getString("ten_dang_nhap");
+                    int diem = jsonObject.getInt("diem_cao_nhat");
+                    int credit = jsonObject.getInt("credit");
+                    String avatar = jsonObject.getString("hinh_dai_dien");
+                    if(playerName.get() != null)
+                        playerName.get().setText(new NguoiChoi(id,tenDangNhap,diem,credit).getTenDangNhap());
+                    ManHinhChinh.ID = id;
+                    ManHinhChinh.tenNguoiDung = tenDangNhap;
+                    Picasso.get().load(MAIN_URL+"/assets/images/users/"+avatar).into(img.get());
+                }
+                catch (Exception ex){
+                    ex.printStackTrace();
+                }
+            }
+
+        }
+
+        @Override
+        public void onLoaderReset(@NonNull Loader<String> loader) {
+
+        }
+    };
+    private AlertDialog taoDialog(String message){
+        AlertDialog.Builder builder = new AlertDialog.Builder(_context);
+        return builder.setTitle("Thông báo").setMessage(message).setNegativeButton("Đồng ý",
+                new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        logOut();
+                    }
+                }).create();
+    }
+    public void logOut(){
+        NguoiChoi.token = null;
+        SharedPreferences sharedPreferences = _context.getSharedPreferences("LUU_TOKEN",
+                MODE_PRIVATE);
+        sharedPreferences.edit().clear().apply();
+        Intent intent = new Intent(_context,MainActivity.class);
+        _context.startActivity(intent);
     }
 }

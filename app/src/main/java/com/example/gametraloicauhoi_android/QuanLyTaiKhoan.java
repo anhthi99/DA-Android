@@ -24,11 +24,14 @@ import android.util.Base64;
 import android.util.Base64OutputStream;
 import android.util.Log;
 import android.view.View;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.squareup.picasso.Picasso;
 
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -41,48 +44,58 @@ import java.util.HashMap;
 public class QuanLyTaiKhoan extends AppCompatActivity {
     public static final String UPLOAD_KEY = "hinh_anh";
     public static final String UPLOAD_URL = "upload";
+    private static final String MAIN_URL = "http://10.0.3.2:8000";
     final int PICK_IMAGE_REQUEST = 1;
+    final int CAP_NHAT = 1;
+    final int THONG_TIN = 2;
     private Uri filePath;
     private Bitmap bitmap;
     Context _context = this;
     String data = "";
-
-    private ImageView pg;
+    String encoded = null;
+    private ImageView img;
+    EditText matKhauCu, matKhauMoi, nhapLaiMatKhau, email;
+    private NguoiChoiAsync nguoiChoiAsync;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_quan_ly_tai_khoan);
-        pg = findViewById(R.id.imgAnhDaiDien);
-
+        img = findViewById(R.id.imgHinhDaiDien);
+        matKhauCu = findViewById(R.id.txtMatKhauCu);
+        matKhauMoi = findViewById(R.id.txtMatKhauMoi);
+        nhapLaiMatKhau = findViewById(R.id.txtXacNhanMatKhau);
+        email = findViewById(R.id.txtEmail);
+        nguoiChoiAsync = new NguoiChoiAsync(this,null,img);
+        //getSupportLoaderManager().initLoader(THONG_TIN,null,nguoiChoiAsync.nguoiChoi);
+        //getSupportLoaderManager().destroyLoader(THONG_TIN);
     }
     public String encodeBitmapToString(Bitmap bmp) {
         ByteArrayOutputStream baos = new ByteArrayOutputStream();
         bmp.compress(Bitmap.CompressFormat.JPEG,100,baos);
         byte[] imageBytes = baos.toByteArray();
-        String encodeimage = Base64.encodeToString(imageBytes,Base64.DEFAULT);
-        return encodeimage;
+        return Base64.encodeToString(imageBytes,Base64.DEFAULT);
     }
-    public String getFileName(Uri uri){
-        String result = null;
-        if(uri.getScheme().equals("content")) {
-            Cursor cursor = getContentResolver().query(uri,null,null,null,null);
-            try {
-                if (cursor != null && cursor.moveToNext()) {
-                    result = cursor.getString(cursor.getColumnIndex(OpenableColumns.DISPLAY_NAME));
-                }
-            } finally {
-                cursor.close();
-            }
-        }
-        if ( result == null ) {
-            result = uri.getPath();
-            int cut = result.lastIndexOf('/');
-            if (cut != -1) {
-                result = result.substring(cut+1);
-            }
-        }
-        return result;
-    }
+//    public String getFileName(Uri uri){
+//        String result = null;
+//        if(uri.getScheme().equals("content")) {
+//            Cursor cursor = getContentResolver().query(uri,null,null,null,null);
+//            try {
+//                if (cursor != null && cursor.moveToNext()) {
+//                    result = cursor.getString(cursor.getColumnIndex(OpenableColumns.DISPLAY_NAME));
+//                }
+//            } finally {
+//                cursor.close();
+//            }
+//        }
+//        if ( result == null ) {
+//            result = uri.getPath();
+//            int cut = result.lastIndexOf('/');
+//            if (cut != -1) {
+//                result = result.substring(cut+1);
+//            }
+//        }
+//        return result;
+//    }
 //    public void uploadImage(View view){
 //        class UploadImage extends AsyncTask<Bitmap,Void,String> {
 //            ProgressDialog loading;
@@ -123,17 +136,29 @@ public class QuanLyTaiKhoan extends AppCompatActivity {
 //        ui.execute(bitmap);
 //    }
 
-    private LoaderManager.LoaderCallbacks<String> uploadAnh = new LoaderManager.LoaderCallbacks<String>() {
+    private LoaderManager.LoaderCallbacks<String> capNhatThongtin =
+            new LoaderManager.LoaderCallbacks<String>() {
         @NonNull
         @Override
         public Loader<String> onCreateLoader(int id, @Nullable Bundle args) {
-            return new UploadAnhLoader(_context,data);
+            return new CapNhatThongTinLoader(_context,data);
         }
 
         @Override
         public void onLoadFinished(@NonNull Loader<String> loader, String data) {
-            pg.setVisibility(View.VISIBLE);
-            getSupportLoaderManager().destroyLoader(0);
+            try {
+                JSONObject jsonObject = new JSONObject(data);
+                boolean success = jsonObject.getBoolean("success");
+                if(success)
+                    Toast.makeText(_context, "Cập nhật thông tin thành công",
+                            Toast.LENGTH_SHORT).show();
+                else
+                    Toast.makeText(_context, "Cập nhật thông tin thất bại",
+                            Toast.LENGTH_SHORT).show();
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+            getSupportLoaderManager().destroyLoader(CAP_NHAT);
         }
 
         @Override
@@ -149,11 +174,11 @@ public class QuanLyTaiKhoan extends AppCompatActivity {
             if(requestCode == PICK_IMAGE_REQUEST)
             {
                 Uri selectedImage = data != null ? data.getData() : null;
-                pg.setImageURI(selectedImage);
-                BitmapDrawable drawable = (BitmapDrawable) pg.getDrawable();
-                Bitmap bitmap = drawable.getBitmap();
+                img.setImageURI(selectedImage);
+                getSupportLoaderManager().destroyLoader(THONG_TIN);
+                BitmapDrawable bitmap = (BitmapDrawable) img.getDrawable();
                 try {
-                    upAnh(encodeBitmapToString(bitmap));
+                    encoded = encodeBitmapToString(bitmap.getBitmap());
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
@@ -170,15 +195,42 @@ public class QuanLyTaiKhoan extends AppCompatActivity {
         startActivityForResult(Intent.createChooser(intent,"Select image"),PICK_IMAGE_REQUEST);
     }
 
-    public void upAnh(String encoded){
-        data = URLEncoder.encode("image")+"="+URLEncoder.encode(encoded);
-        getSupportLoaderManager().initLoader(0,null,uploadAnh);
-    }
-}
-class UploadAnhLoader extends AsyncTaskLoader<String> {
-    private String data;
+    boolean kiemTra(String mk, String nlmk, String email){
 
-    public UploadAnhLoader(@NonNull Context context, String data) {
+        if(!email.contains("@")){
+            Toast.makeText(_context, "Email không hợp lệ", Toast.LENGTH_SHORT).show();
+            return false;
+        }
+        if(mk.length() == 0 || nlmk.length() == 0){
+            Toast.makeText(_context, "Mật khẩu không hợp lệ", Toast.LENGTH_SHORT).show();
+            return false;
+        }
+        if(!nlmk.equals(mk)){
+            Toast.makeText(_context, "Mật khẩu nhập lại không trùng nhau", Toast.LENGTH_SHORT).show();
+            return false;
+        }
+        return true;
+    }
+
+    public void capNhatThongTin(View view){
+        String mkcu = matKhauCu.getText().toString();
+        String mail = email.getText().toString();
+        String mkMoi = matKhauMoi.getText().toString();
+        String nlMK = nhapLaiMatKhau.getText().toString();
+        BitmapDrawable bitmap = (BitmapDrawable) img.getDrawable();
+        encoded = encodeBitmapToString(bitmap.getBitmap());
+        if(kiemTra(mkMoi,nlMK,mail)){
+            data ="id="+URLEncoder.encode(String.valueOf(ManHinhChinh.ID))+
+                    "&ten_dang_nhap="+URLEncoder.encode(ManHinhChinh.tenNguoiDung)+"&image="+URLEncoder.encode(encoded)+"&email="+URLEncoder.encode(mail)+"&mat_khau="+URLEncoder.encode(mkcu)+"&mat_khau_moi="+URLEncoder.encode(mkMoi);
+            getSupportLoaderManager().initLoader(CAP_NHAT,null,capNhatThongtin);
+        }
+    }
+
+}
+class CapNhatThongTinLoader extends AsyncTaskLoader<String>{
+
+    private String data;
+    public CapNhatThongTinLoader(@NonNull Context context, String data) {
         super(context);
         this.data = data;
     }
@@ -186,7 +238,7 @@ class UploadAnhLoader extends AsyncTaskLoader<String> {
     @Nullable
     @Override
     public String loadInBackground() {
-        return NetworkUtils.getJSONPostData("upload",data);
+        return NetworkUtils.getJSONPostData("cap-nhat-thong-tin",data,NguoiChoi.token);
     }
 
     @Override

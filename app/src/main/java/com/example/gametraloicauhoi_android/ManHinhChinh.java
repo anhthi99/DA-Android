@@ -23,6 +23,7 @@ import android.widget.Toast;
 
 import com.facebook.Profile;
 import com.google.android.gms.auth.api.signin.GoogleSignInClient;
+import com.squareup.picasso.Picasso;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -37,14 +38,23 @@ public class ManHinhChinh extends AppCompatActivity {
     private TextView tvPlayerName;
     private Profile profile;
     final int LAY_THONG_TIN = 0,LAY_CH_APP = 1, LAY_CH_DIEM = 2, LAY_CH_TRO_GIUP = 3;
+    public static String tenNguoiDung = "";
+    public static int ID = 0;
+    private NguoiChoiAsync nguoiChoiAsync;
+    private static final String MAIN_URL = "http://10.0.3.2:8000";
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_man_hinh_chinh);
         tvPlayerName = findViewById(R.id.soLanChoi);
-        img = findViewById(R.id.imageView2);
+        img = findViewById(R.id.imgAvatar);
         _context = this;
+        nguoiChoiAsync = new NguoiChoiAsync(this,tvPlayerName,img);
+        CauHinhVaLuuTru.cauHinhDiemCauHoi = new ArrayList<>();
+        CauHinhVaLuuTru.cauHinhTroGiup = new ArrayList<>();
         layCauHinhVaLuuTru();
+
 //        if(GoogleSignIn.getLastSignedInAccount(this) != null)
 //            tvPlayerName.setText(GoogleSignIn.getLastSignedInAccount(this).getDisplayName());
 //        else{
@@ -78,16 +88,7 @@ public class ManHinhChinh extends AppCompatActivity {
         startActivity(intent);
     }
 
-    public AlertDialog taoDialog(String message){
-        AlertDialog.Builder builder = new AlertDialog.Builder(this);
-        return builder.setTitle("Thông báo").setMessage(message).setNegativeButton("Đồng ý",
-                new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-                logOut();
-            }
-        }).create();
-    }
+
 
     public void HienThiMuaCredit(View view) {
         Intent intent = new Intent(this,MuaCredit.class);
@@ -134,6 +135,7 @@ public class ManHinhChinh extends AppCompatActivity {
 
         @Override
         public void onLoadFinished(@NonNull Loader<String> loader, String data) {
+            Log.d("APP",data);
             try {
                 JSONObject jsonObject = new JSONObject(data);
                 int id = jsonObject.getInt("id");
@@ -163,6 +165,7 @@ public class ManHinhChinh extends AppCompatActivity {
 
         @Override
         public void onLoadFinished(@NonNull Loader<String> loader, String data) {
+            Log.d("TROGIUP",data);
             try {
                 JSONObject jsonObject = new JSONObject(data);
                 JSONArray items = jsonObject.getJSONArray("data");
@@ -171,8 +174,8 @@ public class ManHinhChinh extends AppCompatActivity {
                     int loaiTroGiup = items.getJSONObject(i).getInt("loai_tro_giup");
                     int thuTu = items.getJSONObject(i).getInt("thu_tu");
                     int credit = items.getJSONObject(i).getInt("credit");
-                    CauHinhVaLuuTru.cauHinhTroGiup = new ArrayList<>();
-                    CauHinhVaLuuTru.cauHinhTroGiup.add(new CauHinhTroGiup(id,loaiTroGiup,thuTu,credit));
+                    CauHinhVaLuuTru.cauHinhTroGiup.add(new CauHinhTroGiup(id,loaiTroGiup,thuTu,
+                            credit));
                 }
             } catch (Exception e) {
                 e.printStackTrace();
@@ -199,12 +202,12 @@ public class ManHinhChinh extends AppCompatActivity {
                 JSONObject jsonObject = new JSONObject(data);
                 JSONArray items = jsonObject.getJSONArray("data");
                 for(int i = 0;i<items.length();i++){
-                    int id = jsonObject.getInt("id");
-                    int thutu = jsonObject.getInt("thu_tu");
-                    int diem = jsonObject.getInt("");
-                    CauHinhVaLuuTru.cauHinhDiemCauHoi = new ArrayList<>();
+                    int id = items.getJSONObject(i).getInt("id");
+                    int thutu = items.getJSONObject(i).getInt("thu_tu");
+                    int diem = items.getJSONObject(i).getInt("diem");
                     CauHinhVaLuuTru.cauHinhDiemCauHoi.add(new CauHinhDiemCauHoi(id,thutu,diem));
                 }
+
 
             } catch (Exception e) {
                 e.printStackTrace();
@@ -218,46 +221,21 @@ public class ManHinhChinh extends AppCompatActivity {
     };
 
     public void layCauHinhVaLuuTru(){
-        getSupportLoaderManager().initLoader(LAY_THONG_TIN,null,new LoaderManager.LoaderCallbacks<String>() {
-            @NonNull
-            @Override
-            public Loader<String> onCreateLoader(int id, @Nullable Bundle args) {
-                return new ThongTinNguoiChoiLoader(_context);
-            }
+        if(getSupportLoaderManager().getLoader(LAY_THONG_TIN) != null)
+            getSupportLoaderManager().restartLoader(LAY_THONG_TIN,null,nguoiChoiAsync.nguoiChoi);
+        getSupportLoaderManager().initLoader(LAY_THONG_TIN,null,nguoiChoiAsync.nguoiChoi);
 
-            @Override
-            public void onLoadFinished(@NonNull Loader<String> loader, String data) {
-                if(data == null){
-                    taoDialog("Phiên đăng nhập hết hạn").show();
-                }
-                else{
-                    try{
-                        JSONObject jsonObject = new JSONObject(data);
-                        int id = jsonObject.getInt("id");
-                        String tenDangNhap = jsonObject.getString("ten_dang_nhap");
-                        int diem = jsonObject.getInt("diem_cao_nhat");
-                        int credit = jsonObject.getInt("credit");
-                        tvPlayerName.setText(new NguoiChoi(id,tenDangNhap,diem,credit).getTenDangNhap());
-                    }
-                    catch (Exception ex){
-                        ex.printStackTrace();
-                    }
-                }
-
-            }
-
-            @Override
-            public void onLoaderReset(@NonNull Loader<String> loader) {
-
-            }
-        });
+        getSupportLoaderManager().initLoader(LAY_THONG_TIN,null,nguoiChoiAsync.nguoiChoi);
         getSupportLoaderManager().initLoader(LAY_CH_APP,null,lay_ch_app);
+        if(getSupportLoaderManager().getLoader(LAY_CH_DIEM) != null)
+            getSupportLoaderManager().restartLoader(LAY_CH_DIEM,null,lay_ch_diem);
         getSupportLoaderManager().initLoader(LAY_CH_DIEM,null,lay_ch_diem);
+
         getSupportLoaderManager().initLoader(LAY_CH_TRO_GIUP,null,lay_ch_tro_giup);
     }
 
     public void DangXuat(View view) {
-        logOut();
+        nguoiChoiAsync.logOut();
 //        if(AccessToken.getCurrentAccessToken() != null){
 //            LoginManager.getInstance().logOut();
 //            Intent intent = new Intent(this,MainActivity.class);
@@ -270,15 +248,7 @@ public class ManHinhChinh extends AppCompatActivity {
 //            startActivity(intent);
 //        }
     }
-    private void logOut(){
-        NguoiChoi.token = null;
-        SharedPreferences sharedPreferences = getSharedPreferences(MainActivity.SHARE_NAME,
-                MODE_PRIVATE);
-        sharedPreferences.edit().clear().apply();
-        Intent intent = new Intent(this,MainActivity.class);
-        startActivity(intent);
-        finish();
-    }
+
 }
 class ThongTinNguoiChoiLoader extends AsyncTaskLoader<String>{
 

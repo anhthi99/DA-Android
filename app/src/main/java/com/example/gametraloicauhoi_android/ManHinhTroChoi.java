@@ -17,7 +17,6 @@ import java.util.TimerTask;
 public class ManHinhTroChoi extends AppCompatActivity {
 
     Button daA,daB,daC,daD,cauHoi;
-
     int cauHienTai = -1;
     TextView cauHoiHT,thoiGian,txDiem;
     int TIME_COUNT = CauHinhVaLuuTru.cauHinhApp.getThoiGianTraLoi();
@@ -105,16 +104,12 @@ public class ManHinhTroChoi extends AppCompatActivity {
         finish();
     }
 
-    public void loadDiem(int diem){
-        txDiem.setText(String.valueOf(diem));
-    }
 
     public void chonDapAn(View view){
         String pa = ((TextView)view).getText().toString(),da =
                 CauHinhVaLuuTru.mDSCauHoi.get(cauHienTai).getDapAn();
         if(kiemTraDapAn(pa,da)){
             congDiem();
-            loadDiem(diem);
             tm.cancel();
             tm.purge();
             count_down = TIME_COUNT;
@@ -129,6 +124,7 @@ public class ManHinhTroChoi extends AppCompatActivity {
         return pa.equals(da);
     }
     private void congDiem(){
-        diem+=CauHinhVaLuuTru.cauHinhDiemCauHoi.get(cauHienTai).getDiem();
+        diem = diem + CauHinhVaLuuTru.cauHinhDiemCauHoi.get(cauHienTai).getDiem();
+        txDiem.setText("Điểm: "+diem);
     }
 }
