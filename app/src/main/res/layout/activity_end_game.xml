@@ -10,6 +10,7 @@
         android:layout_width="338dp"
         android:layout_height="315dp"
         android:background="@drawable/form_end_game"
+        android:backgroundTint="#D33605"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.493"

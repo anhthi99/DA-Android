@@ -65,8 +65,8 @@ public class QuanLyTaiKhoan extends AppCompatActivity {
         matKhauMoi = findViewById(R.id.txtMatKhauMoi);
         nhapLaiMatKhau = findViewById(R.id.txtXacNhanMatKhau);
         email = findViewById(R.id.txtEmail);
-        nguoiChoiAsync = new NguoiChoiAsync(this,null,img);
-        //getSupportLoaderManager().initLoader(THONG_TIN,null,nguoiChoiAsync.nguoiChoi);
+        nguoiChoiAsync = new NguoiChoiAsync(this,null,null,img);
+        getSupportLoaderManager().initLoader(THONG_TIN,null,nguoiChoiAsync.nguoiChoi);
         //getSupportLoaderManager().destroyLoader(THONG_TIN);
     }
     public String encodeBitmapToString(Bitmap bmp) {

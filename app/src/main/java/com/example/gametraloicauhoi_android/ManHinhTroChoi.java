@@ -4,6 +4,8 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
+import android.graphics.drawable.ColorDrawable;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.os.Handler;
 import android.view.View;
@@ -18,7 +20,7 @@ public class ManHinhTroChoi extends AppCompatActivity {
 
     Button daA,daB,daC,daD,cauHoi;
     int cauHienTai = -1;
-    TextView cauHoiHT,thoiGian,txDiem;
+    TextView cauHoiHT,thoiGian,txDiem,credit;
     int TIME_COUNT = CauHinhVaLuuTru.cauHinhApp.getThoiGianTraLoi();
     int count_down;
     int diem = 0;
@@ -60,6 +62,8 @@ public class ManHinhTroChoi extends AppCompatActivity {
         cauHoiHT = findViewById(R.id.txtSo);
         thoiGian = findViewById(R.id.txtThoiGian);
         txDiem = findViewById(R.id.txtDiem);
+        credit = findViewById(R.id.txtCreditCLV);
+        credit.setText(ManHinhChinh.credit+"");
         count_down = TIME_COUNT;
         cauHoiTiepTheo();
     }
@@ -73,6 +77,7 @@ public class ManHinhTroChoi extends AppCompatActivity {
                 @Override
                 public void run() {
                     ((AppCompatActivity)_context).runOnUiThread(new Runnable() {
+                        @SuppressLint("DefaultLocale")
                         @Override
                         public void run() {
                             if(count_down >= 0){
@@ -105,26 +110,50 @@ public class ManHinhTroChoi extends AppCompatActivity {
     }
 
 
-    public void chonDapAn(View view){
-        String pa = ((TextView)view).getText().toString(),da =
+    public void chonDapAn(final View view){
+        final String pa = ((TextView)view).getText().toString(),da =
                 CauHinhVaLuuTru.mDSCauHoi.get(cauHienTai).getDapAn();
-        if(kiemTraDapAn(pa,da)){
-            congDiem();
-            tm.cancel();
-            tm.purge();
-            count_down = TIME_COUNT;
-            cauHoiTiepTheo();
-        }
-        else{
-            Toast.makeText(_context, "Đáp án không chính xác", Toast.LENGTH_SHORT).show();
-        }
+        int color = R.color.yellow;
+        view.setBackgroundColor(getResources().getColor(color));
+        new Handler().postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                if(kiemTraDapAn(pa,da)){
+                    view.setBackgroundColor(getResources().getColor(R.color.lightgreen));
+                    new Handler().postDelayed(new Runnable() {
+                        @Override
+                        public void run() {
+                            congDiem();
+                            tm.cancel();
+                            tm.purge();
+                            count_down = TIME_COUNT;
+                            cauHoiTiepTheo();
+                            Drawable drawable = getDrawable(R.drawable.number_game);
+                            view.setBackground(drawable);
+                        }
+                    },1000);
+
+                }
+                else{
+                    Toast.makeText(_context, "Đáp án không chính xác", Toast.LENGTH_SHORT).show();
+                    view.setBackgroundColor(getResources().getColor(R.color.colorAccent));
+                    new Handler().postDelayed(new Runnable() {
+                        @Override
+                        public void run() {
+                            view.setBackground(getDrawable(R.drawable.number_game));
+                        }
+                    },900);
+                }
+            }
+
+        },1500);
     }
 
     private boolean kiemTraDapAn(String pa, String da){
         return pa.equals(da);
     }
     private void congDiem(){
-        diem = diem + CauHinhVaLuuTru.cauHinhDiemCauHoi.get(cauHienTai).getDiem();
-        txDiem.setText("Điểm: "+diem);
+        diem += CauHinhVaLuuTru.cauHinhDiemCauHoi.get(cauHienTai).getDiem();
+        txDiem.setText("Điểm:"+diem);
     }
 }

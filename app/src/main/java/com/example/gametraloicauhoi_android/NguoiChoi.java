@@ -5,6 +5,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.util.Log;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -96,13 +97,15 @@ public class NguoiChoi {
 }
 class NguoiChoiAsync{
     private Context _context;
-    WeakReference<TextView> playerName;
-    WeakReference<ImageView> img;
+    private WeakReference<TextView> playerName,txcredit;
+    private WeakReference<ImageView> img;
+
     private final String MAIN_URL = "http://10.0.3.2:8000";
-    public NguoiChoiAsync(Context context, TextView playerName, ImageView img){
+    public NguoiChoiAsync(Context context, TextView playerName, TextView credit, ImageView img){
         _context = context;
         this.playerName = new WeakReference<>(playerName);
         this.img = new WeakReference<>(img);
+        this.txcredit = new WeakReference<>(credit);
     }
     public LoaderManager.LoaderCallbacks nguoiChoi = new LoaderManager.LoaderCallbacks<String>() {
         @NonNull
@@ -128,6 +131,11 @@ class NguoiChoiAsync{
                         playerName.get().setText(new NguoiChoi(id,tenDangNhap,diem,credit).getTenDangNhap());
                     ManHinhChinh.ID = id;
                     ManHinhChinh.tenNguoiDung = tenDangNhap;
+                    ManHinhChinh.credit = credit;
+                    if( txcredit.get()!= null){
+                        txcredit.get().setText(credit+"");
+                    }
+
                     Picasso.get().load(MAIN_URL+"/assets/images/users/"+avatar).into(img.get());
                 }
                 catch (Exception ex){

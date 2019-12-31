@@ -119,23 +119,8 @@
             app:layout_constraintTop_toTopOf="parent">
 
             <TextView
-                android:id="@+id/txtKhanGia"
-                android:layout_width="wrap_content"
-                android:layout_height="21dp"
-                android:layout_marginTop="10dp"
-                android:hint="Credit"
-                android:paddingStart="10dp"
-                android:textAlignment="textStart"
-                android:textColor="#fff"
-                android:textColorHint="#ffff"
-                android:textSize="18sp"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toEndOf="@+id/soLanChoi"
-                app:layout_constraintTop_toTopOf="parent" />
-
-            <TextView
-                android:id="@+id/textView3"
-                android:layout_width="wrap_content"
+                android:id="@+id/txtCreditCLV"
+                android:layout_width="95dp"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="8dp"
                 android:layout_marginTop="10dp"
@@ -157,8 +142,8 @@
                 android:layout_marginStart="8dp"
                 android:layout_marginTop="10dp"
                 android:layout_marginBottom="2dp"
-                android:drawablePadding="0dp"
                 android:drawableRight="@drawable/credit"
+                android:drawablePadding="0dp"
                 android:textAlignment="viewEnd"
                 android:textColor="#fff"
                 android:textSize="18sp"
@@ -174,7 +159,9 @@
         android:id="@+id/scrollView2"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        tools:ignore="MissingConstraints">
+        tools:ignore="MissingConstraints"
+        tools:layout_editor_absoluteX="1dp"
+        tools:layout_editor_absoluteY="0dp">
 
         <LinearLayout
             android:layout_width="220dp"
@@ -290,7 +277,7 @@
         app:layout_constraintTop_toTopOf="@+id/imgDienThoai" />
 
     <ImageButton
-        android:id="@+id/btnLuaChon"
+        android:id="@+id/btnYKienKhanGia"
         android:layout_width="76dp"
         android:layout_height="57dp"
         android:layout_marginEnd="8dp"

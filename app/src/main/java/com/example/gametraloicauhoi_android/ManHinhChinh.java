@@ -8,6 +8,7 @@ import androidx.loader.app.LoaderManager;
 import androidx.loader.content.AsyncTaskLoader;
 import androidx.loader.content.Loader;
 
+import android.app.Dialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -35,9 +36,10 @@ public class ManHinhChinh extends AppCompatActivity {
     boolean doubleBackToExitPressedOnce = false;
     private ImageView img;
     Context _context;
-    private TextView tvPlayerName;
+    private TextView tvPlayerName, txCredit;
     private Profile profile;
     final int LAY_THONG_TIN = 0,LAY_CH_APP = 1, LAY_CH_DIEM = 2, LAY_CH_TRO_GIUP = 3;
+    public static int credit = 0;
     public static String tenNguoiDung = "";
     public static int ID = 0;
     private NguoiChoiAsync nguoiChoiAsync;
@@ -50,7 +52,8 @@ public class ManHinhChinh extends AppCompatActivity {
         tvPlayerName = findViewById(R.id.soLanChoi);
         img = findViewById(R.id.imgAvatar);
         _context = this;
-        nguoiChoiAsync = new NguoiChoiAsync(this,tvPlayerName,img);
+        txCredit = findViewById(R.id.txtCreditCLV);
+        nguoiChoiAsync = new NguoiChoiAsync(this,tvPlayerName,txCredit,img);
         CauHinhVaLuuTru.cauHinhDiemCauHoi = new ArrayList<>();
         CauHinhVaLuuTru.cauHinhTroGiup = new ArrayList<>();
         layCauHinhVaLuuTru();
@@ -101,8 +104,12 @@ public class ManHinhChinh extends AppCompatActivity {
     }
 
     public void HienThiLichSuChoi(View view) {
-        Intent intent = new Intent(this,LichSuChoi.class);
-        startActivity(intent);
+//        Intent intent = new Intent(this,LichSuChoi.class);
+//        startActivity(intent);
+        Dialog dialog = new Dialog(this);
+        dialog.setContentView(R.layout.activity_end_game);
+        dialog.create();
+        dialog.show();
     }
 
     public void HienThiChonLinhVuc(View view) {
@@ -135,7 +142,6 @@ public class ManHinhChinh extends AppCompatActivity {
 
         @Override
         public void onLoadFinished(@NonNull Loader<String> loader, String data) {
-            Log.d("APP",data);
             try {
                 JSONObject jsonObject = new JSONObject(data);
                 int id = jsonObject.getInt("id");
@@ -165,7 +171,6 @@ public class ManHinhChinh extends AppCompatActivity {
 
         @Override
         public void onLoadFinished(@NonNull Loader<String> loader, String data) {
-            Log.d("TROGIUP",data);
             try {
                 JSONObject jsonObject = new JSONObject(data);
                 JSONArray items = jsonObject.getJSONArray("data");
@@ -207,8 +212,6 @@ public class ManHinhChinh extends AppCompatActivity {
                     int diem = items.getJSONObject(i).getInt("diem");
                     CauHinhVaLuuTru.cauHinhDiemCauHoi.add(new CauHinhDiemCauHoi(id,thutu,diem));
                 }
-
-
             } catch (Exception e) {
                 e.printStackTrace();
             }
@@ -221,17 +224,11 @@ public class ManHinhChinh extends AppCompatActivity {
     };
 
     public void layCauHinhVaLuuTru(){
-        if(getSupportLoaderManager().getLoader(LAY_THONG_TIN) != null)
-            getSupportLoaderManager().restartLoader(LAY_THONG_TIN,null,nguoiChoiAsync.nguoiChoi);
-        getSupportLoaderManager().initLoader(LAY_THONG_TIN,null,nguoiChoiAsync.nguoiChoi);
-
         getSupportLoaderManager().initLoader(LAY_THONG_TIN,null,nguoiChoiAsync.nguoiChoi);
         getSupportLoaderManager().initLoader(LAY_CH_APP,null,lay_ch_app);
-        if(getSupportLoaderManager().getLoader(LAY_CH_DIEM) != null)
-            getSupportLoaderManager().restartLoader(LAY_CH_DIEM,null,lay_ch_diem);
         getSupportLoaderManager().initLoader(LAY_CH_DIEM,null,lay_ch_diem);
-
         getSupportLoaderManager().initLoader(LAY_CH_TRO_GIUP,null,lay_ch_tro_giup);
+
     }
 
     public void DangXuat(View view) {
