@@ -1,15 +1,21 @@
 package com.example.gametraloicauhoi_android;
 
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.FragmentActivity;
+import androidx.fragment.app.FragmentManager;
 
 import android.annotation.SuppressLint;
+import android.app.Dialog;
 import android.content.Context;
-import android.graphics.drawable.ColorDrawable;
+import android.content.DialogInterface;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.os.Handler;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -23,7 +29,8 @@ public class ManHinhTroChoi extends AppCompatActivity {
     TextView cauHoiHT,thoiGian,txDiem,credit;
     int TIME_COUNT = CauHinhVaLuuTru.cauHinhApp.getThoiGianTraLoi();
     int count_down;
-    int diem = 0;
+    public static int diem = 0;
+    int co_hoi = 4;
     Context _context = this;
     Timer tm = new Timer();
     @Override
@@ -63,7 +70,7 @@ public class ManHinhTroChoi extends AppCompatActivity {
         thoiGian = findViewById(R.id.txtThoiGian);
         txDiem = findViewById(R.id.txtDiem);
         credit = findViewById(R.id.txtCreditCLV);
-        credit.setText(ManHinhChinh.credit+"");
+        credit.setText(String.valueOf(ManHinhChinh.credit));
         count_down = TIME_COUNT;
         cauHoiTiepTheo();
     }
@@ -84,11 +91,18 @@ public class ManHinhTroChoi extends AppCompatActivity {
                                 thoiGian.setText(String.format("%02d",count_down));
                                 count_down--;
                             }
+                            else{
+                                co_hoi--;
+                                loadCoHoi(0);
+                            }
                         }
                     });
                 }
             },0,1000);
 
+        }
+        else{
+            taoForm();
         }
     }
 
@@ -109,6 +123,46 @@ public class ManHinhTroChoi extends AppCompatActivity {
         finish();
     }
 
+
+
+    public void loadCoHoi( int type){
+        TextView tx;
+        if(co_hoi > 0 && type == 0){
+            tm.cancel();
+            tm.purge();
+            count_down = TIME_COUNT;
+            cauHoiTiepTheo();
+        }
+        else{
+            tm.cancel();
+            tm.purge();
+            taoForm();
+        }
+        switch (co_hoi){
+            case 1:
+                tx = findViewById(R.id.txtCH1);
+                tx.setVisibility(View.INVISIBLE);
+                break;
+            case 2:
+                tx = findViewById(R.id.txtCH2);
+                tx.setVisibility(View.INVISIBLE);
+                break;
+            case 3:
+                tx = findViewById(R.id.txtCH3);
+                tx.setVisibility(View.INVISIBLE);
+                break;
+        }
+    }
+
+    private void taoForm(){
+        FragmentManager fm = getSupportFragmentManager();
+        GameOverDialogFragment gameOverDialogFragment = GameOverDialogFragment.newInstance(diem,
+                ManHinhChinh.credit
+                );
+
+        gameOverDialogFragment.show(fm,"fragment_game_over");
+
+    }
 
     public void chonDapAn(final View view){
         final String pa = ((TextView)view).getText().toString(),da =
@@ -135,14 +189,17 @@ public class ManHinhTroChoi extends AppCompatActivity {
 
                 }
                 else{
-                    Toast.makeText(_context, "Đáp án không chính xác", Toast.LENGTH_SHORT).show();
                     view.setBackgroundColor(getResources().getColor(R.color.colorAccent));
+                    co_hoi--;
+                    loadCoHoi(1);
                     new Handler().postDelayed(new Runnable() {
                         @Override
                         public void run() {
                             view.setBackground(getDrawable(R.drawable.number_game));
+
                         }
                     },900);
+
                 }
             }
 
@@ -154,6 +211,39 @@ public class ManHinhTroChoi extends AppCompatActivity {
     }
     private void congDiem(){
         diem += CauHinhVaLuuTru.cauHinhDiemCauHoi.get(cauHienTai).getDiem();
-        txDiem.setText("Điểm:"+diem);
+        txDiem.setText("Điểm: "+diem);
+    }
+    private AlertDialog taoDialog(String message, String title){
+        return new AlertDialog.Builder(this)
+                .setTitle(title)
+                .setMessage(message)
+                .setPositiveButton("Huỷ bỏ", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                dialog.dismiss();
+            }
+        })
+                .setNegativeButton("Đồng ý", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        TruCredit(id);
+                        temp.setVisibility(View.INVISIBLE);
+                    }
+                }).create();
+    }
+    int id;
+    View temp;
+    public void LuaChonTroGiup(View view){
+        temp = view;
+        id = Integer.parseInt(view.getTag().toString());
+        String message =
+                "Bạn có muốn sử dụng quyền trợ giúp "+ view.getContentDescription().toString().toUpperCase();
+        String title = "Thông báo";
+        taoDialog(message,title).show();
+    }
+
+    public void TruCredit(int id){
+        ManHinhChinh.credit-=CauHinhVaLuuTru.cauHinhTroGiup.get(id).getCredit();
+        credit.setText(String.valueOf(ManHinhChinh.credit));
     }
 }

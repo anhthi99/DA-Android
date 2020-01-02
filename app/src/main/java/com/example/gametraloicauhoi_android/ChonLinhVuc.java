@@ -7,6 +7,7 @@ import androidx.loader.app.LoaderManager;
 import androidx.loader.content.AsyncTaskLoader;
 import androidx.loader.content.Loader;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
@@ -25,7 +26,9 @@ import java.util.HashMap;
 public class ChonLinhVuc extends AppCompatActivity {
     private Button btnLV1, btnLV2, btnLV3, btnLV4;
     private final int LAY_LINH_VUC = 1, LAY_DS_CAU_HOI = 2;
+    TextView txCredit;
     Context _context;
+    @SuppressLint("SetTextI18n")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -34,8 +37,10 @@ public class ChonLinhVuc extends AppCompatActivity {
         btnLV2 = findViewById(R.id.btnDapAnB);
         btnLV3 = findViewById(R.id.btnDapAnC);
         btnLV4 = findViewById(R.id.btnDapAnD);
+        txCredit = findViewById(R.id.txtCreditCLV);
         CauHinhVaLuuTru.mDSCauHoi = new ArrayList<>();
         _context = this;
+        txCredit.setText(ManHinhChinh.credit+"");
         if(getSupportLoaderManager().getLoader(0)!= null){
             getSupportLoaderManager().restartLoader(LAY_LINH_VUC,null,layLinhVuc);
         }

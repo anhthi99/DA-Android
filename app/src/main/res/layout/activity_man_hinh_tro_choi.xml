@@ -17,7 +17,7 @@
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.0" />
+        app:layout_constraintVertical_bias="1.0" />
 
     <Button
         android:id="@+id/btnCauHoi"
@@ -127,6 +127,7 @@
                 android:layout_marginBottom="2dp"
                 android:paddingRight="30dp"
                 android:text="0"
+                android:textAlignment="textEnd"
                 android:textColor="#fff"
                 android:textSize="18sp"
                 android:textStyle="bold"
@@ -189,7 +190,7 @@
                 app:layout_constraintTop_toTopOf="parent" />
 
             <TextView
-                android:id="@+id/textView0"
+                android:id="@+id/txtCH1"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="8dp"
@@ -206,7 +207,7 @@
                 app:layout_constraintTop_toTopOf="parent" />
 
             <TextView
-                android:id="@+id/textView6"
+                android:id="@+id/txtCH2"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="8dp"
@@ -224,7 +225,7 @@
                 app:layout_constraintTop_toTopOf="parent" />
 
             <TextView
-                android:id="@+id/textViewS"
+                android:id="@+id/txtCH3"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="8dp"
@@ -251,41 +252,26 @@
         android:layout_marginStart="32dp"
         android:layout_marginBottom="16dp"
         android:background="@drawable/group"
+        android:contentDescription="Tư vấn tại chỗ"
+        android:onClick="LuaChonTroGiup"
+        android:tag="1"
         app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/guideline9"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="@+id/guideline3" />
-
-    <ImageButton
-        android:id="@+id/imgDienThoai"
-        android:layout_width="60dp"
-        android:layout_height="54dp"
-        android:layout_marginStart="32dp"
-        android:background="@drawable/phone"
-        android:drawablePadding="1dp"
-        app:layout_constraintBottom_toBottomOf="@+id/imgKhanGia"
-        app:layout_constraintStart_toEndOf="@+id/imgKhanGia"
-        app:layout_constraintTop_toTopOf="@+id/imgKhanGia" />
 
     <ImageButton
         android:id="@+id/btn5050"
         android:layout_width="68dp"
         android:layout_height="57dp"
-        android:layout_marginStart="32dp"
         android:background="@drawable/fivefive"
-        app:layout_constraintBottom_toBottomOf="@+id/imgDienThoai"
-        app:layout_constraintStart_toEndOf="@+id/imgDienThoai"
-        app:layout_constraintTop_toTopOf="@+id/imgDienThoai" />
-
-    <ImageButton
-        android:id="@+id/btnYKienKhanGia"
-        android:layout_width="76dp"
-        android:layout_height="57dp"
-        android:layout_marginEnd="8dp"
-        android:background="@drawable/chart"
-        app:layout_constraintBottom_toBottomOf="@+id/btn5050"
+        android:contentDescription="Loại 50% kết quả sai"
+        android:tag="2"
+        android:onClick="LuaChonTroGiup"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/btn5050"
-        app:layout_constraintTop_toTopOf="@+id/btn5050" />
+        app:layout_constraintStart_toStartOf="@+id/guideline9"
+        app:layout_constraintTop_toTopOf="@+id/guideline3" />
 
     <TextView
         android:id="@+id/txtSoCauHoi"
@@ -306,9 +292,9 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
         android:text="0"
+        android:textColor="#fff"
         android:textSize="18sp"
         android:textStyle="bold"
-        android:textColor="#fff"
         app:layout_constraintBottom_toBottomOf="@+id/txtSoCauHoi"
         app:layout_constraintStart_toEndOf="@+id/txtSoCauHoi"
         app:layout_constraintTop_toTopOf="@+id/txtSoCauHoi" />
@@ -346,5 +332,12 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/scrollView2" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline9"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_begin="209dp" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

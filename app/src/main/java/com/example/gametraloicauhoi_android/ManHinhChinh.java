@@ -91,8 +91,6 @@ public class ManHinhChinh extends AppCompatActivity {
         startActivity(intent);
     }
 
-
-
     public void HienThiMuaCredit(View view) {
         Intent intent = new Intent(this,MuaCredit.class);
         startActivity(intent);
@@ -104,12 +102,8 @@ public class ManHinhChinh extends AppCompatActivity {
     }
 
     public void HienThiLichSuChoi(View view) {
-//        Intent intent = new Intent(this,LichSuChoi.class);
-//        startActivity(intent);
-        Dialog dialog = new Dialog(this);
-        dialog.setContentView(R.layout.activity_end_game);
-        dialog.create();
-        dialog.show();
+        Intent intent = new Intent(this,LichSuChoi.class);
+        startActivity(intent);
     }
 
     public void HienThiChonLinhVuc(View view) {
@@ -148,7 +142,6 @@ public class ManHinhChinh extends AppCompatActivity {
                 int luotTraLoi = jsonObject.getInt("co_hoi_sai");
                 int thoiGian = jsonObject.getInt("thoi_gian_tra_loi");
                 CauHinhVaLuuTru.cauHinhApp = new CauHinhApp(id,luotTraLoi,thoiGian);
-
             }
 
             catch (Exception e) {

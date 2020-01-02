@@ -201,6 +201,7 @@
                 android:layout_marginBottom="2dp"
                 android:paddingRight="30dp"
                 android:text="0"
+                android:textAlignment="textEnd"
                 android:textColor="#fff"
                 android:textSize="18sp"
                 android:textStyle="bold"

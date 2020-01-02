@@ -70,7 +70,7 @@ public class DangKi extends AppCompatActivity {
         if(!nlMatKhau.equals(matKhau)){
             Toast.makeText(this, "Mật khẩu nhập lại không giống nhau", Toast.LENGTH_SHORT).show();
         }
-        else if(mail.contains("@")) {
+        else if(!mail.contains("@")) {
             Toast.makeText(this, "Email không hợp lệ", Toast.LENGTH_SHORT).show();
         }
         else{
