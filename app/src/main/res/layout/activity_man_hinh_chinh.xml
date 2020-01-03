@@ -22,7 +22,7 @@
         app:layout_constraintVertical_bias="0.0" />
 
     <ImageView
-        android:id="@+id/imageView2"
+        android:id="@+id/imgMuaC4"
         android:layout_width="200dp"
         android:layout_height="200dp"
         android:src="@drawable/logo"
@@ -49,7 +49,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/imageView2" />
+        app:layout_constraintTop_toBottomOf="@+id/imgMuaC4" />
 
 
     <Button
@@ -148,7 +148,7 @@
         app:layout_constraintTop_toBottomOf="@+id/btnQLTaiKhoan" />
 
     <ImageView
-        android:id="@+id/imgAvatar"
+        android:id="@+id/imgMuaC2"
         android:layout_width="56dp"
         android:layout_height="49dp"
         android:layout_marginStart="70dp"
@@ -173,7 +173,7 @@
         android:textColor="#ffff"
         android:textSize="18sp"
         android:textStyle="bold"
-        app:layout_constraintStart_toEndOf="@+id/imgAvatar"
+        app:layout_constraintStart_toEndOf="@+id/imgMuaC2"
         app:layout_constraintTop_toTopOf="parent" />
 
     <ScrollView

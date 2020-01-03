@@ -81,7 +81,6 @@ public class LichSuNguoiChoiAdapter extends RecyclerView.Adapter<RecyclerView.Vi
         long dt = Long.parseLong(luotChoi.getNgayGio());
         Date date = new Date(dt);
         holder.mThoiGian.setText(formatter.format(date).toString());
-       //holder.mThoiGian.setText(luotChoi.getNgayGio());
     }
     private void HienThiProgressBar(LoadingViewHolder holder) {
     }

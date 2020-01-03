@@ -28,6 +28,7 @@ import java.util.Objects;
 
 public class GameOverDialogFragment extends DialogFragment{
     TextView txDCN, txDDD;
+    String dt = "";
     String data = "id="+ URLEncoder.encode(String.valueOf(ManHinhChinh.ID))+"&diem" +
             "="+URLEncoder.encode(String.valueOf(ManHinhTroChoi.diem))+"&credit="+URLEncoder.encode(String.valueOf(ManHinhChinh.credit));;
     private Context _context;
@@ -62,7 +63,11 @@ public class GameOverDialogFragment extends DialogFragment{
         txDDD.setText(String.valueOf(ManHinhTroChoi.diem));
         _context = getContext();
         getLoaderManager().initLoader(0,null,capNhat);
-        //Toast.makeText(_context, String.valueOf(ManHinhTroChoi.diem), Toast.LENGTH_SHORT).show();
+        Bundle args = getArguments();
+        int so_cau = args != null ? args.getInt("SO_CAU") : 0;
+        dt =
+                "id="+URLEncoder.encode(String.valueOf(ManHinhChinh.ID))+"&so_cau="+URLEncoder.encode(String.valueOf(so_cau))+"&diem="+URLEncoder.encode(String.valueOf(ManHinhTroChoi.diem))+"&ngay_gio="+URLEncoder.encode(String.valueOf(System.currentTimeMillis()));
+        getLoaderManager().initLoader(1,null,capNhatLSChoi);
         Button btnTrangChinh = view.findViewById(R.id.btnTrangChinh);
         btnTrangChinh.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -86,16 +91,17 @@ public class GameOverDialogFragment extends DialogFragment{
         getDialog().setCanceledOnTouchOutside(false);
     }
 
-    LoaderManager.LoaderCallbacks<String> lichSuChoi = new LoaderManager.LoaderCallbacks<String>() {
+    LoaderManager.LoaderCallbacks<String> capNhatLSChoi =
+            new LoaderManager.LoaderCallbacks<String>() {
         @NonNull
         @Override
         public Loader<String> onCreateLoader(int id, @Nullable Bundle args) {
-            return null;
+            return new LichSuLoader(_context,dt);
         }
 
         @Override
         public void onLoadFinished(@NonNull Loader<String> loader, String data) {
-
+            Log.d("SUCC",data);
         }
 
         @Override
@@ -162,14 +168,16 @@ class CapNhatNguoiChoiLoader extends AsyncTaskLoader<String> {
 
 class LichSuLoader extends AsyncTaskLoader<String>{
 
-    public LichSuLoader(@NonNull Context context) {
+    String data;
+    public LichSuLoader(@NonNull Context context, String data) {
         super(context);
+        this.data = data;
     }
 
     @Nullable
     @Override
     public String loadInBackground() {
-        return null;
+        return NetworkUtils.getJSONPostData("cap-nhat-lich-su",data,NguoiChoi.token);
     }
 
     @Override

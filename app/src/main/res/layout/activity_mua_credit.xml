@@ -33,23 +33,8 @@
             app:layout_constraintTop_toTopOf="parent">
 
             <TextView
-                android:id="@+id/textView2"
-                android:layout_width="wrap_content"
-                android:layout_height="21dp"
-                android:layout_marginTop="10dp"
-                android:hint="Credit"
-                android:paddingStart="10dp"
-                android:textAlignment="textStart"
-                android:textColor="#fff"
-                android:textColorHint="#ffff"
-                android:textSize="18sp"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toEndOf="@+id/soLanChoi"
-                app:layout_constraintTop_toTopOf="parent" />
-
-            <TextView
                 android:id="@+id/txtCreditCLV"
-                android:layout_width="wrap_content"
+                android:layout_width="97dp"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="8dp"
                 android:layout_marginTop="10dp"
@@ -185,7 +170,7 @@
         app:layout_constraintTop_toTopOf="@+id/guideline4" />
 
     <ImageView
-        android:id="@+id/imageView4"
+        android:id="@+id/imgMuaC1"
         android:layout_width="101dp"
         android:layout_height="92dp"
         android:layout_marginStart="8dp"
@@ -203,20 +188,20 @@
         android:textColor="#FF5722"
         android:textSize="24sp"
         android:textStyle="bold"
-        app:layout_constraintEnd_toEndOf="@+id/imageView4"
-        app:layout_constraintStart_toStartOf="@+id/imageView4"
-        app:layout_constraintTop_toBottomOf="@+id/imageView4" />
+        app:layout_constraintEnd_toEndOf="@+id/imgMuaC1"
+        app:layout_constraintStart_toStartOf="@+id/imgMuaC1"
+        app:layout_constraintTop_toBottomOf="@+id/imgMuaC1" />
 
     <ImageView
-        android:id="@+id/imgAvatar"
+        android:id="@+id/imgMuaC2"
         android:layout_width="98dp"
         android:layout_height="94dp"
         android:background="@drawable/kimcuong_2"
-        app:layout_constraintBottom_toBottomOf="@+id/imageView4"
-        app:layout_constraintEnd_toStartOf="@+id/imageView20"
+        app:layout_constraintBottom_toBottomOf="@+id/imgMuaC1"
+        app:layout_constraintEnd_toStartOf="@+id/imgMuaC3"
         app:layout_constraintHorizontal_bias="0.51"
-        app:layout_constraintStart_toEndOf="@+id/imageView4"
-        app:layout_constraintTop_toTopOf="@+id/imageView4"
+        app:layout_constraintStart_toEndOf="@+id/imgMuaC1"
+        app:layout_constraintTop_toTopOf="@+id/imgMuaC1"
         app:layout_constraintVertical_bias="0.0" />
 
     <TextView
@@ -228,12 +213,12 @@
         android:textColor="#FF5722"
         android:textSize="24sp"
         android:textStyle="bold"
-        app:layout_constraintEnd_toEndOf="@+id/imgAvatar"
-        app:layout_constraintStart_toStartOf="@+id/imgAvatar"
-        app:layout_constraintTop_toBottomOf="@+id/imgAvatar" />
+        app:layout_constraintEnd_toEndOf="@+id/imgMuaC2"
+        app:layout_constraintStart_toStartOf="@+id/imgMuaC2"
+        app:layout_constraintTop_toBottomOf="@+id/imgMuaC2" />
 
     <ImageView
-        android:id="@+id/imageView2"
+        android:id="@+id/imgMuaC4"
         android:layout_width="110dp"
         android:layout_height="102dp"
         android:layout_marginStart="8dp"
@@ -251,19 +236,19 @@
         android:textColor="#FF5722"
         android:textSize="24sp"
         android:textStyle="bold"
-        app:layout_constraintEnd_toEndOf="@+id/imageView2"
-        app:layout_constraintStart_toStartOf="@+id/imageView2"
-        app:layout_constraintTop_toBottomOf="@+id/imageView2" />
+        app:layout_constraintEnd_toEndOf="@+id/imgMuaC4"
+        app:layout_constraintStart_toStartOf="@+id/imgMuaC4"
+        app:layout_constraintTop_toBottomOf="@+id/imgMuaC4" />
 
     <ImageView
-        android:id="@+id/imageView20"
+        android:id="@+id/imgMuaC3"
         android:layout_width="104dp"
         android:layout_height="91dp"
         android:layout_marginEnd="8dp"
         android:background="@drawable/kimcuong_4"
-        app:layout_constraintBottom_toBottomOf="@+id/imgAvatar"
+        app:layout_constraintBottom_toBottomOf="@+id/imgMuaC2"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/imgAvatar" />
+        app:layout_constraintTop_toTopOf="@+id/imgMuaC2" />
 
     <TextView
         android:id="@+id/credit_text_4"
@@ -274,19 +259,19 @@
         android:textColor="#FF5722"
         android:textSize="24sp"
         android:textStyle="bold"
-        app:layout_constraintEnd_toEndOf="@+id/imageView20"
-        app:layout_constraintStart_toStartOf="@+id/imageView20"
-        app:layout_constraintTop_toBottomOf="@+id/imageView20" />
+        app:layout_constraintEnd_toEndOf="@+id/imgMuaC3"
+        app:layout_constraintStart_toStartOf="@+id/imgMuaC3"
+        app:layout_constraintTop_toBottomOf="@+id/imgMuaC3" />
 
     <ImageView
-        android:id="@+id/imageView5"
+        android:id="@+id/imgMuaC5"
         android:layout_width="110dp"
         android:layout_height="102dp"
         android:background="@drawable/kimcuong_5"
-        app:layout_constraintBottom_toBottomOf="@+id/imageView2"
-        app:layout_constraintEnd_toStartOf="@+id/imageView20"
-        app:layout_constraintStart_toEndOf="@+id/imageView2"
-        app:layout_constraintTop_toTopOf="@+id/imageView2" />
+        app:layout_constraintBottom_toBottomOf="@+id/imgMuaC4"
+        app:layout_constraintEnd_toStartOf="@+id/imgMuaC3"
+        app:layout_constraintStart_toEndOf="@+id/imgMuaC4"
+        app:layout_constraintTop_toTopOf="@+id/imgMuaC4" />
 
     <TextView
         android:id="@+id/credit_text_5"
@@ -297,9 +282,9 @@
         android:textColor="#FF5722"
         android:textSize="24sp"
         android:textStyle="bold"
-        app:layout_constraintEnd_toEndOf="@+id/imageView5"
-        app:layout_constraintStart_toStartOf="@+id/imageView5"
-        app:layout_constraintTop_toBottomOf="@+id/imageView5" />
+        app:layout_constraintEnd_toEndOf="@+id/imgMuaC5"
+        app:layout_constraintStart_toStartOf="@+id/imgMuaC5"
+        app:layout_constraintTop_toBottomOf="@+id/imgMuaC5" />
 
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/guideline4"
@@ -316,8 +301,8 @@
         android:textColor="#ecf0f1"
         android:textSize="18sp"
         android:textStyle="bold"
-        app:layout_constraintBottom_toBottomOf="@+id/imageView4"
-        app:layout_constraintEnd_toEndOf="@+id/imageView4"
+        app:layout_constraintBottom_toBottomOf="@+id/imgMuaC1"
+        app:layout_constraintEnd_toEndOf="@+id/imgMuaC1"
         app:layout_constraintStart_toStartOf="@+id/credit_text_1" />
 
     <TextView
@@ -328,7 +313,7 @@
         android:textColor="#ecf0f1"
         android:textSize="24sp"
         android:textStyle="bold"
-        app:layout_constraintBottom_toBottomOf="@+id/imageView4"
+        app:layout_constraintBottom_toBottomOf="@+id/imgMuaC1"
         app:layout_constraintStart_toEndOf="@+id/textView"
         app:layout_constraintTop_toTopOf="@+id/textView" />
 
@@ -341,8 +326,8 @@
         android:textColor="#ecf0f1"
         android:textSize="18sp"
         android:textStyle="bold"
-        app:layout_constraintBottom_toBottomOf="@+id/imgAvatar"
-        app:layout_constraintEnd_toEndOf="@+id/imgAvatar"
+        app:layout_constraintBottom_toBottomOf="@+id/imgMuaC2"
+        app:layout_constraintEnd_toEndOf="@+id/imgMuaC2"
         app:layout_constraintStart_toStartOf="@+id/credit_text_2" />
 
     <TextView
@@ -366,9 +351,9 @@
         android:textColor="#ecf0f1"
         android:textSize="18sp"
         android:textStyle="bold"
-        app:layout_constraintBottom_toBottomOf="@+id/imageView20"
-        app:layout_constraintEnd_toEndOf="@+id/imageView20"
-        app:layout_constraintStart_toStartOf="@+id/imageView20" />
+        app:layout_constraintBottom_toBottomOf="@+id/imgMuaC3"
+        app:layout_constraintEnd_toEndOf="@+id/imgMuaC3"
+        app:layout_constraintStart_toStartOf="@+id/imgMuaC3" />
 
     <TextView
         android:id="@+id/credit_3"
@@ -391,9 +376,9 @@
         android:textColor="#ecf0f1"
         android:textSize="18sp"
         android:textStyle="bold"
-        app:layout_constraintBottom_toBottomOf="@+id/imageView2"
-        app:layout_constraintEnd_toEndOf="@+id/imageView2"
-        app:layout_constraintStart_toStartOf="@+id/imageView2" />
+        app:layout_constraintBottom_toBottomOf="@+id/imgMuaC4"
+        app:layout_constraintEnd_toEndOf="@+id/imgMuaC4"
+        app:layout_constraintStart_toStartOf="@+id/imgMuaC4" />
 
     <TextView
         android:id="@+id/credit_4"
@@ -416,9 +401,9 @@
         android:textColor="#ecf0f1"
         android:textSize="18sp"
         android:textStyle="bold"
-        app:layout_constraintBottom_toBottomOf="@+id/imageView5"
-        app:layout_constraintEnd_toEndOf="@+id/imageView5"
-        app:layout_constraintStart_toStartOf="@+id/imageView5" />
+        app:layout_constraintBottom_toBottomOf="@+id/imgMuaC5"
+        app:layout_constraintEnd_toEndOf="@+id/imgMuaC5"
+        app:layout_constraintStart_toStartOf="@+id/imgMuaC5" />
 
     <TextView
         android:id="@+id/credit_5"
@@ -428,7 +413,7 @@
         android:textColor="#ecf0f1"
         android:textSize="24sp"
         android:textStyle="bold"
-        app:layout_constraintBottom_toBottomOf="@+id/imageView5"
+        app:layout_constraintBottom_toBottomOf="@+id/imgMuaC5"
         app:layout_constraintStart_toEndOf="@+id/textView_5"
         app:layout_constraintTop_toTopOf="@+id/textView_5" />
 </androidx.constraintlayout.widget.ConstraintLayout>

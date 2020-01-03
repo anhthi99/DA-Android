@@ -80,6 +80,7 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
             Intent intent = new Intent(this,ManHinhChinh.class);
             startActivity(intent);
             mediaPlayer.stop();
+            finish();
         }
 
 

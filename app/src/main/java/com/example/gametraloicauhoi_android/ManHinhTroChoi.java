@@ -48,6 +48,7 @@ public class ManHinhTroChoi extends AppCompatActivity {
     MediaPlayer mediaPlayer;
     Button daA,daB,daC,daD,cauHoi;
     int cauHienTai = -1;
+    int so_cau_tra_loi = 0;
     String data;
     final int CAP_NHAT = 1;
     TextView cauHoiHT,thoiGian,txDiem,credit;
@@ -61,9 +62,9 @@ public class ManHinhTroChoi extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_man_hinh_tro_choi);
-//        mediaPlayer = MediaPlayer.create(ManHinhTroChoi.this,R.raw.bat_dau);
-//        mediaPlayer.setLooping(true);
-//        mediaPlayer.start();
+        mediaPlayer = MediaPlayer.create(ManHinhTroChoi.this,R.raw.bat_dau);
+        mediaPlayer.setLooping(true);
+        mediaPlayer.start();
 
         cauHoi = findViewById(R.id.btnCauHoi);
         daA = findViewById(R.id.btnDapAnA);
@@ -186,6 +187,9 @@ public class ManHinhTroChoi extends AppCompatActivity {
         mediaPlayer.stop();
         FragmentManager fm = getSupportFragmentManager();
         GameOverDialogFragment gm = new GameOverDialogFragment();
+        Bundle bundle = new Bundle();
+        bundle.putInt("SO_CAU",so_cau_tra_loi);
+        gm.setArguments(bundle);
         gm.show(fm,"assassin");
     }
 
@@ -199,6 +203,7 @@ public class ManHinhTroChoi extends AppCompatActivity {
             @Override
             public void run() {
                 if(kiemTraDapAn(pa,da)){
+                    so_cau_tra_loi++;
                     view.setBackground(getDrawable(R.drawable.right_style));
                     new Handler().postDelayed(new Runnable() {
                         @Override
@@ -255,10 +260,14 @@ public class ManHinhTroChoi extends AppCompatActivity {
                         //TruCredit(id);
                         temp.setVisibility(View.INVISIBLE);
                         if (id == 2) {
+                            TruCredit(2);
                             TroGiup5050();
                         }
-                        else
+                        else{
+                            TruCredit(1);
                             TroGiupTVTC();
+                        }
+
                     }
                 }).create();
     }
