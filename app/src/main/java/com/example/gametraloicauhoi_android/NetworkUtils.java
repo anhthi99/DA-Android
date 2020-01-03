@@ -20,8 +20,8 @@ import java.util.Map;
 
 public class NetworkUtils {
     private static final String LOG_TAG = NetworkUtils.class.getSimpleName();
-    private static final String BASE_URL =  "http://10.0.3.2:8000/api/"; // Genymotion
-//    public static final String BASE_URL =  "http://10.0.2.2:8000/api/"; // AVD
+    //private static final String BASE_URL =  "http://10.0.3.2:8000/api/"; // Genymotion
+   public static final String BASE_URL =  "http://10.0.2.2:8000/api/"; // AVD
 
     static String getJSONPostData(String uri,String data){
         String text = "";
