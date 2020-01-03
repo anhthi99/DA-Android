@@ -5,6 +5,7 @@ import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.os.Handler;
 import android.util.Log;
@@ -60,6 +61,10 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        MediaPlayer mediaPlayer = MediaPlayer.create(MainActivity.this, R.raw.nhac_nen_sieu_nhan_gao);
+        mediaPlayer.start();
+
         btnDangNhap = (Button) findViewById(R.id.btnDangNhap);
         tUser = findViewById(R.id.txtEmail);
         tPass = findViewById(R.id.txtPassword);
