@@ -72,7 +72,7 @@ public class LichSuNguoiChoiAdapter extends RecyclerView.Adapter<RecyclerView.Vi
    private void HienThiThongTin(lichSuChoiViewHolder holder, int position){
         LuotChoi luotChoi = listLuotChoi.get(position);
         holder.mSoCau.setText(luotChoi.getSoCau()+"");
-        holder.mDiem.setText(luotChoi.getDiem());
+        holder.mDiem.setText(luotChoi.getDiem()+"");
     }
     private void HienThiProgressBar(LoadingViewHolder holder) {
     }

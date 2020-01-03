@@ -11,29 +11,28 @@ import java.util.HashMap;
 public class LichSuNguoiChoiLoader extends AsyncTaskLoader<String> {
     private final int page;
     private final int limit;
-    private final String token;
     @Override
     protected void onStartLoading() {
         super.onStartLoading();
         forceLoad();
     }
 
-    public LichSuNguoiChoiLoader(@NonNull Context context, int page,int limit,String token) {
+    public LichSuNguoiChoiLoader(@NonNull Context context, int page,int limit) {
         super(context);
         this.page =page;
         this.limit=limit;
-        this.token = token;
     }
 
     @Nullable
     @Override
     public String loadInBackground() {
         HashMap<String , String> queryParams = new HashMap<>();
+        queryParams.put("id",String.valueOf(ManHinhChinh.ID));
         queryParams.put("page", Integer.toString(this.page));
         queryParams.put("limit", Integer.toString(this.limit));
         String json = "";
         try {
-            json =  NetworkUtils.getJSONData("luot-choi/1","GET", queryParams,token);
+            json =  NetworkUtils.getJSONData("luot-choi","GET", queryParams,NguoiChoi.token);
         }catch (Exception ex){
             return null;
         }

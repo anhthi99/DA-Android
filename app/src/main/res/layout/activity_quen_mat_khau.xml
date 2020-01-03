@@ -51,7 +51,7 @@
             android:orientation="vertical">
 
             <AutoCompleteTextView
-                android:id="@+id/emailUserQMK"
+                android:id="@+id/txtUserQMK"
                 android:layout_width="match_parent"
                 android:layout_height="40dp"
                 android:layout_marginStart="15dp"
@@ -74,7 +74,23 @@
                 android:layout_marginRight="16dp"
                 android:layout_marginBottom="10dp"
                 android:background="@drawable/login_button"
+                android:onClick="guiMail"
                 android:text="Lấy lại mật khẩu"
+                android:textColor="#fff"
+                android:textAllCaps="false"
+                android:textSize="20dp"
+                android:textStyle="normal" />
+            <Button
+                android:id="@+id/btnQuayLai"
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:layout_gravity="center"
+                android:layout_marginLeft="16dp"
+                android:layout_marginRight="16dp"
+                android:layout_marginBottom="10dp"
+                android:background="@drawable/button_facebook"
+                android:onClick="quayVe"
+                android:text="Quay lại"
                 android:textColor="#fff"
                 android:textAllCaps="false"
                 android:textSize="20dp"

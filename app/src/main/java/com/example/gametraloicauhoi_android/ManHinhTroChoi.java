@@ -4,8 +4,11 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.DialogFragment;
+import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentActivity;
 import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 import androidx.loader.app.LoaderManager;
 import androidx.loader.content.AsyncTaskLoader;
 import androidx.loader.content.Loader;
@@ -27,7 +30,12 @@ import android.widget.Toast;
 
 import org.json.JSONObject;
 
+import java.io.FileDescriptor;
+import java.io.PrintWriter;
 import java.net.URLEncoder;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Random;
 import java.util.Timer;
 import java.util.TimerTask;
 
@@ -92,6 +100,7 @@ public class ManHinhTroChoi extends AppCompatActivity {
     public void cauHoiTiepTheo(){
         cauHienTai++;
         if(CauHinhVaLuuTru.mDSCauHoi.size()-1 > cauHienTai){
+            khoiPhucGiaoDien();
             loadCauHoi();
             tm = new Timer();
             tm.schedule(new TimerTask() {
@@ -134,6 +143,8 @@ public class ManHinhTroChoi extends AppCompatActivity {
     @Override
     public void onBackPressed() {
         super.onBackPressed();
+        tm.cancel();
+        tm.purge();
         finish();
     }
 
@@ -177,13 +188,12 @@ public class ManHinhTroChoi extends AppCompatActivity {
     public void chonDapAn(final View view){
         final String pa = ((TextView)view).getText().toString(),da =
                 CauHinhVaLuuTru.mDSCauHoi.get(cauHienTai).getDapAn();
-        int color = R.color.yellow;
-        view.setBackgroundColor(getResources().getColor(color));
+       view.setBackground(getDrawable(R.drawable.selected_style));
         new Handler().postDelayed(new Runnable() {
             @Override
             public void run() {
                 if(kiemTraDapAn(pa,da)){
-                    view.setBackgroundColor(getResources().getColor(R.color.lightgreen));
+                    view.setBackground(getDrawable(R.drawable.right_style));
                     new Handler().postDelayed(new Runnable() {
                         @Override
                         public void run() {
@@ -199,7 +209,7 @@ public class ManHinhTroChoi extends AppCompatActivity {
 
                 }
                 else{
-                    view.setBackgroundColor(getResources().getColor(R.color.colorAccent));
+                    view.setBackground(getDrawable(R.drawable.wrong_style));
                     loadCoHoi(1);
                     co_hoi--;
                     new Handler().postDelayed(new Runnable() {
@@ -236,8 +246,13 @@ public class ManHinhTroChoi extends AppCompatActivity {
                 .setNegativeButton("Đồng ý", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-                        TruCredit(id);
+                        //TruCredit(id);
                         temp.setVisibility(View.INVISIBLE);
+                        if (id == 2) {
+                            TroGiup5050();
+                        }
+                        else
+                            TroGiupTVTC();
                     }
                 }).create();
     }
@@ -255,5 +270,51 @@ public class ManHinhTroChoi extends AppCompatActivity {
     public void TruCredit(int id){
         ManHinhChinh.credit-=CauHinhVaLuuTru.cauHinhTroGiup.get(id).getCredit();
         credit.setText(String.valueOf(ManHinhChinh.credit));
+    }
+
+    public void TroGiup5050() {
+        ArrayList<Button> buttons = new ArrayList<>();
+        buttons.add(daA);
+        buttons.add(daB);
+        buttons.add(daC);
+        buttons.add(daD);
+        Random random = new Random();
+        buttons.remove(dapAnDung(buttons));
+        int vt1 = random.nextInt(3),vt2 = random.nextInt(3);
+        buttons.get(vt1).setVisibility(View.INVISIBLE);
+        buttons.get(vt2).setVisibility(View.INVISIBLE);
+    }
+
+    public void TroGiupTVTC(){
+       FragmentManager fm = getSupportFragmentManager();
+       TVTCDialogFragment tv = new TVTCDialogFragment();
+        ArrayList<Button> buttons = new ArrayList<>();
+        buttons.add(daA);
+        buttons.add(daB);
+        buttons.add(daC);
+        buttons.add(daD);
+        int vt = dapAnDung(buttons);
+       Bundle data = new Bundle();
+       data.putInt("dap_an",vt);
+       tv.setArguments(data);
+       tv.show(fm,"fragment");
+    }
+
+
+    private int dapAnDung(ArrayList<Button> buttons)
+    {
+        for(int i = 0;i<buttons.size();i++){
+            if(kiemTraDapAn(buttons.get(i).getText().toString(),
+                    CauHinhVaLuuTru.mDSCauHoi.get(cauHienTai).getDapAn()))
+                return i;
+        }
+        return 0;
+    }
+
+    private void khoiPhucGiaoDien(){
+        daA.setVisibility(View.VISIBLE);
+        daB.setVisibility(View.VISIBLE);
+        daC.setVisibility(View.VISIBLE);
+        daD.setVisibility(View.VISIBLE);
     }
 }
