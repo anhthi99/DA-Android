@@ -10,6 +10,7 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.util.Log;
 import android.view.View;
+import android.view.animation.AnimationUtils;
 import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -49,7 +50,7 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
     Button loginGGButon;
     String data = "";
     TextView tUser, tPass;
-    Button btnDangNhap;
+    Button btnDangNhap,btnQuenMatKhau,btnDangKy;
     final int RC_SIGN_IN = 9001;
     ProgressDialog progressDialog;
     //int index = 1;
@@ -66,6 +67,8 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
         mediaPlayer = MediaPlayer.create(MainActivity.this, R.raw.nhac_nen_sieu_nhan_gao);
         mediaPlayer.start();
         mediaPlayer.setLooping(true);
+        btnQuenMatKhau = (Button) findViewById(R.id.btnQuenMatKhauLogin);
+        btnDangKy = (Button) findViewById(R.id.btnDangKiLogin);
         btnDangNhap = (Button) findViewById(R.id.btnDangNhap);
         tUser = findViewById(R.id.txtEmail);
         tPass = findViewById(R.id.txtPassword);
@@ -177,11 +180,13 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
     }
 
     public void HienThiQuenMatKhau(View view) {
+         btnQuenMatKhau.startAnimation(AnimationUtils.loadAnimation(this,R.anim.fade_in));
         Intent intent = new Intent(this,QuenMatKhau.class);
         startActivity(intent);
     }
 
     public void HienThiDangKi(View view) {
+        btnDangKy.startAnimation(AnimationUtils.loadAnimation(this,R.anim.fade_in));
         Intent intent = new Intent(this,DangKi.class);
         startActivity(intent);
     }
@@ -197,6 +202,7 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
         startActivityForResult(intent, RC_SIGN_IN);
     }
     public void dangNhap(View view) {
+        btnDangNhap.startAnimation(AnimationUtils.loadAnimation(this,R.anim.fade_in));
         String user = tUser.getText().toString();
         String pass = tPass.getText().toString();
         this.data = URLEncoder.encode("ten_dang_nhap")

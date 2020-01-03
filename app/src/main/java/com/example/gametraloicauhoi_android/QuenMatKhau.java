@@ -11,6 +11,8 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.view.animation.AnimationUtils;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
@@ -22,11 +24,13 @@ public class QuenMatKhau extends AppCompatActivity {
     final int LAY_MK = 1;
     Context context = this;
     EditText ed;
-
+    Button btnXacNhan, btnQuayLai;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_quen_mat_khau);
+        btnXacNhan = (Button) findViewById(R.id.btnLoadAnh);
+        btnQuayLai = (Button) findViewById(R.id.btnQuayLai);
         ed = findViewById(R.id.txtUserQMK);
     }
 
@@ -56,10 +60,12 @@ public class QuenMatKhau extends AppCompatActivity {
     };
 
     public void guiMail(View view) {
+        btnXacNhan.startAnimation(AnimationUtils.loadAnimation(this,R.anim.fade_in));
         getSupportLoaderManager().initLoader(LAY_MK,null,guiMail);
     }
 
     public void quayVe(View view) {
+        btnQuayLai.startAnimation(AnimationUtils.loadAnimation(this,R.anim.fade_in));
         finish();
     }
 }
