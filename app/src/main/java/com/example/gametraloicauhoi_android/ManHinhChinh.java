@@ -19,6 +19,8 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.util.Log;
 import android.view.View;
+import android.view.animation.AnimationUtils;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -36,6 +38,7 @@ import java.util.Date;
 
 public class ManHinhChinh extends AppCompatActivity {
 
+    Button btnplaygame,btnLichSuChoi,btnBangXepHang,btnMuaCredit,btnQuanLiTaiKhoan,btnDangXuat;
     boolean doubleBackToExitPressedOnce = false;
     private ImageView img;
     Context _context;
@@ -52,6 +55,14 @@ public class ManHinhChinh extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_man_hinh_chinh);
+
+        btnplaygame = (Button) findViewById(R.id.btnPlay_game);
+        btnBangXepHang = (Button) findViewById(R.id.btnbangxephang);
+        btnLichSuChoi = (Button) findViewById(R.id.btnLichsu);
+        btnDangXuat = (Button) findViewById(R.id.btnDangXuat);
+        btnMuaCredit = (Button) findViewById(R.id.btnMuaCredit);
+        btnQuanLiTaiKhoan = (Button) findViewById(R.id.btnQLTaiKhoan);
+
         mediaPlayer = MediaPlayer.create(ManHinhChinh.this ,R.raw.nhac_man_hinh_chinh);
         mediaPlayer.setLooping(true);
         mediaPlayer.start();
@@ -101,26 +112,31 @@ public class ManHinhChinh extends AppCompatActivity {
         }, 3000);
     }
     public void HienThiQuanLyTaiKhoan(View view) {
+        btnQuanLiTaiKhoan.startAnimation(AnimationUtils.loadAnimation(this,R.anim.fade_in));
         Intent intent = new Intent(this,QuanLyTaiKhoan.class);
         startActivity(intent);
     }
 
     public void HienThiMuaCredit(View view) {
+        btnMuaCredit.startAnimation(AnimationUtils.loadAnimation(this,R.anim.fade_in));
         Intent intent = new Intent(this,MuaCredit.class);
         startActivity(intent);
     }
 
     public void HienThiBXH(View view) {
+        btnBangXepHang.startAnimation(AnimationUtils.loadAnimation(this,R.anim.fade_in));
         Intent intent = new Intent(this,BangXepHang.class);
         startActivity(intent);
     }
 
     public void HienThiLichSuChoi(View view) {
+        btnLichSuChoi.startAnimation(AnimationUtils.loadAnimation(this,R.anim.fade_in));
         Intent intent = new Intent(this,LichSuChoi.class);
         startActivity(intent);
     }
 
     public void HienThiChonLinhVuc(View view) {
+        btnplaygame.startAnimation(AnimationUtils.loadAnimation(this,R.anim.fade_in));
         mediaPlayer.stop();
         Intent intent = new Intent(this,ChonLinhVuc.class);
         startActivity(intent);
@@ -242,6 +258,7 @@ public class ManHinhChinh extends AppCompatActivity {
     }
 
     public void DangXuat(View view) {
+        btnDangXuat.startAnimation(AnimationUtils.loadAnimation(this,R.anim.fade_in));
         nguoiChoiAsync.logOut();
 //        if(AccessToken.getCurrentAccessToken() != null){
 //            LoginManager.getInstance().logOut();

@@ -24,6 +24,8 @@ import android.util.Base64;
 import android.util.Base64OutputStream;
 import android.util.Log;
 import android.view.View;
+import android.view.animation.AnimationUtils;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -56,10 +58,12 @@ public class QuanLyTaiKhoan extends AppCompatActivity {
     private ImageView img;
     EditText matKhauCu, matKhauMoi, nhapLaiMatKhau, email;
     private NguoiChoiAsync nguoiChoiAsync;
+    Button btnThayDoi;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_quan_ly_tai_khoan);
+        btnThayDoi = (Button) findViewById(R.id.btnThayDoiThongTin);
         img = findViewById(R.id.imgHinhDaiDien);
         matKhauCu = findViewById(R.id.txtMatKhauCu);
         matKhauMoi = findViewById(R.id.txtMatKhauMoi);
@@ -213,6 +217,7 @@ public class QuanLyTaiKhoan extends AppCompatActivity {
     }
 
     public void capNhatThongTin(View view){
+        btnThayDoi.startAnimation(AnimationUtils.loadAnimation(this,R.anim.fade_in));
         String mkcu = matKhauCu.getText().toString();
         String mail = email.getText().toString();
         String mkMoi = matKhauMoi.getText().toString();

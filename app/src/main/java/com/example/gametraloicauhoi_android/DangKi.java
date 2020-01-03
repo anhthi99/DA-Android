@@ -10,6 +10,7 @@ import androidx.loader.content.Loader;
 import android.content.Context;
 import android.os.Bundle;
 import android.view.View;
+import android.view.animation.AnimationUtils;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
@@ -25,12 +26,13 @@ public class DangKi extends AppCompatActivity {
     private String data = "";
     EditText ten,email,pass,repass;
     Context _context;
-    Button nutDangKy;
+    Button nutDangKy,btnQuayLai;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_dang_ki);
         nutDangKy = findViewById(R.id.btnDangKi);
+        btnQuayLai = findViewById(R.id.btnQuayLai);
         ten = findViewById(R.id.txtTenDangNhap);
         email = findViewById(R.id.txtEmail);
         pass = findViewById(R.id.txtPassword);
@@ -63,6 +65,7 @@ public class DangKi extends AppCompatActivity {
     };
 
     public void dangKy(View view) {
+        nutDangKy.startAnimation(AnimationUtils.loadAnimation(this,R.anim.fade_in));
         String tenDangNhap = URLEncoder.encode(ten.getText().toString());
         String matKhau = URLEncoder.encode(pass.getText().toString());
         String nlMatKhau = URLEncoder.encode(repass.getText().toString());
@@ -80,6 +83,7 @@ public class DangKi extends AppCompatActivity {
     }
 
     public void quayLai(View view) {
+        btnQuayLai.startAnimation(AnimationUtils.loadAnimation(this,R.anim.fade_in));
         finish();
     }
 
