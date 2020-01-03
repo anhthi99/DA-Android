@@ -96,6 +96,7 @@ public class ChonLinhVuc extends AppCompatActivity {
             getSupportLoaderManager().restartLoader(LAY_DS_CAU_HOI,bundle,layDSCauHoi);
         getSupportLoaderManager().initLoader(LAY_DS_CAU_HOI,bundle,layDSCauHoi);
 
+
     }
     private LoaderManager.LoaderCallbacks<String> layDSCauHoi = new LoaderManager.LoaderCallbacks<String>() {
         @NonNull
@@ -124,6 +125,7 @@ public class ChonLinhVuc extends AppCompatActivity {
                     getSupportLoaderManager().destroyLoader(LAY_DS_CAU_HOI);
                     Intent intent = new Intent(_context,ManHinhTroChoi.class);
                     startActivity(intent);
+                    finish();
                 }
                 else{
                     Toast.makeText(_context, "Không có câu hỏi", Toast.LENGTH_SHORT).show();

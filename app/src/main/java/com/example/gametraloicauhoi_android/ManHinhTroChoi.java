@@ -1,9 +1,14 @@
 package com.example.gametraloicauhoi_android;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.FragmentActivity;
 import androidx.fragment.app.FragmentManager;
+import androidx.loader.app.LoaderManager;
+import androidx.loader.content.AsyncTaskLoader;
+import androidx.loader.content.Loader;
 
 import android.annotation.SuppressLint;
 import android.app.Dialog;
@@ -19,6 +24,9 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import org.json.JSONObject;
+
+import java.net.URLEncoder;
 import java.util.Timer;
 import java.util.TimerTask;
 
@@ -26,11 +34,13 @@ public class ManHinhTroChoi extends AppCompatActivity {
 
     Button daA,daB,daC,daD,cauHoi;
     int cauHienTai = -1;
+    String data;
+    final int CAP_NHAT = 1;
     TextView cauHoiHT,thoiGian,txDiem,credit;
     int TIME_COUNT = CauHinhVaLuuTru.cauHinhApp.getThoiGianTraLoi();
     int count_down;
     public static int diem = 0;
-    int co_hoi = 4;
+    int co_hoi = 3;
     Context _context = this;
     Timer tm = new Timer();
     @Override
@@ -92,8 +102,8 @@ public class ManHinhTroChoi extends AppCompatActivity {
                                 count_down--;
                             }
                             else{
-                                co_hoi--;
                                 loadCoHoi(0);
+                                co_hoi--;
                             }
                         }
                     });
@@ -123,8 +133,6 @@ public class ManHinhTroChoi extends AppCompatActivity {
         finish();
     }
 
-
-
     public void loadCoHoi( int type){
         TextView tx;
         if(co_hoi > 0 && type == 0){
@@ -133,15 +141,13 @@ public class ManHinhTroChoi extends AppCompatActivity {
             count_down = TIME_COUNT;
             cauHoiTiepTheo();
         }
-        else{
-            tm.cancel();
-            tm.purge();
-            taoForm();
-        }
         switch (co_hoi){
             case 1:
                 tx = findViewById(R.id.txtCH1);
                 tx.setVisibility(View.INVISIBLE);
+                tm.cancel();
+                tm.purge();
+                taoForm();
                 break;
             case 2:
                 tx = findViewById(R.id.txtCH2);
@@ -151,18 +157,18 @@ public class ManHinhTroChoi extends AppCompatActivity {
                 tx = findViewById(R.id.txtCH3);
                 tx.setVisibility(View.INVISIBLE);
                 break;
+
         }
     }
 
     private void taoForm(){
+
         FragmentManager fm = getSupportFragmentManager();
-        GameOverDialogFragment gameOverDialogFragment = GameOverDialogFragment.newInstance(diem,
-                ManHinhChinh.credit
-                );
-
-        gameOverDialogFragment.show(fm,"fragment_game_over");
-
+        GameOverDialogFragment gm = new GameOverDialogFragment();
+        gm.show(fm,"assassin");
     }
+
+
 
     public void chonDapAn(final View view){
         final String pa = ((TextView)view).getText().toString(),da =
@@ -190,8 +196,8 @@ public class ManHinhTroChoi extends AppCompatActivity {
                 }
                 else{
                     view.setBackgroundColor(getResources().getColor(R.color.colorAccent));
-                    co_hoi--;
                     loadCoHoi(1);
+                    co_hoi--;
                     new Handler().postDelayed(new Runnable() {
                         @Override
                         public void run() {
@@ -210,7 +216,7 @@ public class ManHinhTroChoi extends AppCompatActivity {
         return pa.equals(da);
     }
     private void congDiem(){
-        diem += CauHinhVaLuuTru.cauHinhDiemCauHoi.get(cauHienTai).getDiem();
+        ManHinhTroChoi.diem += CauHinhVaLuuTru.cauHinhDiemCauHoi.get(cauHienTai).getDiem();
         txDiem.setText("Điểm: "+diem);
     }
     private AlertDialog taoDialog(String message, String title){
