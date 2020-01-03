@@ -56,7 +56,6 @@ public class GameOverDialogFragment extends DialogFragment{
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-
         txDCN = (TextView) view.findViewById(R.id.txtDiemCaoNhat);
         txDDD = (TextView) view.findViewById(R.id.txtDiemDatDuoc);
         Button btnChoiLai = view.findViewById(R.id.btnChoiLai);

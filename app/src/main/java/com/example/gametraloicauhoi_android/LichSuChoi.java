@@ -79,13 +79,12 @@ public class LichSuChoi extends AppCompatActivity implements LoaderManager.Loade
             page = args.getInt("page");
             limit = args.getInt("limit");
         }
-        return new LichSuNguoiChoiLoader(this,page,limit,"dsadasd") ;
+        return new LichSuNguoiChoiLoader(this,page,limit) ;
     }
 
     @Override
     public void onLoadFinished(@NonNull Loader<String> loader, String data) {
         try {
-            Log.d("sss",data);
             JSONObject jsonObject = new JSONObject(data);
             int total = jsonObject.getInt("total");
             totalPage = total / PAGE_SIZE;

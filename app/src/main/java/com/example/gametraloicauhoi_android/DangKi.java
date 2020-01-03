@@ -78,6 +78,11 @@ public class DangKi extends AppCompatActivity {
             getSupportLoaderManager().initLoader(DANG_KY,null,dangKy);
         }
     }
+
+    public void quayLai(View view) {
+        finish();
+    }
+
 }
 class DangKyLoader extends AsyncTaskLoader<String>{
 
