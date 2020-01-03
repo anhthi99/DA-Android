@@ -14,6 +14,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Bitmap;
+import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.os.Handler;
 import android.util.Log;
@@ -44,11 +45,14 @@ public class ManHinhChinh extends AppCompatActivity {
     public static int ID = 0;
     private NguoiChoiAsync nguoiChoiAsync;
     private static final String MAIN_URL = "http://10.0.3.2:8000";
-
+    MediaPlayer mediaPlayer;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_man_hinh_chinh);
+        mediaPlayer = MediaPlayer.create(ManHinhChinh.this ,R.raw.nhac_man_hinh_chinh);
+        mediaPlayer.setLooping(true);
+        mediaPlayer.start();
         tvPlayerName = findViewById(R.id.soLanChoi);
         img = findViewById(R.id.imgAvatar);
         _context = this;
@@ -107,6 +111,7 @@ public class ManHinhChinh extends AppCompatActivity {
     }
 
     public void HienThiChonLinhVuc(View view) {
+        mediaPlayer.stop();
         Intent intent = new Intent(this,ChonLinhVuc.class);
         startActivity(intent);
     }

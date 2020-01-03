@@ -15,6 +15,7 @@ import android.app.Dialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.graphics.drawable.Drawable;
+import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.os.Handler;
 import android.view.LayoutInflater;
@@ -31,7 +32,7 @@ import java.util.Timer;
 import java.util.TimerTask;
 
 public class ManHinhTroChoi extends AppCompatActivity {
-
+    MediaPlayer mediaPlayer;
     Button daA,daB,daC,daD,cauHoi;
     int cauHienTai = -1;
     String data;
@@ -47,6 +48,9 @@ public class ManHinhTroChoi extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_man_hinh_tro_choi);
+        mediaPlayer = MediaPlayer.create(ManHinhTroChoi.this,R.raw.bat_dau);
+        mediaPlayer.setLooping(true);
+        mediaPlayer.start();
         cauHoi = findViewById(R.id.btnCauHoi);
         daA = findViewById(R.id.btnDapAnA);
         daB = findViewById(R.id.btnDapAnB);
@@ -162,7 +166,7 @@ public class ManHinhTroChoi extends AppCompatActivity {
     }
 
     private void taoForm(){
-
+        mediaPlayer.stop();
         FragmentManager fm = getSupportFragmentManager();
         GameOverDialogFragment gm = new GameOverDialogFragment();
         gm.show(fm,"assassin");

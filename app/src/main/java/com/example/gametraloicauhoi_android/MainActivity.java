@@ -44,6 +44,7 @@ import java.util.Set;
 
 public class MainActivity extends AppCompatActivity implements LoaderManager.LoaderCallbacks<String> {
 
+    MediaPlayer mediaPlayer;
     Button loginFBButton;
     Button loginGGButon;
     String data = "";
@@ -62,9 +63,9 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        MediaPlayer mediaPlayer = MediaPlayer.create(MainActivity.this, R.raw.nhac_nen_sieu_nhan_gao);
+        mediaPlayer = MediaPlayer.create(MainActivity.this, R.raw.nhac_nen_sieu_nhan_gao);
         mediaPlayer.start();
-
+        mediaPlayer.setLooping(true);
         btnDangNhap = (Button) findViewById(R.id.btnDangNhap);
         tUser = findViewById(R.id.txtEmail);
         tPass = findViewById(R.id.txtPassword);
@@ -230,6 +231,7 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
                         Toast.LENGTH_SHORT).show();
             }
             else{
+                mediaPlayer.stop();
                 Intent intent =new Intent(this,ManHinhChinh.class);
                 startActivity(intent);
 
