@@ -1,5 +1,6 @@
 package com.example.gametraloicauhoi_android;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -10,7 +11,9 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 
 public class LichSuNguoiChoiAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
     private final static int TYPE_VIEW_ITEM = 0 ;
@@ -52,7 +55,7 @@ public class LichSuNguoiChoiAdapter extends RecyclerView.Adapter<RecyclerView.Vi
         return this.listLuotChoi == null?0:this.listLuotChoi.size();
     }
     public class lichSuChoiViewHolder extends RecyclerView.ViewHolder{
-        private final TextView mSoCau, mDiem;
+        private final TextView mSoCau, mDiem, mThoiGian;
         private final LichSuNguoiChoiAdapter nguoiChoiAdapter;
 
         public lichSuChoiViewHolder(@NonNull View itemView, LichSuNguoiChoiAdapter lichSuNguoiChoiAdapter) {
@@ -60,6 +63,7 @@ public class LichSuNguoiChoiAdapter extends RecyclerView.Adapter<RecyclerView.Vi
             this.nguoiChoiAdapter = lichSuNguoiChoiAdapter;
             this.mSoCau = itemView.findViewById(R.id.txtSoCau);
             this.mDiem = itemView.findViewById(R.id.txtSoDiem);
+            this.mThoiGian = itemView.findViewById(R.id.txtNgayGio);
         }
     }
      class LoadingViewHolder extends RecyclerView.ViewHolder{
@@ -73,6 +77,11 @@ public class LichSuNguoiChoiAdapter extends RecyclerView.Adapter<RecyclerView.Vi
         LuotChoi luotChoi = listLuotChoi.get(position);
         holder.mSoCau.setText(luotChoi.getSoCau()+"");
         holder.mDiem.setText(luotChoi.getDiem()+"");
+        @SuppressLint("SimpleDateFormat") SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
+        long dt = Long.parseLong(luotChoi.getNgayGio());
+        Date date = new Date(dt);
+        holder.mThoiGian.setText(formatter.format(date).toString());
+       //holder.mThoiGian.setText(luotChoi.getNgayGio());
     }
     private void HienThiProgressBar(LoadingViewHolder holder) {
     }

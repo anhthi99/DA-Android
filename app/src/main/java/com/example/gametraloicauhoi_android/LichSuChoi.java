@@ -84,6 +84,7 @@ public class LichSuChoi extends AppCompatActivity implements LoaderManager.Loade
 
     @Override
     public void onLoadFinished(@NonNull Loader<String> loader, String data) {
+        Log.d("DATA",data);
         try {
             JSONObject jsonObject = new JSONObject(data);
             int total = jsonObject.getInt("total");
@@ -101,8 +102,8 @@ public class LichSuChoi extends AppCompatActivity implements LoaderManager.Loade
                 int id_nguoiChoi = itemsArray.getJSONObject(i).getInt("nguoi_choi_id");
                 int soCau = itemsArray.getJSONObject(i).getInt("so_cau");
                 String Diem = itemsArray.getJSONObject(i).getString("diem");
-                this.arrayList.add(new LuotChoi(id_nguoiChoi,soCau,Diem));
-
+                String NG = itemsArray.getJSONObject(i).getString("ngay_gio");
+                this.arrayList.add(new LuotChoi(id_nguoiChoi,soCau,Diem,NG));
             }
             this.nguoiChoiAdapter.notifyDataSetChanged();
             isLastPage = (curentPage == totalPage);

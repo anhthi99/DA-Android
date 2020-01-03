@@ -21,6 +21,7 @@ import android.graphics.drawable.Drawable;
 import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.os.Handler;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
@@ -33,7 +34,11 @@ import org.json.JSONObject;
 import java.io.FileDescriptor;
 import java.io.PrintWriter;
 import java.net.URLEncoder;
+import java.sql.Time;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 import java.util.Random;
 import java.util.Timer;
@@ -56,9 +61,10 @@ public class ManHinhTroChoi extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_man_hinh_tro_choi);
-        mediaPlayer = MediaPlayer.create(ManHinhTroChoi.this,R.raw.bat_dau);
-        mediaPlayer.setLooping(true);
-        mediaPlayer.start();
+//        mediaPlayer = MediaPlayer.create(ManHinhTroChoi.this,R.raw.bat_dau);
+//        mediaPlayer.setLooping(true);
+//        mediaPlayer.start();
+
         cauHoi = findViewById(R.id.btnCauHoi);
         daA = findViewById(R.id.btnDapAnA);
         daB = findViewById(R.id.btnDapAnB);

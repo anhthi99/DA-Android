@@ -46,9 +46,10 @@ public class LuotChoi {
     public void setId(int id) {
         this.id = id;
     }
-    public  LuotChoi(int nguoiChoiID, int soCau, String mdiem){
+    public  LuotChoi(int nguoiChoiID, int soCau, String mdiem, String mNgayGio){
         this.nguoiChoiID = nguoiChoiID;
         this.soCau = soCau;
         this.diem = mdiem;
+        this.ngayGio = mNgayGio;
     }
 }

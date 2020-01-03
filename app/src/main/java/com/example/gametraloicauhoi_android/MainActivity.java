@@ -69,13 +69,14 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
         btnDangNhap = (Button) findViewById(R.id.btnDangNhap);
         tUser = findViewById(R.id.txtEmail);
         tPass = findViewById(R.id.txtPassword);
-        tUser.setText("NguoiChoi2");
-        tPass.setText("123456");
+        tUser.setText("thi321");
+        tPass.setText("123123");
         sharedPreferences = getSharedPreferences(SHARE_NAME, Context.MODE_PRIVATE);
         NguoiChoi.token = sharedPreferences.getString("token",null);
         if(NguoiChoi.token != null){
             Intent intent = new Intent(this,ManHinhChinh.class);
             startActivity(intent);
+            mediaPlayer.stop();
         }
 
 
@@ -220,7 +221,7 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
 
     @Override
     public void onLoadFinished(@NonNull Loader<String> loader, String data) {
-        //String message = "";
+        Log.d("DATA",data);
         try {
             JSONObject jsonObject = new JSONObject(data);
             NguoiChoi.token = jsonObject.getString("token");

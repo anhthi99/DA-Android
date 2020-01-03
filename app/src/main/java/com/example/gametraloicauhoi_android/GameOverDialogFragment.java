@@ -81,20 +81,28 @@ public class GameOverDialogFragment extends DialogFragment{
 
             }
         });
-
-        // Fetch arguments from bundle and set title
-//        String title = getArguments().getString("title", "Enter Name");
-//        getDialog().setTitle(title);
-        // Show soft keyboard automatically and request focus to field
-//        txDCN.requestFocus();
         getDialog().getWindow().setSoftInputMode(
                 WindowManager.LayoutParams.SOFT_INPUT_STATE_VISIBLE);
         getDialog().setCanceledOnTouchOutside(false);
-//        if(((AppCompatActivity)(_context)).getSupportLoaderManager().getLoader(0) != null)
-//            ((AppCompatActivity)(_context)).getSupportLoaderManager().restartLoader(0,null
-//                    ,capNhat);
-//        ((AppCompatActivity)(_context)).getSupportLoaderManager().initLoader(0,null,capNhat);
     }
+
+    LoaderManager.LoaderCallbacks<String> lichSuChoi = new LoaderManager.LoaderCallbacks<String>() {
+        @NonNull
+        @Override
+        public Loader<String> onCreateLoader(int id, @Nullable Bundle args) {
+            return null;
+        }
+
+        @Override
+        public void onLoadFinished(@NonNull Loader<String> loader, String data) {
+
+        }
+
+        @Override
+        public void onLoaderReset(@NonNull Loader<String> loader) {
+
+        }
+    };
 
     LoaderManager.LoaderCallbacks<String> capNhat = new LoaderManager.LoaderCallbacks<String>() {
         @NonNull
@@ -143,6 +151,25 @@ class CapNhatNguoiChoiLoader extends AsyncTaskLoader<String> {
     @Override
     public String loadInBackground() {
         return NetworkUtils.getJSONPostData("cap-nhat-game",data,NguoiChoi.token);
+    }
+
+    @Override
+    protected void onStartLoading() {
+        super.onStartLoading();
+        forceLoad();
+    }
+}
+
+class LichSuLoader extends AsyncTaskLoader<String>{
+
+    public LichSuLoader(@NonNull Context context) {
+        super(context);
+    }
+
+    @Nullable
+    @Override
+    public String loadInBackground() {
+        return null;
     }
 
     @Override

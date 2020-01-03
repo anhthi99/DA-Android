@@ -70,6 +70,16 @@
             app:layout_constraintBottom_toBottomOf="@+id/credit_text_2"
             app:layout_constraintEnd_toStartOf="@+id/credit_text_2"
             app:layout_constraintTop_toTopOf="@+id/credit_text_2" />
+
+        <TextView
+            android:id="@+id/txtNgayGio"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="#B53471"
+            app:layout_constraintBottom_toBottomOf="@+id/textView7"
+            app:layout_constraintEnd_toStartOf="@+id/txtSoDiem"
+            app:layout_constraintStart_toEndOf="@+id/txtSoCau"
+            app:layout_constraintTop_toTopOf="@+id/textView7" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 
 </androidx.cardview.widget.CardView>

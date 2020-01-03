@@ -30,7 +30,9 @@ import com.squareup.picasso.Picasso;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 
 public class ManHinhChinh extends AppCompatActivity {
 
@@ -44,7 +46,7 @@ public class ManHinhChinh extends AppCompatActivity {
     public static String tenNguoiDung = "";
     public static int ID = 0;
     private NguoiChoiAsync nguoiChoiAsync;
-    private static final String MAIN_URL = "http://10.0.3.2:8000";
+    //private static final String MAIN_URL = "http://10.0.3.2:8000";
     MediaPlayer mediaPlayer;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -61,6 +63,14 @@ public class ManHinhChinh extends AppCompatActivity {
         CauHinhVaLuuTru.cauHinhDiemCauHoi = new ArrayList<>();
         CauHinhVaLuuTru.cauHinhTroGiup = new ArrayList<>();
         layCauHinhVaLuuTru();
+//        SimpleDateFormat formatter= new SimpleDateFormat("yyyy-MM-dd 'at' HH:mm:ss");
+//        Date date = new Date(System.currentTimeMillis());
+//        formatter.format(date);
+//        long y = formatter.getCalendar().getTime().getTime();
+//
+//        //long y = date.getTime();
+//        Log.d("TM",y+"");
+        //Log.d("STATE","Create");
 
 //        if(GoogleSignIn.getLastSignedInAccount(this) != null)
 //            tvPlayerName.setText(GoogleSignIn.getLastSignedInAccount(this).getDisplayName());
@@ -115,23 +125,25 @@ public class ManHinhChinh extends AppCompatActivity {
         Intent intent = new Intent(this,ChonLinhVuc.class);
         startActivity(intent);
     }
-    private LoaderManager.LoaderCallbacks<Bitmap> loadAnh = new LoaderManager.LoaderCallbacks<Bitmap>() {
-        @NonNull
-        @Override
-        public Loader<Bitmap> onCreateLoader(int id, @Nullable Bundle args) {
-            return null;
-        }
 
-        @Override
-        public void onLoadFinished(@NonNull Loader<Bitmap> loader, Bitmap data) {
-
-        }
-
-        @Override
-        public void onLoaderReset(@NonNull Loader<Bitmap> loader) {
-
-        }
-    };
+    //    private LoaderManager.LoaderCallbacks<Bitmap> loadAnh = new LoaderManager.LoaderCallbacks<Bitmap>() {
+//        @NonNull
+//        @Override
+//        public Loader<Bitmap> onCreateLoader(int id, @Nullable Bundle args) {
+//            return null;
+//
+//        }
+//
+//        @Override
+//        public void onLoadFinished(@NonNull Loader<Bitmap> loader, Bitmap data) {
+//
+//        }
+//
+//        @Override
+//        public void onLoaderReset(@NonNull Loader<Bitmap> loader) {
+//
+//        }
+//    };
     LoaderManager.LoaderCallbacks<String> lay_ch_app = new LoaderManager.LoaderCallbacks<String>() {
         @NonNull
         @Override
