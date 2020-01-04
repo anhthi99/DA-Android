@@ -100,7 +100,8 @@ class NguoiChoiAsync{
     private WeakReference<TextView> playerName,txcredit;
     private WeakReference<ImageView> img;
 
-    private final String MAIN_URL = "http://10.0.3.2:8000";
+    //private final String MAIN_URL = "http://10.0.3.2:8000";
+    private final String MAIN_URL = "http://10.0.2.2:8000";
     public NguoiChoiAsync(Context context, TextView playerName, TextView credit, ImageView img){
         _context = context;
         this.playerName = new WeakReference<>(playerName);

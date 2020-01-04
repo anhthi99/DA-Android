@@ -10,6 +10,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import android.os.Bundle;
 import android.util.Log;
+import android.widget.TextView;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -25,6 +26,7 @@ public class LichSuChoi extends AppCompatActivity implements LoaderManager.Loade
     private static int curentPage = 1;
     private boolean isLastPage = false;
     private int totalPage ;
+    TextView tx;
     private boolean isLoading =false;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,6 +36,8 @@ public class LichSuChoi extends AppCompatActivity implements LoaderManager.Loade
         this.nguoiChoiAdapter = new LichSuNguoiChoiAdapter(this,arrayList);
         this.recyclerView.setAdapter(nguoiChoiAdapter);
         this.recyclerView.setLayoutManager(new LinearLayoutManager(this));
+        tx = findViewById(R.id.txtCreditCLV);
+        tx.setText(String.valueOf(ManHinhChinh.credit));
         loadData(null);
         recyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
             @Override

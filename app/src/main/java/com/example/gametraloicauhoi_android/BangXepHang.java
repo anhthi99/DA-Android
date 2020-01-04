@@ -10,6 +10,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
+import android.widget.TextView;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -26,6 +27,7 @@ public class BangXepHang extends AppCompatActivity implements LoaderManager.Load
     private boolean isLastPage = false;
     private int totalPage ;
     private boolean isLoading =false;
+    private TextView tx;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -34,6 +36,8 @@ public class BangXepHang extends AppCompatActivity implements LoaderManager.Load
         this.BXHAdapter = new BangXepHangAdapter(this,arrayList);
         this.recyclerView.setAdapter(BXHAdapter);
         this.recyclerView.setLayoutManager(new LinearLayoutManager(this));
+        tx = findViewById(R.id.txtCreditCLV);
+        tx.setText(String.valueOf(ManHinhChinh.credit));
         loadData(null);
         recyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
             @Override
